@@ -1,0 +1,39 @@
+package com.mycompany.app;
+
+import java.util.EnumSet;
+
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
+
+
+
+public class App {
+    public static void main(String[] args) throws Exception {
+
+        //Start the JDA bot builder, letting you provide the token externally
+        JDABuilder jdaBotBuilder = JDABuilder.createDefault(args[0], EnumSet.of(GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_PRESENCES))
+        // Disable parts of the cache
+        .disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE)
+        //  Set Activity
+        .setActivity(Activity.listening("Not Like Us"))
+        //  Add event listeners
+        .addEventListeners(new MyListener(), new SlashListener());
+
+        //  Create JDA Instance
+        JDA jda = jdaBotBuilder.build();
+
+        CommandListUpdateAction commands = jda.updateCommands();
+
+        commands.addCommands(
+            Commands.slash("boo", "poo")
+        );
+
+        // Send commands to discord using the API
+        commands.queue();
+    } 
+}
