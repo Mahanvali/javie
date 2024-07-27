@@ -1,18 +1,39 @@
 package com.mycompany.app;
+
+//  JDA API IMPORTS
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+//  JAVA IMPORTS
+import java.util.HashMap;
+import java.util.Map;
+
+//  COMMAND IMPORTS
+import com.mycompany.app.Commands.BooCommand;
+import com.mycompany.app.Commands.PooCommand;
+
 public class SlashListener extends ListenerAdapter {
+
+    //  Create a HashMap to store the commands
+    private final Map<String, CommandImplementation> commands= new HashMap<String, CommandImplementation>();
+
+    //  Constructor for the SlashListener class
+    public SlashListener(){
+        //  Store the commands in the hashmap
+        commands.put("boo", new BooCommand());
+        commands.put("poo", new PooCommand());
+    }
+
+    //  Override the onSlashCommandInteraction method from ListenerAdapter
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event){
-        switch (event.getName()) {
-            case "boo":
-                event.deferReply().queue(); // Defer the reply to allow for longer times to send the message
-                event.getHook().sendMessage("poo").queue();
-            break;
 
-            default:
-            return;
+        // Get the command from the hashmap using the event name
+        CommandImplementation command = commands.get(event.getName());
+
+        //  If the command isn't null, execute the command.
+        if (command != null) {
+            command.execute(event);
         }
     }
 }
