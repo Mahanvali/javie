@@ -3,8 +3,6 @@ package com.mycompany.app;
 
 //  JAVA IMPORTS
 import java.util.List;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -17,10 +15,6 @@ import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class GuildMemberListener extends ListenerAdapter {
-
-    LocalDateTime time = LocalDateTime.now();   //  Get the current date
-    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");  //  Format the date
-    String formattedTime = time.format(format); //  Apply the format
 
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
@@ -39,7 +33,7 @@ public class GuildMemberListener extends ListenerAdapter {
             logsEmbed.setTitle("Guild Member Join Event");
             logsEmbed.setColor(Global.CUSTOMGREEN);
             logsEmbed.addField("Guild Member:", event.getUser().getName(), false);
-            logsEmbed.addField("Date:", formattedTime, false);
+            logsEmbed.addField("Date:", Global.formattedTime, false);
             logsChannel.sendMessageEmbeds(logsEmbed.build()).queue();
         }
     }
@@ -55,7 +49,7 @@ public class GuildMemberListener extends ListenerAdapter {
             logsEmbed.setTitle("Guild Member Remove Event");
             logsEmbed.setColor(Global.CUSTOMRED);
             logsEmbed.addField("Guild Member:", event.getUser().getName(), false);
-            logsEmbed.addField("Date:", formattedTime, false);
+            logsEmbed.addField("Date:", Global.formattedTime, false);
             logsChannel.sendMessageEmbeds(logsEmbed.build()).queue();
         }
     }
@@ -75,7 +69,7 @@ public class GuildMemberListener extends ListenerAdapter {
                 logsEmbed.setColor(Global.CUSTOMGREEN);
                 logsEmbed.addField("Guild Member:", event.getUser().getName(), false);
                 logsEmbed.addField("Role:", role.getAsMention(), false);
-                logsEmbed.addField("Date:", formattedTime, false);
+                logsEmbed.addField("Date:", Global.formattedTime, false);
                 logChannel.sendMessageEmbeds(logsEmbed.build()).queue();
             }
 
@@ -101,7 +95,7 @@ public class GuildMemberListener extends ListenerAdapter {
                 logsEmbed.setColor(Global.CUSTOMRED);
                 logsEmbed.addField("Guild Member:", event.getUser().getName(), false);
                 logsEmbed.addField("Role:", role.getAsMention(), false);
-                logsEmbed.addField("Date:", formattedTime, false);
+                logsEmbed.addField("Date:", Global.formattedTime, false);
                 logChannel.sendMessageEmbeds(logsEmbed.build()).queue();
             }
         }

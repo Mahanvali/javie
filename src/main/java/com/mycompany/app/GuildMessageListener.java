@@ -15,8 +15,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 //  JAVA IMPORTS
 import java.util.HashMap;
 import java.util.Map;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class GuildMessageListener extends ListenerAdapter {
 
@@ -33,10 +31,6 @@ public class GuildMessageListener extends ListenerAdapter {
     }
 
     private final Map<String, MessageData> messageCache = new HashMap<>();
-
-    LocalDateTime time = LocalDateTime.now();   //  Get the current date
-    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");  //  Format the date
-    String formattedTime = time.format(format); //  Apply the format
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -63,7 +57,7 @@ public class GuildMessageListener extends ListenerAdapter {
             messageDeletedEmbed.setColor(Global.CUSTOMRED);
             messageDeletedEmbed.addField("Author:", messageData.author.getName(), false);
             messageDeletedEmbed.addField("Deleted Message:", messageData.content, false);
-            messageDeletedEmbed.addField("Date:", formattedTime, false);
+            messageDeletedEmbed.addField("Date:", Global.formattedTime, false);
 
             //  Send messageDeletedEmbed
             logsChannel.sendMessageEmbeds(messageDeletedEmbed.build()).queue();
@@ -86,7 +80,7 @@ public class GuildMessageListener extends ListenerAdapter {
             messageUpdatedEmbed.addField("Author:", messageData.author.getName(), false);
             messageUpdatedEmbed.addField("Old Message:", messageData.content, false);
             messageUpdatedEmbed.addField("New Message", event.getMessage().getContentDisplay(), false);
-            messageUpdatedEmbed.addField("Date:", formattedTime, false);
+            messageUpdatedEmbed.addField("Date:", Global.formattedTime, false);
 
             //  Send messageUpdatedEmbed
             logsChannel.sendMessageEmbeds(messageUpdatedEmbed.build()).queue();
