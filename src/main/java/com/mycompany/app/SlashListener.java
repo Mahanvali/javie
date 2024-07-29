@@ -15,7 +15,7 @@ import com.mycompany.app.Commands.PooCommand;
 public class SlashListener extends ListenerAdapter {
 
     //  Create a HashMap to store the commands
-    private final Map<String, CommandImplementation> commands= new HashMap<String, CommandImplementation>();
+    private final Map<String, CommandImplementation> commands = new HashMap<String, CommandImplementation>();
 
     //  Constructor for the SlashListener class
     public SlashListener(){

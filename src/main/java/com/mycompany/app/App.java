@@ -29,11 +29,12 @@ public class App {
         //  Create JDA Instance
         JDA jda = jdaBotBuilder.build();
         CommandListUpdateAction commands = jda.updateCommands();
-        //  Add the slash commmands
-        //  Name and Description
+
+
+        //  Bot Developer commands
         commands.addCommands(
-            Commands.slash("boo", "poo"),
-            Commands.slash("poo", "boo")
+            Commands.slash("boo", "Check the amount of messages stored in cache"),
+            Commands.slash("poo", "Clear the messages stored in cache")
         );
         // Send commands to discord using the API
         commands.queue();

@@ -10,8 +10,6 @@ import net.dv8tion.jda.api.events.message.MessageUpdateEvent;
 import net.dv8tion.jda.api.events.message.MessageDeleteEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-
-
 //  JAVA IMPORTS
 import java.util.HashMap;
 import java.util.Map;
@@ -30,16 +28,18 @@ public class GuildMessageListener extends ListenerAdapter {
         }
     }
 
-    private final Map<String, MessageData> messageCache = new HashMap<>();
+    public static final Map<String, MessageData> messageCache = new HashMap<>();
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        //  Get the message
-        Message receivedMessage = event.getMessage();
-        //  Get the message author
-        User author = receivedMessage.getAuthor();
-        //  Store the message id, message content and the author
-        messageCache.put(receivedMessage.getId(), new MessageData(receivedMessage.getContentDisplay(), author));
+        if(!event.getAuthor().isBot()){ //  Make sure the user isnt a bot
+            //  Get the message
+            Message receivedMessage = event.getMessage();
+            //  Get the message author
+            User author = receivedMessage.getAuthor();
+            //  Store the message id, message content and the author
+            messageCache.put(receivedMessage.getId(), new MessageData(receivedMessage.getContentDisplay(), author));
+        }
     }
 
     @Override
@@ -58,7 +58,7 @@ public class GuildMessageListener extends ListenerAdapter {
             messageDeletedEmbed.addField("Author:", messageData.author.getName(), false);
             messageDeletedEmbed.addField("Deleted Message:", messageData.content, false);
             messageDeletedEmbed.addField("Date:", Global.formattedTime, false);
-
+        
             //  Send messageDeletedEmbed
             logsChannel.sendMessageEmbeds(messageDeletedEmbed.build()).queue();
         }
@@ -69,9 +69,9 @@ public class GuildMessageListener extends ListenerAdapter {
         //  Get the messageID of the updated message
         String messageId = event.getMessageId();
         //  See if the updated message id matches with the message id stored in the hashmap
-        MessageData messageData = messageCache.remove(messageId);
+        MessageData messageData = messageCache.get(messageId);
         //  If the message id exists in the Hashmap
-        if(messageData != null ){
+        if(messageData != null){
             TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
             
             EmbedBuilder messageUpdatedEmbed = new EmbedBuilder();
@@ -84,6 +84,10 @@ public class GuildMessageListener extends ListenerAdapter {
 
             //  Send messageUpdatedEmbed
             logsChannel.sendMessageEmbeds(messageUpdatedEmbed.build()).queue();
+
+            //  Update the message content in the cache
+            messageData.content = event.getMessage().getContentDisplay();
+
         }
     }
 }
