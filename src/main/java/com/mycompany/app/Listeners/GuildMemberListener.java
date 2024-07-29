@@ -10,6 +10,7 @@ import com.mycompany.app.Global;
 
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
@@ -21,6 +22,10 @@ public class GuildMemberListener extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+        //  Update the total member count (Look at ReadyListener)
+        Global.memberCount++;
+        //  Update the presence
+        event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
 
         TextChannel welcomeChannel = event.getJDA().getTextChannelById(Global.welcomeChannelId);
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
@@ -46,11 +51,14 @@ public class GuildMemberListener extends ListenerAdapter {
 
     @Override
     public void onGuildMemberRemove(GuildMemberRemoveEvent event){
+        //  Update the total member count (Look at ReadyListener)
+        Global.memberCount--;
+        //  Update the presence
+        event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
 
         //  Get TextChannel using the channel id
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
 
-        
         if(logsChannel != null){
 
             //  Send an embed in the logs channel
@@ -72,7 +80,6 @@ public class GuildMemberListener extends ListenerAdapter {
             TextChannel boosterChannel = event.getJDA().getTextChannelById(Global.boosterChannelId);
 
             if(logsChannel != null){
-
                 //  Send an embed in the logs channel
                 Global.SendRoleLogEmbed(
                     "Guild Member Role Add Event",
@@ -97,10 +104,10 @@ public class GuildMemberListener extends ListenerAdapter {
         for(Role role : roles){
 
             TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+            TextChannel boosterChannel = event.getJDA().getTextChannelById(Global.boosterChannelId);
 
            
             if(logsChannel != null){
-
                 //  Send an embed in the logs channel
                 Global.SendRoleLogEmbed(
                     "Guild Member Role Remove Event",
@@ -108,6 +115,12 @@ public class GuildMemberListener extends ListenerAdapter {
                     event.getUser().getName(), 
                     role.getAsMention(),
                     logsChannel);
+            }
+
+            if(role.getId().equals(Global.boosterRoleId)){
+                if(boosterChannel != null){
+                    boosterChannel.sendMessage("BOO! RIDICULE THIS MAN FOR NOT BOOSTING").queue();
+                }
             }
         }
     }

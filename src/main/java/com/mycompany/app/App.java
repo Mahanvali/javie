@@ -3,7 +3,6 @@ package com.mycompany.app;
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
@@ -14,6 +13,7 @@ import java.util.EnumSet;
 
 import com.mycompany.app.Listeners.GuildMemberListener;
 import com.mycompany.app.Listeners.GuildMessageListener;
+import com.mycompany.app.Listeners.ReadyListener;
 import com.mycompany.app.Listeners.SlashListener;
 
 public class App {
@@ -26,22 +26,21 @@ public class App {
             GatewayIntent.GUILD_MEMBERS))
         // Disable parts of the cache
         .disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE)
+        //  Enable parts of the cache
         .enableCache(CacheFlag.ACTIVITY)
-        //  Set Activity
-        .setActivity(Activity.listening("Not Like Us"))
         //  Add event listeners
-        .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener());
+        .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener(), new ReadyListener());
         //  Create JDA Instance
         JDA jda = jdaBotBuilder.build();
-        CommandListUpdateAction commands = jda.updateCommands();
 
+        CommandListUpdateAction commands = jda.updateCommands();
 
         //  Bot Developer commands
         commands.addCommands(
             Commands.slash("boo", "Check the amount of messages stored in cache"),
             Commands.slash("poo", "Clear the messages stored in cache")
         );
-        
+
         // Send commands to discord using the API
         commands.queue();
     } 
