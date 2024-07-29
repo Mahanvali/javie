@@ -1,7 +1,6 @@
-package com.mycompany.app;
+package com.mycompany.app.Listeners;
 
 //  JDA API IMPORTS
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -13,6 +12,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 //  JAVA IMPORTS
 import java.util.HashMap;
 import java.util.Map;
+import com.mycompany.app.Global;
 
 public class GuildMessageListener extends ListenerAdapter {
 
@@ -51,17 +51,13 @@ public class GuildMessageListener extends ListenerAdapter {
         //  If the message id exists in the Hashmap
         if (messageData != null) {
             TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
-            
-            EmbedBuilder messageDeletedEmbed = new EmbedBuilder();
-            messageDeletedEmbed.setTitle("Deleted Message Event");
-            messageDeletedEmbed.setColor(Global.CUSTOMRED);
-            messageDeletedEmbed.addField("Author:", messageData.author.getName(), false);
-            messageDeletedEmbed.addField("Deleted Message:", messageData.content, false);
-            messageDeletedEmbed.addField("Date:", Global.formattedTime, false);
-        
-            //  Send messageDeletedEmbed
+
             if(logsChannel != null){
-                logsChannel.sendMessageEmbeds(messageDeletedEmbed.build()).queue();
+                Global.SendDeletedMessageEmbed(
+                    "Deleted Message Event",
+                    messageData.author.getName(),
+                    messageData.content,
+                    logsChannel);
             }
         }
     }
@@ -75,18 +71,14 @@ public class GuildMessageListener extends ListenerAdapter {
         //  If the message id exists in the Hashmap
         if(messageData != null){
             TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
-            
-            EmbedBuilder messageUpdatedEmbed = new EmbedBuilder();
-            messageUpdatedEmbed.setTitle("Updated Message Event");
-            messageUpdatedEmbed.setColor(Global.CUSTOMORANGE);
-            messageUpdatedEmbed.addField("Author:", messageData.author.getName(), false);
-            messageUpdatedEmbed.addField("Old Message:", messageData.content, false);
-            messageUpdatedEmbed.addField("New Message", event.getMessage().getContentDisplay(), false);
-            messageUpdatedEmbed.addField("Date:", Global.formattedTime, false);
 
-            //  Send messageUpdatedEmbed
             if(logsChannel != null){
-                logsChannel.sendMessageEmbeds(messageUpdatedEmbed.build()).queue();
+                Global.SendUpdatedMessageEmbed(
+                "Updated Message Event",
+                messageData.author.getName(),
+                messageData.content,
+                event.getMessage().getContentDisplay(),
+                logsChannel);
             }
 
             //  Update the message content in the cache

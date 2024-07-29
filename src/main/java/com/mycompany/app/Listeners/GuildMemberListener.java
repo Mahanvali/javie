@@ -1,10 +1,12 @@
-package com.mycompany.app;
+package com.mycompany.app.Listeners;
 
 //  TODO: WHEN A STREAMER'S ACTIVITY IS "STREAMING", SEND A MESSAGE TO THAT STREAM
 // https://ci.dv8tion.net/job/JDA/javadoc/net/dv8tion/jda/api/entities/Activity.html
 
 //  JAVA IMPORTS
 import java.util.List;
+
+import com.mycompany.app.Global;
 
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -20,13 +22,12 @@ public class GuildMemberListener extends ListenerAdapter {
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
 
-        //  Get TextChannel using the channel id
         TextChannel welcomeChannel = event.getJDA().getTextChannelById(Global.welcomeChannelId);
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
 
         if(welcomeChannel != null){
             //  Send a message in the welcome channel
-            Global.SimpleDescriptionEmbed(
+            Global.SendSimpleDescriptionEmbed(
                 "Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "!",
                 Global.CUSTOMPURPLE,
                 welcomeChannel);
@@ -37,7 +38,7 @@ public class GuildMemberListener extends ListenerAdapter {
             //  Send an embed in the logs channel
             Global.SendMemberLogEmbed(
                 "Guild Member Join Event",
-                Global.CUSTOMRED,
+                Global.CUSTOMGREEN,
                 event.getUser().getName(), 
                 logsChannel);
         }
@@ -49,8 +50,10 @@ public class GuildMemberListener extends ListenerAdapter {
         //  Get TextChannel using the channel id
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
 
-        //  Send an embed in the logs channel
+        
         if(logsChannel != null){
+
+            //  Send an embed in the logs channel
             Global.SendMemberLogEmbed(
                 "Guild Member Remove Event",
                 Global.CUSTOMRED,
@@ -69,6 +72,7 @@ public class GuildMemberListener extends ListenerAdapter {
             TextChannel boosterChannel = event.getJDA().getTextChannelById(Global.boosterChannelId);
 
             if(logsChannel != null){
+
                 //  Send an embed in the logs channel
                 Global.SendRoleLogEmbed(
                     "Guild Member Role Add Event",
@@ -94,8 +98,10 @@ public class GuildMemberListener extends ListenerAdapter {
 
             TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
 
-            //  Send an embed in the logs channel
+           
             if(logsChannel != null){
+
+                //  Send an embed in the logs channel
                 Global.SendRoleLogEmbed(
                     "Guild Member Role Remove Event",
                     Global.CUSTOMRED,

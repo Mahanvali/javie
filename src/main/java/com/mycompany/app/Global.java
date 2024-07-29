@@ -12,7 +12,6 @@ public class Global {
 
     private static final LocalDateTime time = LocalDateTime.now();   //  Get the current date
     private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");  //  Format the date
-
     //  CHANNELS
     public static final String logsChannelId = "1113468093134557220";
     public static final String welcomeChannelId = "1113468093134557219";
@@ -27,8 +26,7 @@ public class Global {
     public static final Color CUSTOMRED = new Color(168, 52, 50);
     public static final Color CUSTOMGREEN = new Color(50, 168, 81);
     public static final Color CUSTOMPURPLE = new Color(148, 76, 176);
-    public static final Color CUSTOMORANGE = new Color(148, 76, 176);
-
+    public static final Color CUSTOMORANGE = new Color(245, 185, 66);
     //  EMBEDS
     public static void SendRoleLogEmbed(String embedTitle, Color embedColor, String guildMember, String roleMention, TextChannel channel){
         EmbedBuilder embed = new EmbedBuilder();
@@ -49,10 +47,32 @@ public class Global {
         channel.sendMessageEmbeds(embed.build()).queue();
     }
 
-    public static void SimpleDescriptionEmbed(String embedDescription, Color embedColor, TextChannel channel ){
+    public static void SendSimpleDescriptionEmbed(String embedDescription, Color embedColor, TextChannel channel){
         EmbedBuilder embed = new EmbedBuilder();
         embed.setColor(embedColor);
         embed.setDescription(embedDescription);
         channel.sendMessageEmbeds(embed.build()).queue();
     }
+
+    public static void SendDeletedMessageEmbed(String embedTitle, String embedAuthor, String DeletedMessage, TextChannel channel){
+        EmbedBuilder embed = new EmbedBuilder();
+        embed.setTitle(embedTitle);
+        embed.setColor(Global.CUSTOMRED);
+        embed.addField("Author:", embedAuthor, false);
+        embed.addField("Deleted Message:", DeletedMessage, false);
+        embed.addField("Date:", Global.formattedTime, false);
+        channel.sendMessageEmbeds(embed.build()).queue();
+    }
+
+    public static void SendUpdatedMessageEmbed(String embedTitle, String embedAuthor, String OldMessage, String NewMessage, TextChannel channel){
+        EmbedBuilder embed = new EmbedBuilder();
+        embed.setTitle("Updated Message Event");
+        embed.setColor(Global.CUSTOMORANGE);
+        embed.addField("Author:", embedAuthor, false);
+        embed.addField("Old Message:", OldMessage, false);
+        embed.addField("New Message", NewMessage, false);
+        embed.addField("Date:", Global.formattedTime, false);
+        channel.sendMessageEmbeds(embed.build()).queue();
+    }
+
 }

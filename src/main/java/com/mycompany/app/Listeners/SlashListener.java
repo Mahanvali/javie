@@ -1,4 +1,4 @@
-package com.mycompany.app;
+package com.mycompany.app.Listeners;
 
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -8,9 +8,11 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import java.util.HashMap;
 import java.util.Map;
 
+
 //  COMMAND IMPORTS
 import com.mycompany.app.Commands.BooCommand;
 import com.mycompany.app.Commands.PooCommand;
+import com.mycompany.app.CommandImplementation;
 
 public class SlashListener extends ListenerAdapter {
 

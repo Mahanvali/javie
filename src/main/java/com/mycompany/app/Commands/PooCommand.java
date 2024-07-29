@@ -3,7 +3,7 @@ package com.mycompany.app.Commands;
 //  IMPORT COMMANDIMPLEMENTATION
 import com.mycompany.app.CommandImplementation;
 import com.mycompany.app.Global;
-import com.mycompany.app.GuildMessageListener;
+import com.mycompany.app.Listeners.GuildMessageListener;
 
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
