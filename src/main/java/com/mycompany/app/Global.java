@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+
 public class Global {
 
     private static final LocalDateTime time = LocalDateTime.now();   //  Get the current date
@@ -24,4 +28,24 @@ public class Global {
     public static final Color CUSTOMGREEN = new Color(50, 168, 81);
     public static final Color CUSTOMPURPLE = new Color(148, 76, 176);
     public static final Color CUSTOMORANGE = new Color(148, 76, 176);
+    
+    //  EMBEDS
+    public static void SendRoleLogEmbed(String embedTitle, Color embedColor, String guildMember, String roleMention, TextChannel channel){
+        EmbedBuilder logsEmbed = new EmbedBuilder();
+        logsEmbed.setTitle(embedTitle);
+        logsEmbed.setColor(embedColor);
+        logsEmbed.addField("Guild Member:", guildMember, false);
+        logsEmbed.addField("Role:", roleMention, false);
+        logsEmbed.addField("Date:", Global.formattedTime, false);
+        channel.sendMessageEmbeds(logsEmbed.build()).queue();
+    }
+
+    public static void SendMemberLogEmbed(String embedTitle, Color embedColor, String guildMember, TextChannel channel){
+        EmbedBuilder logsEmbed = new EmbedBuilder();
+        logsEmbed.setTitle(embedTitle);
+        logsEmbed.setColor(embedColor);
+        logsEmbed.addField("Guild Member:", guildMember, false);
+        logsEmbed.addField("Date:", Global.formattedTime, false);
+        channel.sendMessageEmbeds(logsEmbed.build()).queue();
+    }
 }

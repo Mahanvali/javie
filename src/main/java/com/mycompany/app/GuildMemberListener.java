@@ -1,7 +1,6 @@
 package com.mycompany.app;
 
-//  TODO: WHEN A STREAMER'S STATUS IS "STREAMING", SEND A MESSAGE TO THAT STREAM
-//  TODO: MAKE THE logEmbed AND OTHER EMBEDS A FUNCTION FOR EASE OF USE AND STUFF
+//  TODO: WHEN A STREAMER'S ACTIVITY IS "STREAMING", SEND A MESSAGE TO THAT STREAM
 // https://ci.dv8tion.net/job/JDA/javadoc/net/dv8tion/jda/api/entities/Activity.html
 
 //  JAVA IMPORTS
@@ -21,6 +20,7 @@ public class GuildMemberListener extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+
         //  Get TextChannel using the channel id
         TextChannel welcomeChannel = event.getJDA().getTextChannelById(Global.welcomeChannelId);
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
@@ -34,29 +34,29 @@ public class GuildMemberListener extends ListenerAdapter {
         }
 
         if(logsChannel != null){
+
             //  Send an embed in the logs channel
-            EmbedBuilder logsEmbed = new EmbedBuilder();
-            logsEmbed.setTitle("Guild Member Join Event");
-            logsEmbed.setColor(Global.CUSTOMGREEN);
-            logsEmbed.addField("Guild Member:", event.getUser().getName(), false);
-            logsEmbed.addField("Date:", Global.formattedTime, false);
-            logsChannel.sendMessageEmbeds(logsEmbed.build()).queue();
+            Global.SendMemberLogEmbed(
+                "Guild Member Join Event",
+                Global.CUSTOMRED,
+                event.getUser().getName(), 
+                logsChannel);
         }
     }
 
     @Override
     public void onGuildMemberRemove(GuildMemberRemoveEvent event){
+
         //  Get TextChannel using the channel id
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
-        
+
+        //  Send an embed in the logs channel
         if(logsChannel != null){
-             //  Send an embed in the logs channel
-            EmbedBuilder logsEmbed = new EmbedBuilder();
-            logsEmbed.setTitle("Guild Member Remove Event");
-            logsEmbed.setColor(Global.CUSTOMRED);
-            logsEmbed.addField("Guild Member:", event.getUser().getName(), false);
-            logsEmbed.addField("Date:", Global.formattedTime, false);
-            logsChannel.sendMessageEmbeds(logsEmbed.build()).queue();
+            Global.SendMemberLogEmbed(
+                "Guild Member Remove Event",
+                Global.CUSTOMRED,
+                event.getUser().getName(), 
+                logsChannel);
         }
     }
 
@@ -66,17 +66,17 @@ public class GuildMemberListener extends ListenerAdapter {
         //  A for loop, for going through all the roles
         for(Role role : roles){
 
-            TextChannel logChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+            TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
             TextChannel boosterChannel = event.getJDA().getTextChannelById(Global.boosterChannelId);
 
-            if(logChannel != null){
-                EmbedBuilder logsEmbed = new EmbedBuilder();
-                logsEmbed.setTitle("Guild Member Role Add Event");
-                logsEmbed.setColor(Global.CUSTOMGREEN);
-                logsEmbed.addField("Guild Member:", event.getUser().getName(), false);
-                logsEmbed.addField("Role:", role.getAsMention(), false);
-                logsEmbed.addField("Date:", Global.formattedTime, false);
-                logChannel.sendMessageEmbeds(logsEmbed.build()).queue();
+            if(logsChannel != null){
+                //  Send an embed in the logs channel
+                Global.SendRoleLogEmbed(
+                    "Guild Member Role Add Event",
+                    Global.CUSTOMGREEN,
+                    event.getUser().getName(), 
+                    role.getAsMention(),
+                    logsChannel);
             }
 
             if(role.getId().equals(Global.boosterRoleId)){
@@ -93,16 +93,16 @@ public class GuildMemberListener extends ListenerAdapter {
         //  A for loop, for going through all the roles
         for(Role role : roles){
 
-            TextChannel logChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+            TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
 
-            if(logChannel != null){
-                EmbedBuilder logsEmbed = new EmbedBuilder();
-                logsEmbed.setTitle("Guild Member Role Remove Event");
-                logsEmbed.setColor(Global.CUSTOMRED);
-                logsEmbed.addField("Guild Member:", event.getUser().getName(), false);
-                logsEmbed.addField("Role:", role.getAsMention(), false);
-                logsEmbed.addField("Date:", Global.formattedTime, false);
-                logChannel.sendMessageEmbeds(logsEmbed.build()).queue();
+            //  Send an embed in the logs channel
+            if(logsChannel != null){
+                Global.SendRoleLogEmbed(
+                    "Guild Member Role Remove Event",
+                    Global.CUSTOMRED,
+                    event.getUser().getName(), 
+                    role.getAsMention(),
+                    logsChannel);
             }
         }
     }
