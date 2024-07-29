@@ -21,4 +21,6 @@ public class Global {
     public static final String formattedTime = time.format(format);
     public static final Color CUSTOMRED = new Color(168, 52, 50);
     public static final Color CUSTOMGREEN = new Color(50, 168, 81);
+    public static final Color CUSTOMPURPLE = new Color(148, 76, 176);
+    public static final Color CUSTOMORANGE = new Color(148, 76, 176);
 }

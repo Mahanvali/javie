@@ -1,5 +1,8 @@
 package com.mycompany.app;
 
+//  TODO: WHEN A STREAMER'S STATUS IS "STREAMING", SEND A MESSAGE TO THAT STREAM
+//  TODO: MAKE THE logEmbed AND OTHER EMBEDS A FUNCTION FOR EASE OF USE AND STUFF
+// https://ci.dv8tion.net/job/JDA/javadoc/net/dv8tion/jda/api/entities/Activity.html
 
 //  JAVA IMPORTS
 import java.util.List;
@@ -24,7 +27,10 @@ public class GuildMemberListener extends ListenerAdapter {
 
         if(welcomeChannel != null){
             //  Send a message in the welcome channel
-            welcomeChannel.sendMessage("Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName()).queue();
+            EmbedBuilder welcomeEmbed = new EmbedBuilder();
+            welcomeEmbed.setDescription("Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "!");
+            welcomeEmbed.setColor(Global.CUSTOMPURPLE);
+            welcomeChannel.sendMessageEmbeds(welcomeEmbed.build()).queue();
         }
 
         if(logsChannel != null){

@@ -60,7 +60,9 @@ public class GuildMessageListener extends ListenerAdapter {
             messageDeletedEmbed.addField("Date:", Global.formattedTime, false);
         
             //  Send messageDeletedEmbed
-            logsChannel.sendMessageEmbeds(messageDeletedEmbed.build()).queue();
+            if(logsChannel != null){
+                logsChannel.sendMessageEmbeds(messageDeletedEmbed.build()).queue();
+            }
         }
     }
 
@@ -76,14 +78,16 @@ public class GuildMessageListener extends ListenerAdapter {
             
             EmbedBuilder messageUpdatedEmbed = new EmbedBuilder();
             messageUpdatedEmbed.setTitle("Updated Message Event");
-            messageUpdatedEmbed.setColor(Global.CUSTOMRED);
+            messageUpdatedEmbed.setColor(Global.CUSTOMORANGE);
             messageUpdatedEmbed.addField("Author:", messageData.author.getName(), false);
             messageUpdatedEmbed.addField("Old Message:", messageData.content, false);
             messageUpdatedEmbed.addField("New Message", event.getMessage().getContentDisplay(), false);
             messageUpdatedEmbed.addField("Date:", Global.formattedTime, false);
 
             //  Send messageUpdatedEmbed
-            logsChannel.sendMessageEmbeds(messageUpdatedEmbed.build()).queue();
+            if(logsChannel != null){
+                logsChannel.sendMessageEmbeds(messageUpdatedEmbed.build()).queue();
+            }
 
             //  Update the message content in the cache
             messageData.content = event.getMessage().getContentDisplay();
