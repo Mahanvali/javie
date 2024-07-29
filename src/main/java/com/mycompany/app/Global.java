@@ -28,24 +28,31 @@ public class Global {
     public static final Color CUSTOMGREEN = new Color(50, 168, 81);
     public static final Color CUSTOMPURPLE = new Color(148, 76, 176);
     public static final Color CUSTOMORANGE = new Color(148, 76, 176);
-    
+
     //  EMBEDS
     public static void SendRoleLogEmbed(String embedTitle, Color embedColor, String guildMember, String roleMention, TextChannel channel){
-        EmbedBuilder logsEmbed = new EmbedBuilder();
-        logsEmbed.setTitle(embedTitle);
-        logsEmbed.setColor(embedColor);
-        logsEmbed.addField("Guild Member:", guildMember, false);
-        logsEmbed.addField("Role:", roleMention, false);
-        logsEmbed.addField("Date:", Global.formattedTime, false);
-        channel.sendMessageEmbeds(logsEmbed.build()).queue();
+        EmbedBuilder embed = new EmbedBuilder();
+        embed.setTitle(embedTitle);
+        embed.setColor(embedColor);
+        embed.addField("Guild Member:", guildMember, false);
+        embed.addField("Role:", roleMention, false);
+        embed.addField("Date:", Global.formattedTime, false);
+        channel.sendMessageEmbeds(embed.build()).queue();
     }
 
     public static void SendMemberLogEmbed(String embedTitle, Color embedColor, String guildMember, TextChannel channel){
-        EmbedBuilder logsEmbed = new EmbedBuilder();
-        logsEmbed.setTitle(embedTitle);
-        logsEmbed.setColor(embedColor);
-        logsEmbed.addField("Guild Member:", guildMember, false);
-        logsEmbed.addField("Date:", Global.formattedTime, false);
-        channel.sendMessageEmbeds(logsEmbed.build()).queue();
+        EmbedBuilder embed = new EmbedBuilder();
+        embed.setTitle(embedTitle);
+        embed.setColor(embedColor);
+        embed.addField("Guild Member:", guildMember, false);
+        embed.addField("Date:", Global.formattedTime, false);
+        channel.sendMessageEmbeds(embed.build()).queue();
+    }
+
+    public static void SimpleDescriptionEmbed(String embedDescription, Color embedColor, TextChannel channel ){
+        EmbedBuilder embed = new EmbedBuilder();
+        embed.setColor(embedColor);
+        embed.setDescription(embedDescription);
+        channel.sendMessageEmbeds(embed.build()).queue();
     }
 }

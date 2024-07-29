@@ -7,7 +7,6 @@ package com.mycompany.app;
 import java.util.List;
 
 //  JDA API IMPORTS
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
@@ -27,10 +26,10 @@ public class GuildMemberListener extends ListenerAdapter {
 
         if(welcomeChannel != null){
             //  Send a message in the welcome channel
-            EmbedBuilder welcomeEmbed = new EmbedBuilder();
-            welcomeEmbed.setDescription("Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "!");
-            welcomeEmbed.setColor(Global.CUSTOMPURPLE);
-            welcomeChannel.sendMessageEmbeds(welcomeEmbed.build()).queue();
+            Global.SimpleDescriptionEmbed(
+                "Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "!",
+                Global.CUSTOMPURPLE,
+                welcomeChannel);
         }
 
         if(logsChannel != null){
