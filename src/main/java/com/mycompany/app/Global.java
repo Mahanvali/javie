@@ -17,6 +17,7 @@ public class Global {
     public static final String boosterRoleId = "1173142323597672478";
     //  USERS
     public static final String botdeveloperUserId = "764834445722386432";
+    public static final String streamerUserId = "403268481338048514";
     //  MISC.
     public static final String formattedTime = time.format(format);
     public static final Color CUSTOMRED = new Color(168, 52, 50);

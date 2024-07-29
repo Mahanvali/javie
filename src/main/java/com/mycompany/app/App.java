@@ -22,6 +22,7 @@ public class App {
             GatewayIntent.GUILD_MEMBERS))
         // Disable parts of the cache
         .disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE)
+        .enableCache(CacheFlag.ACTIVITY)
         //  Set Activity
         .setActivity(Activity.listening("Not Like Us"))
         //  Add event listeners
