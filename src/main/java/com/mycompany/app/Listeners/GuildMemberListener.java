@@ -1,8 +1,5 @@
 package com.mycompany.app.Listeners;
 
-//  TODO: WHEN A STREAMER'S ACTIVITY IS "STREAMING", SEND A MESSAGE TO THAT STREAM
-// https://ci.dv8tion.net/job/JDA/javadoc/net/dv8tion/jda/api/entities/Activity.html
-
 //  JAVA IMPORTS
 import java.util.List;
 
@@ -16,6 +13,7 @@ import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
+import net.dv8tion.jda.api.events.user.update.UserUpdateActivitiesEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class GuildMemberListener extends ListenerAdapter {
@@ -121,6 +119,20 @@ public class GuildMemberListener extends ListenerAdapter {
                 if(boosterChannel != null){
                     boosterChannel.sendMessage("BOO! RIDICULE THIS MAN FOR NOT BOOSTING").queue();
                 }
+            }
+        }
+    }
+
+    @Override
+    public void onUserUpdateActivities(UserUpdateActivitiesEvent event) {
+        //  A for loop, for going through all the activies. 
+        //  Just like the role events
+        for(Activity activity : event.getMember().getActivities()){
+            //  If the activity updated is STREAMING and the userID is the streamer
+            if(activity.getType() == Activity.ActivityType.STREAMING && event.getMember().getId().equals(Global.streamerUserId)){
+                System.out.println("STREAMING");
+            } else {
+                System.out.println("NOT STREAMING");
             }
         }
     }

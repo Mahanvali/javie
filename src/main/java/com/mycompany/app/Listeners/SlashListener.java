@@ -12,6 +12,7 @@ import java.util.Map;
 //  COMMAND IMPORTS
 import com.mycompany.app.Commands.BooCommand;
 import com.mycompany.app.Commands.PooCommand;
+import com.mycompany.app.Commands.mod.KickCommand;
 import com.mycompany.app.CommandImplementation;
 
 public class SlashListener extends ListenerAdapter {
@@ -24,6 +25,7 @@ public class SlashListener extends ListenerAdapter {
         //  Store the commands in the hashmap
         commands.put("boo", new BooCommand());
         commands.put("poo", new PooCommand());
+        commands.put("kick", new KickCommand());
     }
 
     //  Override the onSlashCommandInteraction method from ListenerAdapter
