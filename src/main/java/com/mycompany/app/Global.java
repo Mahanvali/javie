@@ -76,4 +76,11 @@ public class Global {
         channel.sendMessageEmbeds(embed.build()).queue();
     }
 
+    public static void BuildLogModEmbed(String embedTitle, String AffectedUser, String ResponsibleMod, String Reason, EmbedBuilder embed){
+        embed.setTitle(embedTitle);
+        embed.setColor(Global.CUSTOMRED);
+        embed.addField("Affected User:", AffectedUser, false);
+        embed.addField("Responsible Mod:", ResponsibleMod, false);
+        embed.addField("Reason:", Reason, false);
+    }
 }

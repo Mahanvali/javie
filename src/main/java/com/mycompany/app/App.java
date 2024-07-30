@@ -56,7 +56,8 @@ public class App {
         //  Mod commands
         commands.addCommands(
             Commands.slash("kick", "Kick a user")
-                .addOption(OptionType.MENTIONABLE, "content", "The user to kick", true)
+                .addOption(OptionType.MENTIONABLE, "user", "The user to kick", true)
+                .addOption(OptionType.STRING, "reason", "Reason for kicking the user", true)
         ).queue();
    
     } 
