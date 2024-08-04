@@ -3,9 +3,12 @@ package com.mycompany.app.Commands.mod;
 import com.mycompany.app.CommandImplementation;
 import com.mycompany.app.Global;
 import com.mycompany.app.Listeners.GuildMemberListener;
+import com.mycompany.app.Listeners.GuildMemberListener.ActivityData;
+import com.mycompany.app.Listeners.GuildMemberListener.NicknameData;
 
 //  JAVA IMPORTS
 import java.util.Map;
+import java.time.format.*;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
@@ -18,26 +21,36 @@ public class HistoryCommand implements CommandImplementation {
         event.deferReply().queue();
         
         User targetUser = event.getOption("user").getAsUser();  //  Get the user
-        StringBuilder foundKeys = new StringBuilder(); // Initialize a StringBuilder
+        String targetUserId = targetUser.getId();
+        StringBuilder foundActivityKeys = new StringBuilder(); // Initialize a StringBuilder
+        StringBuilder foundNicknameKeys = new StringBuilder();  // Initialize a StringBuilder
         EmbedBuilder embed = new EmbedBuilder();
 
         // Iterate through the activity cache to find matching keys
-        for (Map.Entry<String, String> entry : GuildMemberListener.activityCache.entrySet()) {
-            if (entry.getValue().equals(targetUser.getId())) {
-                String key = entry.getKey();
-                foundKeys.append("`" + key + "`");  //  Add the keys to the StringBuilder
-                foundKeys.append("\n"); //  Add some formatting
+        for (Map.Entry<String, ActivityData> entry : GuildMemberListener.activityCache.entrySet()) {
+            if (entry.getValue().getUserId().equals(targetUserId)) {
+                String key = entry.getKey();    //  Get the activity name
+                foundActivityKeys.append("`" + key + "`" + " @ " + "`" + entry.getValue().getDate() + "`");  //  Add the keys to the StringBuilder
+                foundActivityKeys.append("\n"); //  Add some formatting
             }
         }
 
-        if(GuildMemberListener.activityCache.containsValue(targetUser.getId())){
-            embed.setTitle("User History");
-            embed.setColor(Global.CUSTOMGREEN);
-            embed.addField("Activites:", foundKeys.toString(), false);
-            //  More fields later!!
-            event.getHook().sendMessageEmbeds(embed.build()).queue();
-        } else {
-            event.getHook().sendMessage("`" + targetUser.getName() + "`'s activities has not been cached!").queue();
+        // Iterate through the activity cache to find matching keys
+        for (Map.Entry<String, NicknameData> entry : GuildMemberListener.nicknameCache.entrySet()){
+            if(entry.getValue().getUserId().equals(targetUserId)){
+                String key = entry.getKey();    //  Get the activity name
+                foundNicknameKeys.append("`" + entry.getValue().getOldNickname() + "`" + " -> " + "`" + key + "`" + " @ " + "`" + entry.getValue().getDate() + "`");  //  Add the keys to the StringBuilder
+                foundNicknameKeys.append("\n"); //  Add some formatting
+            }
         }
+
+        embed.setTitle(targetUser.getName() + "'s History");
+        embed.setColor(Global.CUSTOMPURPLE);
+        embed.addField("Recent Activites:", foundActivityKeys.toString(), false);
+        embed.addField("Recent Nicknames:", foundNicknameKeys.toString(), false);
+        embed.addField("Joined Server At:", event.getOption("user").getAsMember().getTimeJoined().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), false);
+        //  NicknameHistory
+        //  More fields later!!
+        event.getHook().sendMessageEmbeds(embed.build()).queue();
     }
 }

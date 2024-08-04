@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
+import net.dv8tion.jda.api.events.guild.member.update.GuildMemberUpdateNicknameEvent;
 import net.dv8tion.jda.api.events.user.UserActivityStartEvent;
 import net.dv8tion.jda.api.events.user.update.UserUpdateActivitiesEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -30,7 +31,7 @@ public class GuildMemberListener extends ListenerAdapter {
         event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
 
         TextChannel welcomeChannel = event.getJDA().getTextChannelById(Global.welcomeChannelId);
-        TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+        // TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
         EmbedBuilder embed = new EmbedBuilder();
 
         if(welcomeChannel != null){
@@ -42,15 +43,15 @@ public class GuildMemberListener extends ListenerAdapter {
             welcomeChannel.sendMessageEmbeds(embed.build());
         }
 
-        if(logsChannel != null){
+        // if(logsChannel != null){
 
-            //  Send an embed in the logs channel
-            Global.SendMemberLogEmbed(
-                "Guild Member Join Event",
-                Global.CUSTOMGREEN,
-                event.getUser().getName(), 
-                logsChannel);
-        }
+        //     //  Send an embed in the logs channel
+        //     Global.SendMemberLogEmbed(
+        //         "Guild Member Join Event",
+        //         Global.CUSTOMGREEN,
+        //         event.getUser().getName(), 
+        //         logsChannel);
+        // }
     }
 
     @Override
@@ -61,37 +62,37 @@ public class GuildMemberListener extends ListenerAdapter {
         event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
 
         //  Get TextChannel using the channel id
-        TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+        // TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
 
-        if(logsChannel != null){
+        // if(logsChannel != null){
 
-            //  Send an embed in the logs channel
-            Global.SendMemberLogEmbed(
-                "Guild Member Remove Event",
-                Global.CUSTOMRED,
-                event.getUser().getName(), 
-                logsChannel);
-        }
+        //     //  Send an embed in the logs channel
+        //     Global.SendMemberLogEmbed(
+        //         "Guild Member Remove Event",
+        //         Global.CUSTOMRED,
+        //         event.getUser().getName(), 
+        //         logsChannel);
+        // }
     }
+
 
     @Override
     public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event){
         List<Role> roles = event.getRoles();
         //  A for loop, for going through all the roles
         for(Role role : roles){
-
-            TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+            // TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
             TextChannel boosterChannel = event.getJDA().getTextChannelById(Global.boosterChannelId);
 
-            if(logsChannel != null){
-                //  Send an embed in the logs channel
-                Global.SendRoleLogEmbed(
-                    "Guild Member Role Add Event",
-                    Global.CUSTOMGREEN,
-                    event.getUser().getName(), 
-                    role.getAsMention(),
-                    logsChannel);
-            }
+            // if(logsChannel != null){
+            //     //  Send an embed in the logs channel
+            //     Global.SendRoleLogEmbed(
+            //         "Guild Member Role Add Event",
+            //         Global.CUSTOMGREEN,
+            //         event.getUser().getName(), 
+            //         role.getAsMention(),
+            //         logsChannel);
+            // }
 
             if(role.getId().equals(Global.boosterRoleId)){
                 if(boosterChannel != null){
@@ -107,19 +108,19 @@ public class GuildMemberListener extends ListenerAdapter {
         //  A for loop, for going through all the roles
         for(Role role : roles){
 
-            TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+            // TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
             TextChannel boosterChannel = event.getJDA().getTextChannelById(Global.boosterChannelId);
 
            
-            if(logsChannel != null){
-                //  Send an embed in the logs channel
-                Global.SendRoleLogEmbed(
-                    "Guild Member Role Remove Event",
-                    Global.CUSTOMRED,
-                    event.getUser().getName(), 
-                    role.getAsMention(),
-                    logsChannel);
-            }
+            // if(logsChannel != null){
+            //     //  Send an embed in the logs channel
+            //     Global.SendRoleLogEmbed(
+            //         "Guild Member Role Remove Event",
+            //         Global.CUSTOMRED,
+            //         event.getUser().getName(), 
+            //         role.getAsMention(),
+            //         logsChannel);
+            // }
 
             if(role.getId().equals(Global.boosterRoleId)){
                 if(boosterChannel != null){
@@ -129,7 +130,59 @@ public class GuildMemberListener extends ListenerAdapter {
         }
     }
 
-    public static final Map<String, String> activityCache = new HashMap<>();
+    public static class NicknameData {
+        String userid;
+        String date;
+        String oldnickname;
+
+        public NicknameData(String userid, String date, String oldnickname) {
+            this.userid = userid;
+            this.date = date;
+            this.oldnickname = oldnickname;
+        }
+
+        //  Public getters
+        public String getUserId(){
+            return userid;
+        }
+        public String getDate(){
+            return date;
+        }
+        public String getOldNickname(){
+            return oldnickname;
+        }
+    }
+
+    public static final Map<String, NicknameData> nicknameCache = new HashMap<>();
+
+    @Override
+    public void onGuildMemberUpdateNickname(GuildMemberUpdateNicknameEvent event){
+        String userID = event.getUser().getId();
+        String date = Global.formattedDate;
+        String oldNickname = event.getOldNickname();
+        String newNickname = event.getNewNickname();
+        nicknameCache.put(newNickname, new NicknameData(userID, date, oldNickname));
+    }
+
+    public static class ActivityData {
+        String userid;
+        String date;
+
+        public ActivityData(String userid, String date) {
+            this.userid = userid;
+            this.date = date;
+        }
+
+        //  Public getters
+        public String getUserId(){
+            return userid;
+        }
+        public String getDate(){
+            return date;
+        }
+    }
+
+    public static final Map<String, ActivityData> activityCache = new HashMap<>();
 
     @Override
     public void onUserUpdateActivities(UserUpdateActivitiesEvent event) {
@@ -147,8 +200,10 @@ public class GuildMemberListener extends ListenerAdapter {
     public void onUserActivityStart(UserActivityStartEvent event){
         for(Activity activity : event.getMember().getActivities()){
             if(activity.getType().toString() != "CUSTOM_STATUS"){  //  CUSTOM_STATUS for some reason gets added everytime a activity is started, ended or updated. So we wanna exclude that from being put in the cache
-                activityCache.put(activity.getName(), event.getUser().getId());
-                System.out.println(activityCache + activity.getType().toString());
+                String activityName = activity.getName();
+                String UserID = event.getUser().getId();
+                String date = Global.formattedDate;
+                activityCache.put(activityName, new ActivityData(UserID, date));
             }
         }
     }

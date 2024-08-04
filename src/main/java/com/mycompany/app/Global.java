@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 public class Global {
 
     private static final LocalDateTime time = LocalDateTime.now();   //  Get the current date
-    private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");  //  Format the date
+    private static final DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");  //  Format the date
     //  CHANNELS
     public static final String logsChannelId = "1113468093134557220";
     public static final String welcomeChannelId = "1113468093134557219";
@@ -22,7 +22,7 @@ public class Global {
     public static final String botdeveloperUserId = "764834445722386432";
     public static final String streamerUserId = "403268481338048514";
     //  MISC.
-    public static final String formattedTime = time.format(format);
+    public static final String formattedDate = time.format(dateformat);
     public static int memberCount = 0;
     public static final Color CUSTOMRED = new Color(168, 52, 50);
     public static final Color CUSTOMGREEN = new Color(50, 168, 81);
@@ -35,7 +35,7 @@ public class Global {
         embed.setColor(embedColor);
         embed.addField("Guild Member:", guildMember, false);
         embed.addField("Role:", roleMention, false);
-        embed.addField("Date:", Global.formattedTime, false);
+        embed.addField("Date:", Global.formattedDate, false);
         channel.sendMessageEmbeds(embed.build()).queue();
     }
 
@@ -44,7 +44,7 @@ public class Global {
         embed.setTitle(embedTitle);
         embed.setColor(embedColor);
         embed.addField("Guild Member:", guildMember, false);
-        embed.addField("Date:", Global.formattedTime, false);
+        embed.addField("Date:", Global.formattedDate, false);
         channel.sendMessageEmbeds(embed.build()).queue();
     }
 
@@ -54,7 +54,7 @@ public class Global {
         embed.setColor(Global.CUSTOMRED);
         embed.addField("Author:", embedAuthor, false);
         embed.addField("Deleted Message:", DeletedMessage, false);
-        embed.addField("Date:", Global.formattedTime, false);
+        embed.addField("Date:", Global.formattedDate, false);
         channel.sendMessageEmbeds(embed.build()).queue();
     }
 
@@ -65,7 +65,7 @@ public class Global {
         embed.addField("Author:", embedAuthor, false);
         embed.addField("Old Message:", OldMessage, false);
         embed.addField("New Message", NewMessage, false);
-        embed.addField("Date:", Global.formattedTime, false);
+        embed.addField("Date:", Global.formattedDate, false);
         channel.sendMessageEmbeds(embed.build()).queue();
     }
 

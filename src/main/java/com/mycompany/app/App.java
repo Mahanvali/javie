@@ -18,6 +18,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 //  JAVA IMPORTS
@@ -36,10 +37,9 @@ public class App {
             GatewayIntent.MESSAGE_CONTENT,
             GatewayIntent.GUILD_PRESENCES,
             GatewayIntent.GUILD_MEMBERS))
-        //  Enable parts of the cache
-        .enableCache(CacheFlag.ACTIVITY)
-        //  Add event listeners
-        .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener(), new ReadyListener());
+        .enableCache(CacheFlag.ACTIVITY)    //  Required for activity caching
+        .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener(), new ReadyListener())
+        .setMemberCachePolicy(MemberCachePolicy.ALL);   //  Required for nickname caching
         //  Create JDA Instance
         JDA jda = jdaBotBuilder.build();
 
@@ -47,17 +47,17 @@ public class App {
 
         //  Bot Developer commands
         commands.addCommands(
-            Commands.slash("boo", "Check the amount of messages stored in cache"),
-            Commands.slash("poo", "Clear the messages stored in cache")
+            Commands.slash("boo", "Check the cache"),
+            Commands.slash("poo", "Clear the cache")
         ).queue();
 
         //  Mod commands
         commands.addCommands(
-            Commands.slash("kick", "Kick a user")
-                .addOption(OptionType.MENTIONABLE, "user", "The user to kick", true)
-                .addOption(OptionType.STRING, "reason", "Reason for kicking the user", true),
+            // Commands.slash("kick", "Kick a user")
+            //     .addOption(OptionType.MENTIONABLE, "user", "The user to kick", true)
+            //     .addOption(OptionType.STRING, "reason", "Reason for kicking the user", true),
             Commands.slash("history", "Get a user's history")
-                .addOption(OptionType.MENTIONABLE, "user", "User to get history from")
+                .addOption(OptionType.MENTIONABLE, "user", "User to get history from", true)
         ).queue();
    
     } 

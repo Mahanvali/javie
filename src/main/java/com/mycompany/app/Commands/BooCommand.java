@@ -30,12 +30,13 @@ public class BooCommand implements CommandImplementation {
         //  Get the number of messages cached
         String messageCacheSize = Integer.toString(GuildMessageListener.messageCache.size());
         String activityCacheSize = Integer.toString(GuildMemberListener.activityCache.size());
+        String nicknameCacheSize = Integer.toString(GuildMemberListener.nicknameCache.size());
         //  Create new embed
         EmbedBuilder embed = new EmbedBuilder();
 
         if(event.getUser().getId().equals(Global.botdeveloperUserId)){  //  If the user is the bot developer
             embed.addField("Memory Usage:", "`" + Long.toString(bytesToMegabytes(memory)) + "`" + " megabytes", false);
-            embed.addField("Cached:", "`" + messageCacheSize + "`" + " messages\n" + "`" + activityCacheSize + "`" + " activites", false);
+            embed.addField("Cached:", "`" + messageCacheSize + "`" + " messages\n" + "`" + activityCacheSize + "`" + " activites\n" + "`" + nicknameCacheSize + "`" + " nicknames"  , false);
             embed.setColor(Global.CUSTOMPURPLE);
             event.getHook().sendMessageEmbeds(embed.build()).queue();
         } else {
