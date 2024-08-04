@@ -2,6 +2,8 @@ package com.mycompany.app.Listeners;
 
 //  JAVA IMPORTS
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.mycompany.app.Global;
 
@@ -14,6 +16,7 @@ import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
+import net.dv8tion.jda.api.events.user.UserActivityStartEvent;
 import net.dv8tion.jda.api.events.user.update.UserUpdateActivitiesEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -126,6 +129,8 @@ public class GuildMemberListener extends ListenerAdapter {
         }
     }
 
+    public static final Map<String, String> activityCache = new HashMap<>();
+
     @Override
     public void onUserUpdateActivities(UserUpdateActivitiesEvent event) {
         //  A for loop, for going through all the activies. 
@@ -133,9 +138,17 @@ public class GuildMemberListener extends ListenerAdapter {
         for(Activity activity : event.getMember().getActivities()){
             //  If the activity updated is STREAMING and the userID is the streamer
             if(activity.getType() == Activity.ActivityType.STREAMING && event.getMember().getId().equals(Global.streamerUserId)){
-                System.out.println("STREAMING");
-            } else {
-                System.out.println("NOT STREAMING");
+                System.out.println("STREAMING" + activity.getName() + activity.getUrl());
+            }
+        }
+    }
+
+    @Override
+    public void onUserActivityStart(UserActivityStartEvent event){
+        for(Activity activity : event.getMember().getActivities()){
+            if(activity.getType().toString() != "CUSTOM_STATUS"){  //  CUSTOM_STATUS for some reason gets added everytime a activity is started, ended or updated. So we wanna exclude that from being put in the cache
+                activityCache.put(activity.getName(), event.getUser().getId());
+                System.out.println(activityCache + activity.getType().toString());
             }
         }
     }

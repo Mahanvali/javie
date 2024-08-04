@@ -36,8 +36,6 @@ public class App {
             GatewayIntent.MESSAGE_CONTENT,
             GatewayIntent.GUILD_PRESENCES,
             GatewayIntent.GUILD_MEMBERS))
-        // Disable parts of the cache
-        .disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE)
         //  Enable parts of the cache
         .enableCache(CacheFlag.ACTIVITY)
         //  Add event listeners
@@ -57,7 +55,9 @@ public class App {
         commands.addCommands(
             Commands.slash("kick", "Kick a user")
                 .addOption(OptionType.MENTIONABLE, "user", "The user to kick", true)
-                .addOption(OptionType.STRING, "reason", "Reason for kicking the user", true)
+                .addOption(OptionType.STRING, "reason", "Reason for kicking the user", true),
+            Commands.slash("history", "Get a user's history")
+                .addOption(OptionType.MENTIONABLE, "user", "User to get history from")
         ).queue();
    
     } 
