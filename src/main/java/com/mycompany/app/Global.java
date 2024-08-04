@@ -48,13 +48,6 @@ public class Global {
         channel.sendMessageEmbeds(embed.build()).queue();
     }
 
-    public static void SendSimpleDescriptionEmbed(String embedDescription, Color embedColor, TextChannel channel){
-        EmbedBuilder embed = new EmbedBuilder();
-        embed.setColor(embedColor);
-        embed.setDescription(embedDescription);
-        channel.sendMessageEmbeds(embed.build()).queue();
-    }
-
     public static void SendDeletedMessageEmbed(String embedTitle, String embedAuthor, String DeletedMessage, TextChannel channel){
         EmbedBuilder embed = new EmbedBuilder();
         embed.setTitle(embedTitle);
@@ -82,5 +75,15 @@ public class Global {
         embed.addField("Affected User:", AffectedUser, false);
         embed.addField("Responsible Mod:", ResponsibleMod, false);
         embed.addField("Reason:", Reason, false);
+    }
+
+    public static void BuildSimpleDescriptionEmbed(String embedDescription, Color embedColor, EmbedBuilder embed){
+        embed.setColor(embedColor);
+        embed.setDescription(embedDescription);
+    }
+
+    public static void BuildInvalidPermissionsEmbed(String PermissionRequired, Color embedColor, EmbedBuilder embed){
+        embed.setColor(embedColor);
+        embed.setDescription("Sorry! You can't run this command! Permissions Required: " + PermissionRequired);
     }
 }

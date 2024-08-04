@@ -28,15 +28,17 @@ public class BooCommand implements CommandImplementation {
         long memory = runtime.totalMemory() - runtime.freeMemory();
         //  Get the number of messages cached
         String messageCacheSize = Integer.toString(GuildMessageListener.messageCache.size());
+        //  Create new embed
+        EmbedBuilder embed = new EmbedBuilder();
 
         if(event.getUser().getId().equals(Global.botdeveloperUserId)){  //  If the user is the bot developer
-            EmbedBuilder botStatusEmbed = new EmbedBuilder();
-            botStatusEmbed.addField("Memory Usage:", "`" + Long.toString(bytesToMegabytes(memory)) + "`" + " megabytes", false);
-            botStatusEmbed.addField("Cached:", "`" + messageCacheSize + "`" + " messages", false);
-            botStatusEmbed.setColor(Global.CUSTOMPURPLE);
-            event.getHook().sendMessageEmbeds(botStatusEmbed.build()).queue();
+            embed.addField("Memory Usage:", "`" + Long.toString(bytesToMegabytes(memory)) + "`" + " megabytes", false);
+            embed.addField("Cached:", "`" + messageCacheSize + "`" + " messages", false);
+            embed.setColor(Global.CUSTOMPURPLE);
+            event.getHook().sendMessageEmbeds(embed.build()).queue();
         } else {
-            event.getHook().sendMessage("Sorry, you can't run this command! 🔴").queue();
+            Global.BuildInvalidPermissionsEmbed("BOT DEVELOPER", Global.CUSTOMRED, embed);
+            event.getHook().sendMessageEmbeds(embed.build()).queue();
         }
 
     }
