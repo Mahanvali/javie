@@ -1,4 +1,4 @@
-package com.mycompany.app.Commands.mod;
+package com.mycompany.app.Commands;
 
 import com.mycompany.app.CommandImplementation;
 import com.mycompany.app.Global;
@@ -30,7 +30,7 @@ public class HistoryCommand implements CommandImplementation {
         for (Map.Entry<String, ActivityData> entry : GuildMemberListener.activityCache.entrySet()) {
             if (entry.getValue().getUserId().equals(targetUserId)) {
                 String key = entry.getKey();    //  Get the activity name
-                foundActivityKeys.append("`" + key + "`" + " @ " + "`" + entry.getValue().getDate() + "`");  //  Add the keys to the StringBuilder
+                foundActivityKeys.append("```" + key + " @ " + entry.getValue().getDate() + "```");  //  Add the keys to the StringBuilder
                 foundActivityKeys.append("\n"); //  Add some formatting
             }
         }
@@ -39,7 +39,7 @@ public class HistoryCommand implements CommandImplementation {
         for (Map.Entry<String, NicknameData> entry : GuildMemberListener.nicknameCache.entrySet()){
             if(entry.getValue().getUserId().equals(targetUserId)){
                 String key = entry.getKey();    //  Get the activity name
-                foundNicknameKeys.append("`" + entry.getValue().getOldNickname() + "`" + " -> " + "`" + key + "`" + " @ " + "`" + entry.getValue().getDate() + "`");  //  Add the keys to the StringBuilder
+                foundNicknameKeys.append("```" + entry.getValue().getOldNickname() + " -> " + key + " @ " + entry.getValue().getDate() + "```");  //  Add the keys to the StringBuilder
                 foundNicknameKeys.append("\n"); //  Add some formatting
             }
         }

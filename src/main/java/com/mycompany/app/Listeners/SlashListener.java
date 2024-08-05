@@ -11,8 +11,8 @@ import java.util.Map;
 
 //  COMMAND IMPORTS
 import com.mycompany.app.Commands.BooCommand;
+import com.mycompany.app.Commands.HistoryCommand;
 import com.mycompany.app.Commands.PooCommand;
-import com.mycompany.app.Commands.mod.HistoryCommand;
 import com.mycompany.app.Commands.mod.KickCommand;
 import com.mycompany.app.CommandImplementation;
 

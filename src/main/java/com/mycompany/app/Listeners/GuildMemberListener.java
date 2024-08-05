@@ -191,7 +191,7 @@ public class GuildMemberListener extends ListenerAdapter {
         for(Activity activity : event.getMember().getActivities()){
             //  If the activity updated is STREAMING and the userID is the streamer
             if(activity.getType() == Activity.ActivityType.STREAMING && event.getMember().getId().equals(Global.streamerUserId)){
-                System.out.println("STREAMING" + activity.getName() + activity.getUrl());
+                System.out.println("STREAMING" + activity.asRichPresence().getDetails() + activity.getUrl());
             }
         }
     }
@@ -200,10 +200,11 @@ public class GuildMemberListener extends ListenerAdapter {
     public void onUserActivityStart(UserActivityStartEvent event){
         for(Activity activity : event.getMember().getActivities()){
             if(activity.getType().toString() != "CUSTOM_STATUS"){  //  CUSTOM_STATUS for some reason gets added everytime a activity is started, ended or updated. So we wanna exclude that from being put in the cache
-                String activityName = activity.getName();
+                String activityName = activity.asRichPresence().getName();
                 String UserID = event.getUser().getId();
                 String date = Global.formattedDate;
                 activityCache.put(activityName, new ActivityData(UserID, date));
+                System.out.println(activity.asRichPresence().getDetails());
             }
         }
     }
