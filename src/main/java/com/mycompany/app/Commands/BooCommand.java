@@ -6,9 +6,9 @@ import com.mycompany.app.Global;
 import com.mycompany.app.Listeners.GuildMemberListener;
 import com.mycompany.app.Listeners.GuildMessageListener;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 public class BooCommand implements CommandImplementation {
 
@@ -31,12 +31,13 @@ public class BooCommand implements CommandImplementation {
         String messageCacheSize = Integer.toString(GuildMessageListener.messageCache.size());
         String activityCacheSize = Integer.toString(GuildMemberListener.activityCache.size());
         String nicknameCacheSize = Integer.toString(GuildMemberListener.nicknameCache.size());
+        String spotifyCacheSize = Integer.toString(GuildMemberListener.spotifyCache.size());
         //  Create new embed
         EmbedBuilder embed = new EmbedBuilder();
 
         if(event.getUser().getId().equals(Global.botdeveloperUserId)){  //  If the user is the bot developer
             embed.addField("Memory Usage:", "`" + Long.toString(bytesToMegabytes(memory)) + "`" + " megabytes", false);
-            embed.addField("Cached:", "`" + messageCacheSize + "`" + " messages\n" + "`" + activityCacheSize + "`" + " activites\n" + "`" + nicknameCacheSize + "`" + " nicknames"  , false);
+            embed.addField("Cached:", "`" + messageCacheSize + "`" + " messages\n" + "`" + activityCacheSize + "`" + " activites\n" + "`" + nicknameCacheSize + "`" + " nicknames\n" + "`" + spotifyCacheSize + "`" + " spotify listens", false);
             embed.setColor(Global.CUSTOMPURPLE);
             event.getHook().sendMessageEmbeds(embed.build()).queue();
         } else {

@@ -11,14 +11,15 @@ import com.mycompany.app.Global;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.RichPresence;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.Activity.ActivityType;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
 import net.dv8tion.jda.api.events.guild.member.update.GuildMemberUpdateNicknameEvent;
 import net.dv8tion.jda.api.events.user.UserActivityStartEvent;
-import net.dv8tion.jda.api.events.user.update.UserUpdateActivitiesEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class GuildMemberListener extends ListenerAdapter {
@@ -183,18 +184,7 @@ public class GuildMemberListener extends ListenerAdapter {
     }
 
     public static final Map<String, ActivityData> activityCache = new HashMap<>();
-
-    @Override
-    public void onUserUpdateActivities(UserUpdateActivitiesEvent event) {
-        //  A for loop, for going through all the activies. 
-        //  Just like the role events
-        for(Activity activity : event.getMember().getActivities()){
-            //  If the activity updated is STREAMING and the userID is the streamer
-            if(activity.getType() == Activity.ActivityType.STREAMING && event.getMember().getId().equals(Global.streamerUserId)){
-                System.out.println("STREAMING" + activity.asRichPresence().getDetails() + activity.getUrl());
-            }
-        }
-    }
+    public static final Map<RichPresence, ActivityData> spotifyCache = new HashMap<>();
 
     @Override
     public void onUserActivityStart(UserActivityStartEvent event){
@@ -204,7 +194,21 @@ public class GuildMemberListener extends ListenerAdapter {
                 String UserID = event.getUser().getId();
                 String date = Global.formattedDate;
                 activityCache.put(activityName, new ActivityData(UserID, date));
-                System.out.println(activity.asRichPresence().getDetails());
+            }
+
+            if(activity.getType() == ActivityType.LISTENING){
+                RichPresence richPresence = activity.asRichPresence();
+                String UserID = event.getUser().getId();
+                String date = Global.formattedDate;
+                //  If I really want to store a lot more data, make the date (using seconds/minutes) the key so it'll never be the same
+                //  because if someone listens to the same song, it will overwrite
+                spotifyCache.put(richPresence, new ActivityData(UserID, date));
+                //  For log purposes
+                System.out.println(activity.asRichPresence().getDetails() + event.getUser().getName());
+            }
+
+            if(activity.getType() == ActivityType.STREAMING && event.getMember().getId().equals(Global.streamerUserId)){
+                System.out.println("STREAMING" + activity.asRichPresence().getDetails() + activity.getUrl());
             }
         }
     }

@@ -11,6 +11,7 @@ import java.util.Map;
 import java.time.format.*;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.RichPresence;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
@@ -22,8 +23,9 @@ public class HistoryCommand implements CommandImplementation {
         
         User targetUser = event.getOption("user").getAsUser();  //  Get the user
         String targetUserId = targetUser.getId();
-        StringBuilder foundActivityKeys = new StringBuilder(); // Initialize a StringBuilder
+        StringBuilder foundActivityKeys = new StringBuilder();  // Initialize a StringBuilder
         StringBuilder foundNicknameKeys = new StringBuilder();  // Initialize a StringBuilder
+        StringBuilder foundSpotifyKeys = new StringBuilder();   // Initialize a StringBuilder
         EmbedBuilder embed = new EmbedBuilder();
 
         // Iterate through the activity cache to find matching keys
@@ -35,7 +37,16 @@ public class HistoryCommand implements CommandImplementation {
             }
         }
 
-        // Iterate through the activity cache to find matching keys
+        // Iterate through the spotify cache to find matching keys
+        for (Map.Entry<RichPresence, ActivityData> entry : GuildMemberListener.spotifyCache.entrySet()) {
+            if (entry.getValue().getUserId().equals(targetUserId)) {
+                RichPresence key = entry.getKey();    //  Get the activity name
+                foundSpotifyKeys.append("```" + key.getDetails() + " @ " + entry.getValue().getDate() + "```");  //  Add the keys to the StringBuilder
+                foundSpotifyKeys.append("\n"); //  Add some formatting
+            }
+        }
+
+        // Iterate through the nickname cache to find matching keys
         for (Map.Entry<String, NicknameData> entry : GuildMemberListener.nicknameCache.entrySet()){
             if(entry.getValue().getUserId().equals(targetUserId)){
                 String key = entry.getKey();    //  Get the activity name
@@ -47,6 +58,7 @@ public class HistoryCommand implements CommandImplementation {
         embed.setTitle(targetUser.getName() + "'s History");
         embed.setColor(Global.CUSTOMPURPLE);
         embed.addField("Recent Activites:", foundActivityKeys.toString(), false);
+        embed.addField("Spotify Activities: ", foundSpotifyKeys.toString(), false);
         embed.addField("Recent Nicknames:", foundNicknameKeys.toString(), false);
         embed.addField("Joined Server At:", event.getOption("user").getAsMember().getTimeJoined().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), false);
         //  NicknameHistory
