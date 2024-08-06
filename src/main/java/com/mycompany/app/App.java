@@ -1,16 +1,5 @@
 package com.mycompany.app;
 
-//  TODO: WHEN THE STREAMER'S ACTIVITY IS "STREAMING", SEND A MESSAGE TO THAT STREAM
-// https://ci.dv8tion.net/job/JDA/javadoc/net/dv8tion/jda/api/entities/Activity.html
-/*
- *  STORE EVERY IMAGE SENT IN THE CACHE ASWELL (USING THE CDN LINK)
- */
-/*
-TODO: CACHE THE LAST SONG SOMEONE HAS LISTENTED TO, 
-DELETE THE OLD SONG CACHE WHEN THEY LISTEN TO A NEW SONG
-AND SHOW THE LAST SONG USING A COMMAND, TAKE INPUT THE USER
-*/
-
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -57,7 +46,8 @@ public class App {
             //     .addOption(OptionType.MENTIONABLE, "user", "The user to kick", true)
             //     .addOption(OptionType.STRING, "reason", "Reason for kicking the user", true),
             Commands.slash("history", "Get a user's history")
-                .addOption(OptionType.MENTIONABLE, "user", "User to get history from", true)
+                .addOption(OptionType.MENTIONABLE, "user", "User to get history from", true),
+            Commands.slash("showall", "secret ahh command")
         ).queue();
    
     } 

@@ -199,12 +199,19 @@ public class GuildMemberListener extends ListenerAdapter {
             if(activity.getType() == ActivityType.LISTENING){
                 RichPresence richPresence = activity.asRichPresence();
                 String UserID = event.getUser().getId();
+                String UserName = event.getUser().getName();
                 String date = Global.formattedDate;
-                //  If I really want to store a lot more data, make the date (using seconds/minutes) the key so it'll never be the same
+                String songName = richPresence.getDetails();
+                String songArtist = richPresence.getState();
+
+                //  TODO: If I really want to store a lot more data, make the date (using seconds/minutes) the key so it'll never be the same
+                //  OR STORE LIKE APPLICATION ID OR SOMETHING
                 //  because if someone listens to the same song, it will overwrite
+                //  If you do this, create formattedTime which contains minutes so incase of some weird thing where it spams every second, it only does it by minute if that makes sense
+
                 spotifyCache.put(richPresence, new ActivityData(UserID, date));
-                //  For log purposes
-                System.out.println(activity.asRichPresence().getDetails() + event.getUser().getName());
+                //  For logging purposes
+                System.out.println(songName + " " + UserName + " " + songArtist);
             }
 
             if(activity.getType() == ActivityType.STREAMING && event.getMember().getId().equals(Global.streamerUserId)){

@@ -10,10 +10,7 @@ import java.util.Map;
 
 
 //  COMMAND IMPORTS
-import com.mycompany.app.Commands.BooCommand;
-import com.mycompany.app.Commands.HistoryCommand;
-import com.mycompany.app.Commands.PooCommand;
-import com.mycompany.app.Commands.mod.KickCommand;
+import com.mycompany.app.Commands.*;
 import com.mycompany.app.CommandImplementation;
 
 public class SlashListener extends ListenerAdapter {
@@ -28,6 +25,7 @@ public class SlashListener extends ListenerAdapter {
         commands.put("poo", new PooCommand());
         // commands.put("kick", new KickCommand());
         commands.put("history", new HistoryCommand());
+        commands.put("showall", new ShowAllCommand());
     }
 
     //  Override the onSlashCommandInteraction method from ListenerAdapter

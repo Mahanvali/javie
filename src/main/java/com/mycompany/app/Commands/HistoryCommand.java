@@ -33,7 +33,7 @@ public class HistoryCommand implements CommandImplementation {
             if (entry.getValue().getUserId().equals(targetUserId)) {
                 String key = entry.getKey();    //  Get the activity name
                 foundActivityKeys.append("```" + key + " @ " + entry.getValue().getDate() + "```");  //  Add the keys to the StringBuilder
-                foundActivityKeys.append("\n"); //  Add some formatting
+                // foundActivityKeys.append("\n"); //  Add some formatting
             }
         }
 
@@ -41,8 +41,8 @@ public class HistoryCommand implements CommandImplementation {
         for (Map.Entry<RichPresence, ActivityData> entry : GuildMemberListener.spotifyCache.entrySet()) {
             if (entry.getValue().getUserId().equals(targetUserId)) {
                 RichPresence key = entry.getKey();    //  Get the activity name
-                foundSpotifyKeys.append("```" + key.getDetails() + " @ " + entry.getValue().getDate() + "```");  //  Add the keys to the StringBuilder
-                foundSpotifyKeys.append("\n"); //  Add some formatting
+                foundSpotifyKeys.append("```" + key.getDetails() + " by " + key.getState() + "@" + "```");  //  Add the keys to the StringBuilder
+                // foundSpotifyKeys.append("\n"); //  Add some formatting
             }
         }
 
@@ -51,14 +51,14 @@ public class HistoryCommand implements CommandImplementation {
             if(entry.getValue().getUserId().equals(targetUserId)){
                 String key = entry.getKey();    //  Get the activity name
                 foundNicknameKeys.append("```" + entry.getValue().getOldNickname() + " -> " + key + " @ " + entry.getValue().getDate() + "```");  //  Add the keys to the StringBuilder
-                foundNicknameKeys.append("\n"); //  Add some formatting
+                // foundNicknameKeys.append("\n"); //  Add some formatting
             }
         }
 
         embed.setTitle(targetUser.getName() + "'s History");
         embed.setColor(Global.CUSTOMPURPLE);
-        embed.addField("Recent Activites:", foundActivityKeys.toString(), false);
-        embed.addField("Spotify Activities: ", foundSpotifyKeys.toString(), false);
+        embed.addField("Recent Activity:", foundActivityKeys.toString(), false);
+        embed.addField("Recent Spotify Activity: ", foundSpotifyKeys.toString(), false);
         embed.addField("Recent Nicknames:", foundNicknameKeys.toString(), false);
         embed.addField("Joined Server At:", event.getOption("user").getAsMember().getTimeJoined().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), false);
         //  NicknameHistory
