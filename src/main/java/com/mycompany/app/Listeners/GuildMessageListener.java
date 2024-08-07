@@ -55,7 +55,7 @@ public class GuildMessageListener extends ListenerAdapter {
             if(logsChannel != null){
                 Global.SendDeletedMessageEmbed(
                     "Deleted Message Event",
-                    messageData.author.getName(),
+                    messageData.author.getAsMention(),
                     messageData.content,
                     logsChannel);
             }
@@ -75,7 +75,7 @@ public class GuildMessageListener extends ListenerAdapter {
             if(logsChannel != null){
                 Global.SendUpdatedMessageEmbed(
                 "Updated Message Event",
-                messageData.author.getName(),
+                messageData.author.getAsMention(),
                 messageData.content,
                 event.getMessage().getContentDisplay(),
                 logsChannel);

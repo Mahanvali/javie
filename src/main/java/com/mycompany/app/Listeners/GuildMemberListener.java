@@ -32,7 +32,7 @@ public class GuildMemberListener extends ListenerAdapter {
         event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
 
         TextChannel welcomeChannel = event.getJDA().getTextChannelById(Global.welcomeChannelId);
-        // TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+        TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
         EmbedBuilder embed = new EmbedBuilder();
 
         if(welcomeChannel != null){
@@ -41,18 +41,18 @@ public class GuildMemberListener extends ListenerAdapter {
                 "Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "!",
                 Global.CUSTOMPURPLE,
                 embed);
-            welcomeChannel.sendMessageEmbeds(embed.build());
+            welcomeChannel.sendMessageEmbeds(embed.build()).queue();
         }
 
-        // if(logsChannel != null){
+        if(logsChannel != null){
 
-        //     //  Send an embed in the logs channel
-        //     Global.SendMemberLogEmbed(
-        //         "Guild Member Join Event",
-        //         Global.CUSTOMGREEN,
-        //         event.getUser().getName(), 
-        //         logsChannel);
-        // }
+            //  Send an embed in the logs channel
+            Global.SendMemberLogEmbed(
+                "Guild Member Join Event",
+                Global.CUSTOMGREEN,
+                event.getUser().getAsMention(), 
+                logsChannel);
+        }
     }
 
     @Override
@@ -63,17 +63,17 @@ public class GuildMemberListener extends ListenerAdapter {
         event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
 
         //  Get TextChannel using the channel id
-        // TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+        TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
 
-        // if(logsChannel != null){
+        if(logsChannel != null){
 
-        //     //  Send an embed in the logs channel
-        //     Global.SendMemberLogEmbed(
-        //         "Guild Member Remove Event",
-        //         Global.CUSTOMRED,
-        //         event.getUser().getName(), 
-        //         logsChannel);
-        // }
+            //  Send an embed in the logs channel
+            Global.SendMemberLogEmbed(
+                "Guild Member Leave/Remove Event",
+                Global.CUSTOMRED,
+                event.getUser().getAsMention(), 
+                logsChannel);
+        }
     }
 
 
@@ -82,18 +82,18 @@ public class GuildMemberListener extends ListenerAdapter {
         List<Role> roles = event.getRoles();
         //  A for loop, for going through all the roles
         for(Role role : roles){
-            // TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+            TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
             TextChannel boosterChannel = event.getJDA().getTextChannelById(Global.boosterChannelId);
 
-            // if(logsChannel != null){
-            //     //  Send an embed in the logs channel
-            //     Global.SendRoleLogEmbed(
-            //         "Guild Member Role Add Event",
-            //         Global.CUSTOMGREEN,
-            //         event.getUser().getName(), 
-            //         role.getAsMention(),
-            //         logsChannel);
-            // }
+            if(logsChannel != null){
+                //  Send an embed in the logs channel
+                Global.SendRoleLogEmbed(
+                    "Guild Member Role Add Event",
+                    Global.CUSTOMGREEN,
+                    event.getUser().getAsMention(), 
+                    role.getAsMention(),
+                    logsChannel);
+            }
 
             if(role.getId().equals(Global.boosterRoleId)){
                 if(boosterChannel != null){
@@ -109,19 +109,19 @@ public class GuildMemberListener extends ListenerAdapter {
         //  A for loop, for going through all the roles
         for(Role role : roles){
 
-            // TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+            TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
             TextChannel boosterChannel = event.getJDA().getTextChannelById(Global.boosterChannelId);
 
            
-            // if(logsChannel != null){
-            //     //  Send an embed in the logs channel
-            //     Global.SendRoleLogEmbed(
-            //         "Guild Member Role Remove Event",
-            //         Global.CUSTOMRED,
-            //         event.getUser().getName(), 
-            //         role.getAsMention(),
-            //         logsChannel);
-            // }
+            if(logsChannel != null){
+                //  Send an embed in the logs channel
+                Global.SendRoleLogEmbed(
+                    "Guild Member Role Remove Event",
+                    Global.CUSTOMRED,
+                    event.getUser().getAsMention(), 
+                    role.getAsMention(),
+                    logsChannel);
+            }
 
             if(role.getId().equals(Global.boosterRoleId)){
                 if(boosterChannel != null){

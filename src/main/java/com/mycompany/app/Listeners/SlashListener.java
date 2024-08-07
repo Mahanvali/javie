@@ -1,5 +1,6 @@
 package com.mycompany.app.Listeners;
 
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -11,7 +12,9 @@ import java.util.Map;
 
 //  COMMAND IMPORTS
 import com.mycompany.app.Commands.*;
+import com.mycompany.app.Commands.mod.*;
 import com.mycompany.app.CommandImplementation;
+import com.mycompany.app.Global;
 
 public class SlashListener extends ListenerAdapter {
 
@@ -23,7 +26,11 @@ public class SlashListener extends ListenerAdapter {
         //  Store the commands in the hashmap
         commands.put("boo", new BooCommand());
         commands.put("poo", new PooCommand());
-        // commands.put("kick", new KickCommand());
+
+        commands.put("kick", new KickCommand());
+        commands.put("ban", new BanCommand());
+        commands.put("unban", new UnbanCommand());
+
         commands.put("history", new HistoryCommand());
         commands.put("showall", new ShowAllCommand());
     }
@@ -34,10 +41,14 @@ public class SlashListener extends ListenerAdapter {
 
         // Get the command from the hashmap using the event name
         CommandImplementation command = commands.get(event.getName());
-
+        TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
         //  If the command isn't null, execute the command.
         if (command != null) {
-            command.execute(event);
+            try{
+                command.execute(event);
+            }catch (Exception e){
+                logsChannel.sendMessage(event.getUser().getAsMention() + " An unexpected error occurred: \n ```" + e.getMessage() + "```").queue();
+            }
         }
     }
 }
