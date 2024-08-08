@@ -17,6 +17,7 @@ import java.util.EnumSet;
 
 import com.mycompany.app.Listeners.GuildMemberListener;
 import com.mycompany.app.Listeners.GuildMessageListener;
+import com.mycompany.app.Listeners.LevelSystem;
 import com.mycompany.app.Listeners.ReadyListener;
 import com.mycompany.app.Listeners.SlashListener;
 
@@ -34,7 +35,7 @@ public class App {
             GatewayIntent.GUILD_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MEMBERS))
         .enableCache(CacheFlag.ACTIVITY)    //  Required for activity caching
-        .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener(), new ReadyListener())
+        .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener(), new ReadyListener(), new LevelSystem())
         .setMemberCachePolicy(MemberCachePolicy.ALL);   //  Required for nickname caching
         //  Create JDA Instance
         JDA jda = jdaBotBuilder.build();

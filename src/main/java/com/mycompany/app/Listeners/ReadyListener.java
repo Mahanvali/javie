@@ -16,5 +16,7 @@ public class ReadyListener extends ListenerAdapter {
             .sum();
         //  Update the presence
         event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
+
+        LevelSystem.loadData();
     }
 }
