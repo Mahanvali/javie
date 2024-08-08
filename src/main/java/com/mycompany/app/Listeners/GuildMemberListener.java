@@ -84,6 +84,12 @@ public class GuildMemberListener extends ListenerAdapter {
         for(Role role : roles){
             TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
             TextChannel boosterChannel = event.getJDA().getTextChannelById(Global.boosterChannelId);
+            EmbedBuilder boostEmbed = new EmbedBuilder();
+
+            Global.BuildSimpleDescriptionEmbed(
+                event.getUser().getAsMention() + " Thank you for boosting!", 
+                Global.CUSTOMPURPLE, boostEmbed
+            );
 
             if(logsChannel != null){
                 //  Send an embed in the logs channel
@@ -97,7 +103,7 @@ public class GuildMemberListener extends ListenerAdapter {
 
             if(role.getId().equals(Global.boosterRoleId)){
                 if(boosterChannel != null){
-                    boosterChannel.sendMessage("INSERT BOOSTER MESSAGE HERE").queue();
+                    boosterChannel.sendMessageEmbeds(boostEmbed.build()).queue();
                 }
             }
         }
@@ -125,7 +131,7 @@ public class GuildMemberListener extends ListenerAdapter {
 
             if(role.getId().equals(Global.boosterRoleId)){
                 if(boosterChannel != null){
-                    boosterChannel.sendMessage("BOO! RIDICULE THIS MAN FOR NOT BOOSTING").queue();
+                    boosterChannel.sendMessage("BOO! RIDICULE THIS MAN FOR NO LONGER BOOSTING " + event.getUser().getAsMention()).queue();
                 }
             }
         }

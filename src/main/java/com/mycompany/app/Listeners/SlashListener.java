@@ -1,6 +1,6 @@
 package com.mycompany.app.Listeners;
 
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.EmbedBuilder;
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -30,6 +30,7 @@ public class SlashListener extends ListenerAdapter {
         commands.put("kick", new KickCommand());
         commands.put("ban", new BanCommand());
         commands.put("unban", new UnbanCommand());
+        commands.put("timeout", new TimeoutCommand());
 
         commands.put("history", new HistoryCommand());
         commands.put("showall", new ShowAllCommand());
@@ -41,13 +42,16 @@ public class SlashListener extends ListenerAdapter {
 
         // Get the command from the hashmap using the event name
         CommandImplementation command = commands.get(event.getName());
-        TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+        EmbedBuilder errorEmbed = new EmbedBuilder();
         //  If the command isn't null, execute the command.
         if (command != null) {
             try{
                 command.execute(event);
             }catch (Exception e){
-                logsChannel.sendMessage(event.getUser().getAsMention() + " An unexpected error occurred: \n ```" + e.getMessage() + "```").queue();
+                errorEmbed.setColor(Global.CUSTOMPURPLE);
+                errorEmbed.setTitle("An unexpected error occured");
+                errorEmbed.setDescription("```" + e.getMessage() + "```");
+                event.getChannel().sendMessageEmbeds(errorEmbed.build()).queue();
             }
         }
     }

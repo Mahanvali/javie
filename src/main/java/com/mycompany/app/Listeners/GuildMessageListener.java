@@ -2,10 +2,12 @@ package com.mycompany.app.Listeners;
 
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.MessageUpdateEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.MessageDeleteEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -84,6 +86,17 @@ public class GuildMessageListener extends ListenerAdapter {
             //  Update the message content in the cache
             messageData.content = event.getMessage().getContentDisplay();
 
+        }
+    }
+
+    @Override
+    public void onMessageReactionAdd(MessageReactionAddEvent event){
+        if(event.getMessageId().equals(Global.verificationMessageId)){
+            //  Get the verifcation role from the role id
+            Role verificationRole = event.getJDA().getRoleById(Global.verificationRoleId);
+
+            //  Give the role to the user
+            event.getGuild().addRoleToMember(event.getUser(), verificationRole).queue();
         }
     }
 }

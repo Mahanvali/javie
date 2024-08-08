@@ -13,11 +13,13 @@ public class Global {
     private static final LocalDateTime time = LocalDateTime.now();   //  Get the current date
     private static final DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");  //  Format the date
     //  CHANNELS
-    public static final String logsChannelId = "1113468093134557220";
-    public static final String welcomeChannelId = "1113468093134557219";
-    public static final String boosterChannelId = "1113468093134557219";
+    public static final String logsChannelId = "1270503164788998240";
+    public static final String welcomeChannelId = "1270503163258077244";
+    public static final String boosterChannelId = "1270503163258077244";
+    public static final String verificationMessageId = "1270514127810330715";
     //  ROLES
-    public static final String boosterRoleId = "1173142323597672478";
+    public static final String boosterRoleId = "1270511189620686850";
+    public static final String verificationRoleId = "1270503160250630267";
     //  USERS
     public static final String botdeveloperUserId = "764834445722386432";
     public static final String streamerUserId = "403268481338048514";

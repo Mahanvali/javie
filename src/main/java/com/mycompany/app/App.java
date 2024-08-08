@@ -20,6 +20,9 @@ import com.mycompany.app.Listeners.GuildMessageListener;
 import com.mycompany.app.Listeners.ReadyListener;
 import com.mycompany.app.Listeners.SlashListener;
 
+
+//  TODO: PREVENT SOMEONE WITH A LOWER ROLE HIEARCHY TO DO MOD COMMANDS TO SOMEONE WITH A HIGHER ROLE HIERACHY
+
 public class App {
     public static void main(String[] args) throws Exception {
         //Start the JDA bot builder, letting you provide the token externally
@@ -27,6 +30,8 @@ public class App {
             GatewayIntent.GUILD_MESSAGES,
             GatewayIntent.MESSAGE_CONTENT,
             GatewayIntent.GUILD_PRESENCES,
+            GatewayIntent.DIRECT_MESSAGE_REACTIONS,
+            GatewayIntent.GUILD_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MEMBERS))
         .enableCache(CacheFlag.ACTIVITY)    //  Required for activity caching
         .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener(), new ReadyListener())
@@ -48,20 +53,25 @@ public class App {
         //  Mod commands
         commands.addCommands(
             Commands.slash("kick", "Kick a user")
-                .addOption(OptionType.MENTIONABLE, "user", "The user to kick", true)
+                .addOption(OptionType.MENTIONABLE, "user", "User to kick", true)
                 .addOption(OptionType.STRING, "reason", "Reason for kicking the user", true)
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.KICK_MEMBERS)),
 
             Commands.slash("ban", "Ban a user")
-                .addOption(OptionType.MENTIONABLE, "user", "The user to ban.", true)
+                .addOption(OptionType.MENTIONABLE, "user", "User to ban.", true)
                 .addOption(OptionType.STRING, "reason", "Reason for banning the user.", true)
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)),
 
             Commands.slash("unban", "Unban a user")
-                .addOption(OptionType.MENTIONABLE, "user", "The user to unban.", true)
+                .addOption(OptionType.MENTIONABLE, "user", "User to unban.", true)
                 .addOption(OptionType.STRING, "reason", "Reason for unbanning the user.", true)
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS))
-            
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)),
+
+            Commands.slash("timeout", "Timeout a user for a duration")
+                .addOption(OptionType.USER, "user", "User to timeout", true)
+                .addOption(OptionType.STRING, "duration", "Amount of time to timeout the user (w,d,h,m,n)", true)
+                .addOption(OptionType.STRING, "reason", "Reason for timing out the user", true)
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS))
         ).queue();
    
     } 
