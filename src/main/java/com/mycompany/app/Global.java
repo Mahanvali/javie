@@ -16,10 +16,16 @@ public class Global {
     public static final String logsChannelId = "1270503164788998240";
     public static final String welcomeChannelId = "1270503163258077244";
     public static final String boosterChannelId = "1270503163258077244";
+    public static final String botCommandsChannelId = "1270503164289744940";
     public static final String verificationMessageId = "1270514127810330715";
     //  ROLES
     public static final String boosterRoleId = "1270511189620686850";
     public static final String verificationRoleId = "1270503160250630267";
+    public static final String level10RoleId = "1270503160225468542";
+    public static final String level20RoleId = "1270503160225468543";
+    public static final String level30RoleId = "1270503160225468544";
+    public static final String level40RoleId = "1270503160225468545";
+    public static final String level50RoleId = "1270503160225468546";
     //  USERS
     public static final String botdeveloperUserId = "764834445722386432";
     public static final String streamerUserId = "403268481338048514";
