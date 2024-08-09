@@ -9,7 +9,9 @@ import com.mycompany.app.Global;
 
 import java.io.*;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -24,6 +26,8 @@ public class LevelSystem extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         String userId = event.getAuthor().getId();
+        String userMention = event.getAuthor().getAsMention();
+        TextChannel botcommandsChannel = event.getJDA().getTextChannelById(Global.botCommandsChannelId);
         Role level10Role = event.getJDA().getRoleById(Global.level10RoleId);
         Role level20Role = event.getJDA().getRoleById(Global.level20RoleId);
         Role level30Role = event.getJDA().getRoleById(Global.level30RoleId);
@@ -32,6 +36,8 @@ public class LevelSystem extends ListenerAdapter {
         Role boosterRole = event.getJDA().getRoleById(Global.boosterRoleId);
         long messageCooldown = Global.messageCooldown;    //  3 seconds
         long currentTime = System.currentTimeMillis();  //  Get the current time in miliseconds
+        int previousLevel = getLevel(userId);   //  Get the previous level before the user has leveled up
+        EmbedBuilder levelupEmbed = new EmbedBuilder();
 
         if (!event.getAuthor().isBot() && !event.getChannel().getId().equals(Global.botCommandsChannelId)) {
             if (!levelMessageCooldown.containsKey(userId) || (currentTime - levelMessageCooldown.get(userId)) >= messageCooldown){
@@ -43,30 +49,38 @@ public class LevelSystem extends ListenerAdapter {
                 saveData();
                 // Update the last message timestamp for the user
                 levelMessageCooldown.put(userId, currentTime);
+                int currentLevel = getLevel(userId); //  Get the current level after the user has leveled up
+                if(currentLevel > previousLevel){
+                    Global.BuildSimpleDescriptionEmbed(
+                        userMention + " has reached level `" + currentLevel + "`!",
+                        Global.CUSTOMPURPLE, 
+                        levelupEmbed);
+                    botcommandsChannel.sendMessageEmbeds(levelupEmbed.build()).queue();
+                }
             }
         }
 
         //  ----------------------------------------------------------------------------------
-        if(getLevel(userId) == 10 && !event.getMember().getRoles().contains(level10Role)){
+        if(getLevel(userId) == 10 && getLevel(userId) < 20 && !event.getMember().getRoles().contains(level10Role)){
             event.getGuild().addRoleToMember(event.getMember(), level10Role);
         }
 
-        if(getLevel(userId) == 20 && !event.getMember().getRoles().contains(level20Role)){
+        if(getLevel(userId) == 20 && getLevel(userId) < 30 && !event.getMember().getRoles().contains(level20Role)){
             event.getGuild().addRoleToMember(event.getMember(), level20Role);
             event.getGuild().removeRoleFromMember(event.getMember(), level10Role);
         }
 
-        if(getLevel(userId) == 30 && !event.getMember().getRoles().contains(level30Role)){
+        if(getLevel(userId) == 30 && getLevel(userId) < 40 && !event.getMember().getRoles().contains(level30Role)){
             event.getGuild().addRoleToMember(event.getMember(), level30Role);
             event.getGuild().removeRoleFromMember(event.getMember(), level20Role);
         }
 
-        if(getLevel(userId) == 40 && !event.getMember().getRoles().contains(level40Role)){
+        if(getLevel(userId) == 40 && getLevel(userId) < 50 && !event.getMember().getRoles().contains(level40Role)){
             event.getGuild().addRoleToMember(event.getMember(), level40Role);
             event.getGuild().removeRoleFromMember(event.getMember(), level30Role);  
         }
 
-        if(getLevel(userId) == 50 && !event.getMember().getRoles().contains(level50Role)){
+        if(getLevel(userId) >= 50 && !event.getMember().getRoles().contains(level50Role)){
             event.getGuild().addRoleToMember(event.getMember(), level50Role);
             event.getGuild().removeRoleFromMember(event.getMember(), level40Role);  
         }
@@ -84,14 +98,8 @@ public class LevelSystem extends ListenerAdapter {
                 public void run() {
                     String userId = event.getMember().getId();
                     long currentTime = System.currentTimeMillis();  //  Get the current time in miliseconds
-
-                    Role level10Role = event.getJDA().getRoleById(Global.level10RoleId);
-                    Role level20Role = event.getJDA().getRoleById(Global.level20RoleId);
-                    Role level30Role = event.getJDA().getRoleById(Global.level30RoleId);
-                    Role level40Role = event.getJDA().getRoleById(Global.level40RoleId);
-                    Role level50Role = event.getJDA().getRoleById(Global.level50RoleId);
                     Role boosterRole = event.getJDA().getRoleById(Global.boosterRoleId);
-                    
+
                     if(!event.getVoiceState().isDeafened() || !event.getVoiceState().isMuted()){
                         if(event.getMember().getRoles().contains(boosterRole)){
                             levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.boosterXPGain);    //  Increment XP by 11 for each message (Increase for boosters)
@@ -102,33 +110,6 @@ public class LevelSystem extends ListenerAdapter {
                         // Update the last message timestamp for the user
                         levelMessageCooldown.put(userId, currentTime);
                     }
-
-
-                    //  ----------------------------------------------------------------------------------
-                    if(getLevel(userId) == 10 && !event.getMember().getRoles().contains(level10Role)){
-                        event.getGuild().addRoleToMember(event.getMember(), level10Role);
-                    }
-            
-                    if(getLevel(userId) == 20 && !event.getMember().getRoles().contains(level20Role)){
-                        event.getGuild().addRoleToMember(event.getMember(), level20Role);
-                        event.getGuild().removeRoleFromMember(event.getMember(), level10Role);
-                    }
-            
-                    if(getLevel(userId) == 30 && !event.getMember().getRoles().contains(level30Role)){
-                        event.getGuild().addRoleToMember(event.getMember(), level30Role);
-                        event.getGuild().removeRoleFromMember(event.getMember(), level20Role);
-                    }
-            
-                    if(getLevel(userId) == 40 && !event.getMember().getRoles().contains(level40Role)){
-                        event.getGuild().addRoleToMember(event.getMember(), level40Role);
-                        event.getGuild().removeRoleFromMember(event.getMember(), level30Role);  
-                    }
-            
-                    if(getLevel(userId) == 50 && !event.getMember().getRoles().contains(level50Role)){
-                        event.getGuild().addRoleToMember(event.getMember(), level50Role);
-                        event.getGuild().removeRoleFromMember(event.getMember(), level40Role);  
-                    }
-                    //  ----------------------------------------------------------------------------------
                 }
             };
             timer.scheduleAtFixedRate(task, 0, Global.voiceCooldown);
