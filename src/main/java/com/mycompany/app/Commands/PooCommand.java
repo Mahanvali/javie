@@ -21,21 +21,15 @@ public class PooCommand implements CommandImplementation {
         if(event.getUser().getId().equals(Global.botdeveloperUserId)){  //  If the user is the bot developer
 
             int messageCacheSize    =   GuildMessageListener.messageCache.size();
-            int activityCacheSize   =   GuildMemberListener.activityCache.size();
             int nicknameCacheSize   =   GuildMemberListener.nicknameCache.size();   
-            int spotifyCacheSize    =   GuildMemberListener.spotifyCache.size();
-            String totalCacheSize   =   Integer.toString(messageCacheSize + activityCacheSize + nicknameCacheSize + spotifyCacheSize);   
+            String totalCacheSize   =   Integer.toString(messageCacheSize + nicknameCacheSize);   
             
             event.getHook().sendMessage("Clearing `" + totalCacheSize + "` items stored in cache.. 🟠").queue();
             GuildMessageListener.messageCache.clear();  //  Clear messages
-            GuildMemberListener.activityCache.clear();  //  Clear activities
             GuildMemberListener.nicknameCache.clear();  //  Clear nicknames
-            GuildMemberListener.spotifyCache.clear();   //  Clear spotify listens
 
             if(GuildMessageListener.messageCache.size() == 0 &&
-            GuildMemberListener.activityCache.size() == 0 &&
-            GuildMemberListener.nicknameCache.size() == 0 &&
-            GuildMemberListener.spotifyCache.size() == 0){
+            GuildMemberListener.nicknameCache.size() == 0){
                 embed.setDescription("All of cache cleared! 🟢");
                 embed.setColor(Global.CUSTOMGREEN);
                 event.getHook().sendMessageEmbeds(embed.build()).queue();

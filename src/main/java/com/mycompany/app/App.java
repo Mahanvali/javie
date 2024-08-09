@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-
 //  JAVA IMPORTS
 import java.util.EnumSet;
 
@@ -33,8 +32,9 @@ public class App {
             GatewayIntent.GUILD_PRESENCES,
             GatewayIntent.DIRECT_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MESSAGE_REACTIONS,
+            GatewayIntent.GUILD_VOICE_STATES,
             GatewayIntent.GUILD_MEMBERS))
-        .enableCache(CacheFlag.ACTIVITY)    //  Required for activity caching
+        .enableCache(CacheFlag.ACTIVITY, CacheFlag.VOICE_STATE)    //  Required for activity caching
         .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener(), new ReadyListener(), new LevelSystem())
         .setMemberCachePolicy(MemberCachePolicy.ALL);   //  Required for nickname caching
         //  Create JDA Instance
@@ -47,24 +47,23 @@ public class App {
             Commands.slash("boo", "Check the cache"),
             Commands.slash("poo", "Clear the cache"),
             Commands.slash("history", "Get a user's history")
-                .addOption(OptionType.MENTIONABLE, "user", "User to get history from", true),
-            Commands.slash("showall", "secret ahh command")
+                .addOption(OptionType.MENTIONABLE, "user", "User to get history from", true)
         ).queue();
 
         //  Mod commands
         commands.addCommands(
             Commands.slash("kick", "Kick a user")
-                .addOption(OptionType.MENTIONABLE, "user", "User to kick", true)
+                .addOption(OptionType.USER, "user", "User to kick", true)
                 .addOption(OptionType.STRING, "reason", "Reason for kicking the user", true)
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.KICK_MEMBERS)),
 
             Commands.slash("ban", "Ban a user")
-                .addOption(OptionType.MENTIONABLE, "user", "User to ban.", true)
+                .addOption(OptionType.USER, "user", "User to ban.", true)
                 .addOption(OptionType.STRING, "reason", "Reason for banning the user.", true)
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)),
 
             Commands.slash("unban", "Unban a user")
-                .addOption(OptionType.MENTIONABLE, "user", "User to unban.", true)
+                .addOption(OptionType.USER, "user", "User to unban.", true)
                 .addOption(OptionType.STRING, "reason", "Reason for unbanning the user.", true)
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)),
 

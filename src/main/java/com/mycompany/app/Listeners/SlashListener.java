@@ -33,7 +33,6 @@ public class SlashListener extends ListenerAdapter {
         commands.put("timeout", new TimeoutCommand());
 
         commands.put("history", new HistoryCommand());
-        commands.put("showall", new ShowAllCommand());
     }
 
     //  Override the onSlashCommandInteraction method from ListenerAdapter

@@ -11,7 +11,6 @@ import com.mycompany.app.Global;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.RichPresence;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.Activity.ActivityType;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
@@ -170,56 +169,10 @@ public class GuildMemberListener extends ListenerAdapter {
         String newNickname = event.getNewNickname();
         nicknameCache.put(newNickname, new NicknameData(userID, date, oldNickname));
     }
-
-    public static class ActivityData {
-        String userid;
-        String date;
-
-        public ActivityData(String userid, String date) {
-            this.userid = userid;
-            this.date = date;
-        }
-
-        //  Public getters
-        public String getUserId(){
-            return userid;
-        }
-        public String getDate(){
-            return date;
-        }
-    }
-
-    public static final Map<String, ActivityData> activityCache = new HashMap<>();
-    public static final Map<RichPresence, ActivityData> spotifyCache = new HashMap<>();
-
+    
     @Override
     public void onUserActivityStart(UserActivityStartEvent event){
         for(Activity activity : event.getMember().getActivities()){
-            if(activity.getType().toString() != "CUSTOM_STATUS"){  //  CUSTOM_STATUS for some reason gets added everytime a activity is started, ended or updated. So we wanna exclude that from being put in the cache
-                String activityName = activity.asRichPresence().getName();
-                String UserID = event.getUser().getId();
-                String date = Global.formattedDate;
-                activityCache.put(activityName, new ActivityData(UserID, date));
-            }
-
-            if(activity.getType() == ActivityType.LISTENING){
-                RichPresence richPresence = activity.asRichPresence();
-                String UserID = event.getUser().getId();
-                String UserName = event.getUser().getName();
-                String date = Global.formattedDate;
-                String songName = richPresence.getDetails();
-                String songArtist = richPresence.getState();
-
-                //  TODO: If I really want to store a lot more data, make the date (using seconds/minutes) the key so it'll never be the same
-                //  OR STORE LIKE APPLICATION ID OR SOMETHING
-                //  because if someone listens to the same song, it will overwrite
-                //  If you do this, create formattedTime which contains minutes so incase of some weird thing where it spams every second, it only does it by minute if that makes sense
-
-                spotifyCache.put(richPresence, new ActivityData(UserID, date));
-                //  For logging purposes
-                System.out.println(songName + " " + UserName + " " + songArtist);
-            }
-
             if(activity.getType() == ActivityType.STREAMING && event.getMember().getId().equals(Global.streamerUserId)){
                 System.out.println("STREAMING" + activity.asRichPresence().getDetails() + activity.getUrl());
             }
