@@ -40,23 +40,26 @@ public class LevelSystem extends ListenerAdapter {
         int previousLevel = getLevel(userId);   //  Get the previous level before the user has leveled up
         EmbedBuilder levelupEmbed = new EmbedBuilder();
 
-        if (!event.getAuthor().isBot() && !event.getChannel().getId().equals(Global.botCommandsChannelId)) {
-            if (!levelMessageCooldown.containsKey(userId) || (currentTime - levelMessageCooldown.get(userId)) >= messageCooldown){
-                if(event.getMember().getRoles().contains(boosterRole)){
-                    levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.boosterXPGain);    //  Increment XP by 11 for each message (Increase for boosters)
-                } else {
-                    levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.basicXPGain);    //  Increment XP by 10 for each message
-                }
-                saveData();
-                // Update the last message timestamp for the user
-                levelMessageCooldown.put(userId, currentTime);
-                int currentLevel = getLevel(userId); //  Get the current level after the user has leveled up
-                if(currentLevel > previousLevel){
-                    Global.BuildSimpleDescriptionEmbed(
-                        "You are going up in the leagues, reached level `" + currentLevel + "`!",
-                        Global.CUSTOMPURPLE, 
-                        levelupEmbed);
-                    botcommandsChannel.sendMessage(userMention).addEmbeds(levelupEmbed.build()).queue();
+        if (!event.getAuthor().isBot()) {
+            String channelId = event.getChannel().getId();
+            if(!Global.noLevelChannels.contains(channelId)){
+                if (!levelMessageCooldown.containsKey(userId) || (currentTime - levelMessageCooldown.get(userId)) >= messageCooldown){
+                    if(event.getMember().getRoles().contains(boosterRole)){
+                        levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.boosterXPGain);    //  Increment XP by 11 for each message (Increase for boosters)
+                    } else {
+                        levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.basicXPGain);    //  Increment XP by 10 for each message
+                    }
+                    saveData();
+                    // Update the last message timestamp for the user
+                    levelMessageCooldown.put(userId, currentTime);
+                    int currentLevel = getLevel(userId); //  Get the current level after the user has leveled up
+                    if(currentLevel > previousLevel){
+                        Global.BuildSimpleDescriptionEmbed(
+                            "You are going up in the leagues, reached level `" + currentLevel + "`!",
+                            Global.CUSTOMPURPLE, 
+                            levelupEmbed);
+                        botcommandsChannel.sendMessage(userMention).addEmbeds(levelupEmbed.build()).queue();
+                    }
                 }
             }
         }

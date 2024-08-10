@@ -3,7 +3,8 @@ package com.mycompany.app;
 import java.awt.Color;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import java.util.Arrays;
+import java.util.List;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -19,6 +20,7 @@ public class Global {
     public static final String botCommandsChannelId = "1270503164289744940";
     public static final String staffCommandsChannelId = "1270503164788998239";
     public static final String verificationMessageId = "1270514127810330715";
+    public static final List<String> noLevelChannels = Arrays.asList("1270503164289744940", "1270503164788998239", "1270503163799015440", "1270503163799015440");
     //  ROLES
     public static final String boosterRoleId = "1270511189620686850";
     public static final String verificationRoleId = "1270503160250630267";
