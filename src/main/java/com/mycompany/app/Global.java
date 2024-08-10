@@ -16,11 +16,13 @@ public class Global {
     public static final String logsChannelId = "1270503164788998240";
     public static final String welcomeChannelId = "1270503163258077244";
     public static final String boosterChannelId = "1270503163258077244";
-    public static final String botCommandsChannelId = "1270503164289744940";
+    public static final String botCommandsChannelId = "1113468093134557219";
+    public static final String staffCommandsChannelId = "1113468093134557221";
     public static final String verificationMessageId = "1270514127810330715";
     //  ROLES
     public static final String boosterRoleId = "1270511189620686850";
     public static final String verificationRoleId = "1270503160250630267";
+    public static final String level1RoleId = "1270503160225468541";
     public static final String level10RoleId = "1270503160225468542";
     public static final String level20RoleId = "1270503160225468543";
     public static final String level30RoleId = "1270503160225468544";
@@ -32,8 +34,8 @@ public class Global {
     //  MISC.
     public static final String formattedDate = time.format(dateformat);
     public static int memberCount = 0;
-    public static int boosterXPGain = 6;
     public static int basicXPGain = 5;
+    public static int boosterXPGain = basicXPGain + 1;
     public static long messageCooldown = 3000;
     public static long voiceCooldown = 1800000;
     public static final Color CUSTOMRED = new Color(168, 52, 50);

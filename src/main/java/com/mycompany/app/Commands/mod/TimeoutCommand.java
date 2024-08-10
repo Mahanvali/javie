@@ -73,13 +73,13 @@ public class TimeoutCommand implements CommandImplementation {
             durationString = "28d"; //  Change durationString for logging purposes
         }
 
-        Global.BuildLogModEmbed("User Timeout Event", userMention, moderator, reason, LogEmbed);
+        Global.BuildLogModEmbed("<:yukariOHOHO:1270512933595643935> User Timeout Event", userMention, moderator, reason, LogEmbed);
         LogEmbed.addField("Duration:", durationString, false);
 
         //  Attempt to ban the user
         event.getGuild().timeoutFor(targetUser, timeoutDuration).reason(reason).queue(
             (unused) -> {
-                baseEmbed.setDescription("Successfully timed out: " + userMention);
+                baseEmbed.setDescription("<:yukariBONK:1270513141771407563> Successfully timed out: " + userMention);
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
 

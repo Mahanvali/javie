@@ -23,7 +23,7 @@ public class UnbanCommand implements CommandImplementation {
 
         EmbedBuilder baseEmbed = new EmbedBuilder();
         EmbedBuilder LogEmbed = new EmbedBuilder();
-        Global.BuildLogModEmbed("User Unban Event", userMention, moderator, reason, LogEmbed);
+        Global.BuildLogModEmbed("<:yukariOHOHO:1270512933595643935> User Unban Event", userMention, moderator, reason, LogEmbed);
 
         // Check if the user is in the ban list
         event.getGuild().retrieveBanList().queue(bans -> {
@@ -33,7 +33,7 @@ public class UnbanCommand implements CommandImplementation {
                 // Attempt to unban the user
                 event.getGuild().unban(targetUser).queue(
                     (unused) -> {
-                        baseEmbed.setDescription("Successfully unbanned: " + userMention);
+                        baseEmbed.setDescription("<:yukariRAVE:1270512974465073164> Successfully unbanned: " + userMention);
                         baseEmbed.setColor(Global.CUSTOMPURPLE);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                         logsChannel.sendMessageEmbeds(LogEmbed.build()).queue();

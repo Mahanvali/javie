@@ -12,6 +12,7 @@ import java.util.Map;
 
 //  COMMAND IMPORTS
 import com.mycompany.app.Commands.*;
+import com.mycompany.app.Commands.level.*;
 import com.mycompany.app.Commands.mod.*;
 import com.mycompany.app.CommandImplementation;
 import com.mycompany.app.Global;
@@ -32,7 +33,10 @@ public class SlashListener extends ListenerAdapter {
         commands.put("unban", new UnbanCommand());
         commands.put("timeout", new TimeoutCommand());
 
-        commands.put("history", new HistoryCommand());
+        commands.put("userinfo", new UserInfoCommand());
+        commands.put("leaderboard", new LeaderboardCommand());
+        commands.put("set", new SetCommand());
+        commands.put("currentconfigs", new CurrentConfigCommand());
     }
 
     //  Override the onSlashCommandInteraction method from ListenerAdapter
@@ -44,13 +48,17 @@ public class SlashListener extends ListenerAdapter {
         EmbedBuilder errorEmbed = new EmbedBuilder();
         //  If the command isn't null, execute the command.
         if (command != null) {
-            try{
-                command.execute(event);
-            }catch (Exception e){
-                errorEmbed.setColor(Global.CUSTOMPURPLE);
-                errorEmbed.setTitle("An unexpected error occured");
-                errorEmbed.setDescription("```" + e.getMessage() + "```");
-                event.getChannel().sendMessageEmbeds(errorEmbed.build()).queue();
+            if(event.getChannelId().equals(Global.botCommandsChannelId) || event.getChannelId().equals(Global.staffCommandsChannelId)){
+                try{
+                    command.execute(event);
+                }catch (Exception e){
+                    errorEmbed.setColor(Global.CUSTOMPURPLE);
+                    errorEmbed.setTitle("An unexpected error occured <:yukariCRY:1270513072762650728> ");
+                    errorEmbed.setDescription("```" + e.getMessage() + "```");
+                    event.getChannel().sendMessageEmbeds(errorEmbed.build()).queue();
+                }
+            } else {
+                event.getChannel().sendMessage("Can't execute commands here!");
             }
         }
     }

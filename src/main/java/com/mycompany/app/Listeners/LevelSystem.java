@@ -28,6 +28,7 @@ public class LevelSystem extends ListenerAdapter {
         String userId = event.getAuthor().getId();
         String userMention = event.getAuthor().getAsMention();
         TextChannel botcommandsChannel = event.getJDA().getTextChannelById(Global.botCommandsChannelId);
+        Role level1Role = event.getJDA().getRoleById(Global.level1RoleId);
         Role level10Role = event.getJDA().getRoleById(Global.level10RoleId);
         Role level20Role = event.getJDA().getRoleById(Global.level20RoleId);
         Role level30Role = event.getJDA().getRoleById(Global.level30RoleId);
@@ -52,17 +53,21 @@ public class LevelSystem extends ListenerAdapter {
                 int currentLevel = getLevel(userId); //  Get the current level after the user has leveled up
                 if(currentLevel > previousLevel){
                     Global.BuildSimpleDescriptionEmbed(
-                        userMention + " has reached level `" + currentLevel + "`!",
+                        "You are going up in the leagues, reached level `" + currentLevel + "`!",
                         Global.CUSTOMPURPLE, 
                         levelupEmbed);
-                    botcommandsChannel.sendMessageEmbeds(levelupEmbed.build()).queue();
+                    botcommandsChannel.sendMessage(userMention).addEmbeds(levelupEmbed.build()).queue();
                 }
             }
         }
 
         //  ----------------------------------------------------------------------------------
+        if(getLevel(userId) == 1 && getLevel(userId) < 10 && !event.getMember().getRoles().contains(level1Role)){
+            event.getGuild().addRoleToMember(event.getMember(), level1Role);
+        }
         if(getLevel(userId) == 10 && getLevel(userId) < 20 && !event.getMember().getRoles().contains(level10Role)){
             event.getGuild().addRoleToMember(event.getMember(), level10Role);
+            event.getGuild().removeRoleFromMember(event.getMember(), level1Role);
         }
 
         if(getLevel(userId) == 20 && getLevel(userId) < 30 && !event.getMember().getRoles().contains(level20Role)){

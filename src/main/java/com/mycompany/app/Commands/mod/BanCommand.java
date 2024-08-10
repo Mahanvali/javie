@@ -25,7 +25,7 @@ public class BanCommand implements CommandImplementation {
 
         EmbedBuilder baseEmbed = new EmbedBuilder();
         EmbedBuilder LogEmbed = new EmbedBuilder();
-        Global.BuildLogModEmbed("User Ban Event", userMention, moderator, reason, LogEmbed);
+        Global.BuildLogModEmbed("<:yukariOHOHO:1270512933595643935> User Ban Event", userMention, moderator, reason, LogEmbed);
 
         // Don't allow the user to ban the bot
         if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
@@ -46,7 +46,7 @@ public class BanCommand implements CommandImplementation {
         //  Attempt to ban the user
         event.getGuild().ban(targetUser, 7, TimeUnit.DAYS).reason(reason).queue(
             (unused) -> {
-                baseEmbed.setDescription("Successfully banned: " + userMention);
+                baseEmbed.setDescription("<:yukariBONK:1270513141771407563> Successfully banned: " + userMention);
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
 

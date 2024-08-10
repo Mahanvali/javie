@@ -39,7 +39,7 @@ public class BooCommand implements CommandImplementation {
             embed.setColor(Global.CUSTOMPURPLE);
             event.getHook().sendMessageEmbeds(embed.build()).queue();
         } else {
-            Global.BuildInvalidPermissionsEmbed("BOT DEVELOPER", Global.CUSTOMRED, embed);
+            Global.BuildInvalidPermissionsEmbed("BOT DEVELOPER <:yukariPOLICE:1270513511113424976>", Global.CUSTOMRED, embed);
             event.getHook().sendMessageEmbeds(embed.build()).queue();
         }
 

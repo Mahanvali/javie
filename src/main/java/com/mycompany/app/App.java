@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
@@ -22,6 +23,7 @@ import com.mycompany.app.Listeners.SlashListener;
 
 
 //  TODO: PREVENT SOMEONE WITH A LOWER ROLE HIEARCHY TO DO MOD COMMANDS TO SOMEONE WITH A HIGHER ROLE HIERACHY
+//  TODO: CREATE A BACKUP OF levelData every 12 hours
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -45,9 +47,7 @@ public class App {
         //  Bot Developer commands
         commands.addCommands(
             Commands.slash("boo", "Check the cache"),
-            Commands.slash("poo", "Clear the cache"),
-            Commands.slash("history", "Get a user's history")
-                .addOption(OptionType.MENTIONABLE, "user", "User to get history from", true)
+            Commands.slash("poo", "Clear the cache")
         ).queue();
 
         //  Mod commands
@@ -72,6 +72,22 @@ public class App {
                 .addOption(OptionType.STRING, "duration", "Amount of time to timeout the user (w,d,h,m,n)", true)
                 .addOption(OptionType.STRING, "reason", "Reason for timing out the user", true)
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS))
+        ).queue();
+
+        //  Level Commands  /   Misc Commands
+        commands.addCommands(
+            Commands.slash("leaderboard", "Check the level leaderboards"),
+            Commands.slash("userinfo", "Get a user's info")
+                .addOption(OptionType.USER, "user", "User to get info from", true),
+            Commands.slash("set", "Set various configurations")
+                .addSubcommands(
+                    new SubcommandData("xpgain", "Change the amount of xp gain per message")
+                        .addOption(OptionType.INTEGER, "amount", "Amount of xp to gain per message (Default: 5)", true),
+                    new SubcommandData("cooldown", "Change the cooldown per message sent for gaining xp")
+                        .addOption(OptionType.STRING, "message", "Message cooldown (Default: 3s)")
+                        .addOption(OptionType.STRING, "voice", "Voice channel cooldown (Default: 30m)"))
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE)),
+                Commands.slash("currentconfigs", "Check the server's current configurations")
         ).queue();
    
     } 

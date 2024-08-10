@@ -22,7 +22,7 @@ public class KickCommand implements CommandImplementation {
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
         EmbedBuilder baseEmbed = new EmbedBuilder();
         EmbedBuilder LogEmbed = new EmbedBuilder();
-        Global.BuildLogModEmbed("User Kicked Event", userMention, moderator, reason, LogEmbed);
+        Global.BuildLogModEmbed("<:yukariOHOHO:1270512933595643935> User Kicked Event", userMention, moderator, reason, LogEmbed);
 
         // Don't allow the user to ban the bot
         if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
@@ -43,7 +43,7 @@ public class KickCommand implements CommandImplementation {
         // Attempt to kick the user
         event.getGuild().kick(targetUser).queue(
             (unused) -> {
-                baseEmbed.setDescription("Successfully kicked: " + userMention);
+                baseEmbed.setDescription("<:yukariBONK:1270513141771407563> Successfully kicked: " + userMention);
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 logsChannel.sendMessageEmbeds(LogEmbed.build()).queue();

@@ -37,7 +37,7 @@ public class GuildMemberListener extends ListenerAdapter {
         if(welcomeChannel != null){
             //  Send a message in the welcome channel
             Global.BuildSimpleDescriptionEmbed(
-                "Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "!",
+                "Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "! <:yukariWAVE:1270512883834294292>",
                 Global.CUSTOMPURPLE,
                 embed);
             welcomeChannel.sendMessageEmbeds(embed.build()).queue();
@@ -47,7 +47,7 @@ public class GuildMemberListener extends ListenerAdapter {
 
             //  Send an embed in the logs channel
             Global.SendMemberLogEmbed(
-                "Guild Member Join Event",
+                "<:yukariW:1270513525239976096> Guild Member Join Event",
                 Global.CUSTOMGREEN,
                 event.getUser().getAsMention(), 
                 logsChannel);
@@ -68,7 +68,7 @@ public class GuildMemberListener extends ListenerAdapter {
 
             //  Send an embed in the logs channel
             Global.SendMemberLogEmbed(
-                "Guild Member Leave/Remove Event",
+                "<:yukariL:1270513429949579336> Guild Member Leave/Remove Event",
                 Global.CUSTOMRED,
                 event.getUser().getAsMention(), 
                 logsChannel);
@@ -86,14 +86,14 @@ public class GuildMemberListener extends ListenerAdapter {
             EmbedBuilder boostEmbed = new EmbedBuilder();
 
             Global.BuildSimpleDescriptionEmbed(
-                event.getUser().getAsMention() + " Thank you for boosting!", 
+                event.getUser().getAsMention() + " Thank you for boosting! <:yukariBASED:1270513258645819433> ", 
                 Global.CUSTOMPURPLE, boostEmbed
             );
 
             if(logsChannel != null){
                 //  Send an embed in the logs channel
                 Global.SendRoleLogEmbed(
-                    "Guild Member Role Add Event",
+                    "<:yukariLURK:1270512990718005410> Guild Member Role Add Event",
                     Global.CUSTOMGREEN,
                     event.getUser().getAsMention(), 
                     role.getAsMention(),
@@ -121,7 +121,7 @@ public class GuildMemberListener extends ListenerAdapter {
             if(logsChannel != null){
                 //  Send an embed in the logs channel
                 Global.SendRoleLogEmbed(
-                    "Guild Member Role Remove Event",
+                    "<:yukariLURK:1270512990718005410> Guild Member Role Remove Event",
                     Global.CUSTOMRED,
                     event.getUser().getAsMention(), 
                     role.getAsMention(),
@@ -130,7 +130,7 @@ public class GuildMemberListener extends ListenerAdapter {
 
             if(role.getId().equals(Global.boosterRoleId)){
                 if(boosterChannel != null){
-                    boosterChannel.sendMessage("BOO! RIDICULE THIS MAN FOR NO LONGER BOOSTING " + event.getUser().getAsMention()).queue();
+                    boosterChannel.sendMessage("BOO! RIDICULE THIS PERSON FOR NO LONGER BOOSTING " + event.getUser().getAsMention()).queue();
                 }
             }
         }
