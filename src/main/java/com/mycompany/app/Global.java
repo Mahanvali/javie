@@ -16,8 +16,8 @@ public class Global {
     public static final String logsChannelId = "1270503164788998240";
     public static final String welcomeChannelId = "1270503163258077244";
     public static final String boosterChannelId = "1270503163258077244";
-    public static final String botCommandsChannelId = "1113468093134557219";
-    public static final String staffCommandsChannelId = "1113468093134557221";
+    public static final String botCommandsChannelId = "1270503164289744940";
+    public static final String staffCommandsChannelId = "1270503164788998239";
     public static final String verificationMessageId = "1270514127810330715";
     //  ROLES
     public static final String boosterRoleId = "1270511189620686850";
