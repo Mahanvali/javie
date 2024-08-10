@@ -33,7 +33,7 @@ public class SlashListener extends ListenerAdapter {
         commands.put("unban", new UnbanCommand());
         commands.put("timeout", new TimeoutCommand());
 
-        commands.put("userinfo", new UserInfoCommand());
+        commands.put("level", new LevelCommand());
         commands.put("leaderboard", new LeaderboardCommand());
         commands.put("set", new SetCommand());
         commands.put("currentconfigs", new CurrentConfigCommand());
@@ -53,7 +53,7 @@ public class SlashListener extends ListenerAdapter {
                     command.execute(event);
                 }catch (Exception e){
                     errorEmbed.setColor(Global.CUSTOMPURPLE);
-                    errorEmbed.setTitle("An unexpected error occured <:yukariCRY:1270513072762650728> ");
+                    errorEmbed.setTitle("An unexpected error occured");
                     errorEmbed.setDescription("```" + e.getMessage() + "```");
                     event.getChannel().sendMessageEmbeds(errorEmbed.build()).queue();
                 }

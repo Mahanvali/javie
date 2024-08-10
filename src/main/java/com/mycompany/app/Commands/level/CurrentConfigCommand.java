@@ -13,7 +13,7 @@ public class CurrentConfigCommand implements CommandImplementation {
         EmbedBuilder currentsettingsEmbed = new EmbedBuilder();
         long voiceCooldown = (Global.voiceCooldown / 1000) / 60;
         long messageCooldown = (Global.messageCooldown / 1000);
-        currentsettingsEmbed.setTitle(event.getGuild().getName() + "'s Configurations <:yukariBORGOR:1270513243500052614>");
+        currentsettingsEmbed.setTitle(event.getGuild().getName() + "'s Configurations");
         currentsettingsEmbed.setColor(Global.CUSTOMPURPLE);
         currentsettingsEmbed.addField("XP Gains Per Message", 
             "Default Users: " + "`" + Global.basicXPGain + "xp`\n" + 

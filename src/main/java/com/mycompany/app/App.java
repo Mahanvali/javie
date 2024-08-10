@@ -77,17 +77,18 @@ public class App {
         //  Level Commands  /   Misc Commands
         commands.addCommands(
             Commands.slash("leaderboard", "Check the level leaderboards"),
-            Commands.slash("userinfo", "Get a user's info")
-                .addOption(OptionType.USER, "user", "User to get info from", true),
+            Commands.slash("level", "Get a user's level")
+                .addOption(OptionType.USER, "user", "User to get level from", true),
             Commands.slash("set", "Set various configurations")
                 .addSubcommands(
                     new SubcommandData("xpgain", "Change the amount of xp gain per message")
                         .addOption(OptionType.INTEGER, "amount", "Amount of xp to gain per message (Default: 5)", true),
                     new SubcommandData("cooldown", "Change the cooldown per message sent for gaining xp")
-                        .addOption(OptionType.STRING, "message", "Message cooldown (Default: 3s)")
-                        .addOption(OptionType.STRING, "voice", "Voice channel cooldown (Default: 30m)"))
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE)),
+                        .addOption(OptionType.STRING, "message", "Message cooldown (Default: 3s) PICK ONLY 1")
+                        .addOption(OptionType.STRING, "voice", "Voice channel cooldown (Default: 30m) PICK ONLY 1"))
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)),
                 Commands.slash("currentconfigs", "Check the server's current configurations")
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS))
         ).queue();
    
     } 

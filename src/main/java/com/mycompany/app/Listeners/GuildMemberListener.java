@@ -40,14 +40,14 @@ public class GuildMemberListener extends ListenerAdapter {
             //     "Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "! <:yukariWAVE:1270512883834294292>",
             //     Global.CUSTOMPURPLE,
             //     embed);
-            welcomeChannel.sendMessage( "Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "! <:yukariWAVE:1270512883834294292>").queue();
+            welcomeChannel.sendMessage("Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "! <:yukariWAVE:1270512883834294292>").queue();
         }
 
         if(logsChannel != null){
 
             //  Send an embed in the logs channel
             Global.SendMemberLogEmbed(
-                "<:yukariW:1270513525239976096> Guild Member Join Event",
+                "Guild Member Join Event",
                 Global.CUSTOMGREEN,
                 event.getUser().getAsMention(), 
                 logsChannel);
@@ -68,7 +68,7 @@ public class GuildMemberListener extends ListenerAdapter {
 
             //  Send an embed in the logs channel
             Global.SendMemberLogEmbed(
-                "<:yukariL:1270513429949579336> Guild Member Leave/Remove Event",
+                "Guild Member Leave/Remove Event",
                 Global.CUSTOMRED,
                 event.getUser().getAsMention(), 
                 logsChannel);
@@ -93,7 +93,7 @@ public class GuildMemberListener extends ListenerAdapter {
             if(logsChannel != null){
                 //  Send an embed in the logs channel
                 Global.SendRoleLogEmbed(
-                    "<:yukariLURK:1270512990718005410> Guild Member Role Add Event",
+                    "Guild Member Role Add Event",
                     Global.CUSTOMGREEN,
                     event.getUser().getAsMention(), 
                     role.getAsMention(),
@@ -121,7 +121,7 @@ public class GuildMemberListener extends ListenerAdapter {
             if(logsChannel != null){
                 //  Send an embed in the logs channel
                 Global.SendRoleLogEmbed(
-                    "<:yukariLURK:1270512990718005410> Guild Member Role Remove Event",
+                    "Guild Member Role Remove Event",
                     Global.CUSTOMRED,
                     event.getUser().getAsMention(), 
                     role.getAsMention(),

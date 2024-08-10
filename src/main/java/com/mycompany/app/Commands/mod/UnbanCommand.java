@@ -23,7 +23,7 @@ public class UnbanCommand implements CommandImplementation {
 
         EmbedBuilder baseEmbed = new EmbedBuilder();
         EmbedBuilder LogEmbed = new EmbedBuilder();
-        Global.BuildLogModEmbed("<:yukariOHOHO:1270512933595643935> User Unban Event", userMention, moderator, reason, LogEmbed);
+        Global.BuildLogModEmbed("User Unban Event", userMention, moderator, reason, LogEmbed);
 
         // Check if the user is in the ban list
         event.getGuild().retrieveBanList().queue(bans -> {

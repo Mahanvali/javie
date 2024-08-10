@@ -73,7 +73,7 @@ public class TimeoutCommand implements CommandImplementation {
             durationString = "28d"; //  Change durationString for logging purposes
         }
 
-        Global.BuildLogModEmbed("<:yukariOHOHO:1270512933595643935> User Timeout Event", userMention, moderator, reason, LogEmbed);
+        Global.BuildLogModEmbed("User Timeout Event", userMention, moderator, reason, LogEmbed);
         LogEmbed.addField("Duration:", durationString, false);
 
         //  Attempt to ban the user

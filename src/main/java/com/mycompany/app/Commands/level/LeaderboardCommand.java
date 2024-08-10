@@ -16,7 +16,7 @@ public class LeaderboardCommand implements CommandImplementation {
         event.deferReply().queue();
         EmbedBuilder leaderboardEmbed = new EmbedBuilder();
         leaderboardEmbed.setColor(Global.CUSTOMPURPLE);
-        leaderboardEmbed.setTitle(event.getGuild().getName() + "'s Top 10 Degens <:yukariBASED:1270513258645819433> ");
+        leaderboardEmbed.setTitle(event.getGuild().getName() + "'s Top 10 Degens");
         // Atomic integer to keep track of the ranking
         AtomicInteger rank = new AtomicInteger(1);
         // Sort the levelInformation map by XP in descending order and get the top 10 entries

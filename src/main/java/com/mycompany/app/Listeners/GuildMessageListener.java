@@ -56,7 +56,7 @@ public class GuildMessageListener extends ListenerAdapter {
 
             if(logsChannel != null){
                 Global.SendDeletedMessageEmbed(
-                    "<:yukariEVIL:1270513475264843817> Deleted Message Event",
+                    "Deleted Message Event",
                     messageData.author.getAsMention(),
                     messageData.content,
                     logsChannel);
@@ -76,7 +76,7 @@ public class GuildMessageListener extends ListenerAdapter {
 
             if(logsChannel != null){
                 Global.SendUpdatedMessageEmbed(
-                "<:yukariSIP:1270512918995271741> Updated Message Event",
+                "Updated Message Event",
                 messageData.author.getAsMention(),
                 messageData.content,
                 event.getMessage().getContentDisplay(),
