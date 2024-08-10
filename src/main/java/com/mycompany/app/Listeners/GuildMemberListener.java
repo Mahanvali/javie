@@ -9,7 +9,7 @@ import com.mycompany.app.Global;
 
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import net.dv8tion.jda.api.EmbedBuilder;
+// import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.Activity.ActivityType;
@@ -32,15 +32,15 @@ public class GuildMemberListener extends ListenerAdapter {
 
         TextChannel welcomeChannel = event.getJDA().getTextChannelById(Global.welcomeChannelId);
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
-        EmbedBuilder embed = new EmbedBuilder();
+        // EmbedBuilder embed = new EmbedBuilder();
 
         if(welcomeChannel != null){
             //  Send a message in the welcome channel
-            Global.BuildSimpleDescriptionEmbed(
-                "Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "! <:yukariWAVE:1270512883834294292>",
-                Global.CUSTOMPURPLE,
-                embed);
-            welcomeChannel.sendMessageEmbeds(embed.build()).queue();
+            // Global.BuildSimpleDescriptionEmbed(
+            //     "Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "! <:yukariWAVE:1270512883834294292>",
+            //     Global.CUSTOMPURPLE,
+            //     embed);
+            welcomeChannel.sendMessage( "Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "! <:yukariWAVE:1270512883834294292>").queue();
         }
 
         if(logsChannel != null){
@@ -83,12 +83,12 @@ public class GuildMemberListener extends ListenerAdapter {
         for(Role role : roles){
             TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
             TextChannel boosterChannel = event.getJDA().getTextChannelById(Global.boosterChannelId);
-            EmbedBuilder boostEmbed = new EmbedBuilder();
+            // EmbedBuilder boostEmbed = new EmbedBuilder();
 
-            Global.BuildSimpleDescriptionEmbed(
-                event.getUser().getAsMention() + " Thank you for boosting! <:yukariBASED:1270513258645819433> ", 
-                Global.CUSTOMPURPLE, boostEmbed
-            );
+            // Global.BuildSimpleDescriptionEmbed(
+            //     event.getUser().getAsMention() + " Thank you for boosting! <:yukariBASED:1270513258645819433> ", 
+            //     Global.CUSTOMPURPLE, boostEmbed
+            // );
 
             if(logsChannel != null){
                 //  Send an embed in the logs channel
@@ -102,7 +102,7 @@ public class GuildMemberListener extends ListenerAdapter {
 
             if(role.getId().equals(Global.boosterRoleId)){
                 if(boosterChannel != null){
-                    boosterChannel.sendMessageEmbeds(boostEmbed.build()).queue();
+                    boosterChannel.sendMessage(event.getUser().getAsMention() + " Thank you for boosting! <:yukariBASED:1270513258645819433>").queue();
                 }
             }
         }
