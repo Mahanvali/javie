@@ -20,29 +20,34 @@ public class UpdateCommand implements CommandImplementation {
         JDA jda = event.getJDA();
         event.deferReply().queue();
         EmbedBuilder embed = new EmbedBuilder();
+        if(event.getUser().getId().equals(Global.botdeveloperUserId)){
 
-        if(event.getSubcommandName().equals("dev")){
-            App.registerDeveloperCommands(jda);
-            Global.BuildSimpleDescriptionEmbed(
-                "Successfully updated developer commands! <:yukariYES:1270513445887934474> ",
-                Global.CUSTOMPURPLE,
-                embed);
-            event.getHook().sendMessageEmbeds(embed.build()).queue();
-        }
-        if(event.getSubcommandName().equals("mod")){
-            App.registerModCommands(jda);
-            Global.BuildSimpleDescriptionEmbed(
-                "Successfully updated mod commands! <:yukariYES:1270513445887934474> ",
-                Global.CUSTOMPURPLE,
-                embed);
-            event.getHook().sendMessageEmbeds(embed.build()).queue();
-        }
-        if(event.getSubcommandName().equals("level")){
-            App.registerLevelCommands(jda);
-            Global.BuildSimpleDescriptionEmbed(
-                "Successfully updated level commands! <:yukariYES:1270513445887934474> ",
-                Global.CUSTOMPURPLE,
-                embed);
+            if(event.getSubcommandName().equals("dev")){
+                App.registerDeveloperCommands(jda);
+                Global.BuildSimpleDescriptionEmbed(
+                    "Successfully updated developer commands! <:yukariYES:1270513445887934474> ",
+                    Global.CUSTOMPURPLE,
+                    embed);
+                event.getHook().sendMessageEmbeds(embed.build()).queue();
+            }
+            if(event.getSubcommandName().equals("mod")){
+                App.registerModCommands(jda);
+                Global.BuildSimpleDescriptionEmbed(
+                    "Successfully updated mod commands! <:yukariYES:1270513445887934474> ",
+                    Global.CUSTOMPURPLE,
+                    embed);
+                event.getHook().sendMessageEmbeds(embed.build()).queue();
+            }
+            if(event.getSubcommandName().equals("level")){
+                App.registerLevelCommands(jda);
+                Global.BuildSimpleDescriptionEmbed(
+                    "Successfully updated level commands! <:yukariYES:1270513445887934474> ",
+                    Global.CUSTOMPURPLE,
+                    embed);
+                event.getHook().sendMessageEmbeds(embed.build()).queue();
+            }
+        } else {
+            Global.BuildInvalidPermissionsEmbed("BOT DEVELOPER <:yukariPOLICE:1270513511113424976>", Global.CUSTOMRED, embed);
             event.getHook().sendMessageEmbeds(embed.build()).queue();
         }
     }
