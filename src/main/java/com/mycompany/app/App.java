@@ -9,12 +9,12 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 //  JAVA IMPORTS
 import java.util.EnumSet;
 
+import com.mycompany.app.Commands.UpdateCommand;
 import com.mycompany.app.Listeners.GuildMemberListener;
 import com.mycompany.app.Listeners.GuildMessageListener;
 import com.mycompany.app.Listeners.LevelSystem;
@@ -39,46 +39,70 @@ public class App {
         .enableCache(CacheFlag.ACTIVITY, CacheFlag.VOICE_STATE)    //  Required for activity caching
         .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener(), new ReadyListener(), new LevelSystem())
         .setMemberCachePolicy(MemberCachePolicy.ALL);   //  Required for nickname caching
-        //  Create JDA Instance
+
+        // Create JDA Instance
         JDA jda = jdaBotBuilder.build();
 
-        CommandListUpdateAction commands = jda.updateCommands();
+        UpdateCommand.globalCommandData.add(
+            Commands.slash("update", "Update slash commands")
+            .addSubcommands(
+                new SubcommandData("dev", "Update dev commands"),
+                new SubcommandData("mod", "Update mod commands"),
+                new SubcommandData("level", "Update level commands")
+            )
+        );
+        jda.updateCommands().addCommands(UpdateCommand.globalCommandData).queue();
+    }
 
-        //  Bot Developer commands
-        commands.addCommands(
-            Commands.slash("boo", "Check the cache"),
-            Commands.slash("poo", "Clear the cache")
-        ).queue();
+    public static void registerDeveloperCommands(JDA jda){
+        UpdateCommand.globalCommandData.add(Commands.slash("boo", "Check the cache"));
+        UpdateCommand.globalCommandData.add(Commands.slash("poo", "Clear the cache"));
+        jda.updateCommands().addCommands(UpdateCommand.globalCommandData).queue();
+    }
 
-        //  Mod commands
-        commands.addCommands(
+    public static void registerModCommands(JDA jda){
+
+        UpdateCommand.globalCommandData.add(
             Commands.slash("kick", "Kick a user")
                 .addOption(OptionType.USER, "user", "User to kick", true)
                 .addOption(OptionType.STRING, "reason", "Reason for kicking the user", true)
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.KICK_MEMBERS)),
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.KICK_MEMBERS)));
 
+        UpdateCommand.globalCommandData.add(
             Commands.slash("ban", "Ban a user")
                 .addOption(OptionType.USER, "user", "User to ban.", true)
                 .addOption(OptionType.STRING, "reason", "Reason for banning the user.", true)
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)),
-
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)));
+                
+        UpdateCommand.globalCommandData.add(
             Commands.slash("unban", "Unban a user")
                 .addOption(OptionType.USER, "user", "User to unban.", true)
                 .addOption(OptionType.STRING, "reason", "Reason for unbanning the user.", true)
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)),
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)));
 
+        UpdateCommand.globalCommandData.add(
             Commands.slash("timeout", "Timeout a user for a duration")
-                .addOption(OptionType.USER, "user", "User to timeout", true)
-                .addOption(OptionType.STRING, "duration", "Amount of time to timeout the user (w,d,h,m,n)", true)
-                .addOption(OptionType.STRING, "reason", "Reason for timing out the user", true)
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS))
-        ).queue();
+            .addSubcommands(
+                new SubcommandData("add", "Timeout a user")
+                    .addOption(OptionType.USER, "user", "User to timeout", true)
+                    .addOption(OptionType.STRING, "duration", "Amount of time to timeout the user (w,d,h,m,n)", true)
+                    .addOption(OptionType.STRING, "reason", "Reason for timing out the user", true),
+                new SubcommandData("remove", "Untimeout a user")
+                    .addOption(OptionType.USER, "user", "User to remove untimeout", true)
+                    .addOption(OptionType.STRING, "reason", "Reason for untiming out the user", true))
+                    .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
+        jda.updateCommands().addCommands(UpdateCommand.globalCommandData).queue();
+    }
 
-        //  Level Commands  /   Misc Commands
-        commands.addCommands(
-            Commands.slash("leaderboard", "Check the level leaderboards"),
+    public static void registerLevelCommands(JDA jda){
+        UpdateCommand.globalCommandData.add(
+            Commands.slash("leaderboard", "Check the level leaderboards"));
+
+        UpdateCommand.globalCommandData.add(
             Commands.slash("level", "Get a user's level")
-                .addOption(OptionType.USER, "user", "User to get level from", true),
+                .addOption(OptionType.USER, "user", "User to get level from", true));
+
+        UpdateCommand.globalCommandData.add(
             Commands.slash("set", "Set various configurations")
                 .addSubcommands(
                     new SubcommandData("xpgain", "Change the amount of xp gain per message")
@@ -86,10 +110,11 @@ public class App {
                     new SubcommandData("cooldown", "Change the cooldown per message sent for gaining xp")
                         .addOption(OptionType.STRING, "message", "Message cooldown (Default: 3s) PICK ONLY 1")
                         .addOption(OptionType.STRING, "voice", "Voice channel cooldown (Default: 30m) PICK ONLY 1"))
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)),
-                Commands.slash("currentconfigs", "Check the server's current configurations")
-                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS))
-        ).queue();
-   
-    } 
+                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
+
+        UpdateCommand.globalCommandData.add(
+            Commands.slash("currentconfigs", "Check the server's current configurations")
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
+        jda.updateCommands().addCommands(UpdateCommand.globalCommandData).queue();
+    }
 }

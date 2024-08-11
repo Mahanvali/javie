@@ -46,7 +46,7 @@ public class UnbanCommand implements CommandImplementation {
                 );
                 
             } else {
-                baseEmbed.setDescription("Failed to unban " + userMention + ": User is not banned");
+                baseEmbed.setDescription("Failed to unban " + userMention + ": User is not banned <:yukariEHH:1270513090332459101>");
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }

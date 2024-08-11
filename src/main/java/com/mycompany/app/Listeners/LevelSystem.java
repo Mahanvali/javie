@@ -66,31 +66,31 @@ public class LevelSystem extends ListenerAdapter {
 
         //  ----------------------------------------------------------------------------------
         if(getLevel(userId) == 1 && getLevel(userId) < 10 && !event.getMember().getRoles().contains(level1Role)){
-            event.getGuild().addRoleToMember(event.getMember(), level1Role);
+            event.getGuild().addRoleToMember(event.getMember(), level1Role).queue();
         }
         if(getLevel(userId) == 10 && getLevel(userId) < 20 && !event.getMember().getRoles().contains(level10Role)){
-            event.getGuild().addRoleToMember(event.getMember(), level10Role);
-            event.getGuild().removeRoleFromMember(event.getMember(), level1Role);
+            event.getGuild().addRoleToMember(event.getMember(), level10Role).queue();
+            event.getGuild().removeRoleFromMember(event.getMember(), level1Role).queue();
         }
 
         if(getLevel(userId) == 20 && getLevel(userId) < 30 && !event.getMember().getRoles().contains(level20Role)){
-            event.getGuild().addRoleToMember(event.getMember(), level20Role);
-            event.getGuild().removeRoleFromMember(event.getMember(), level10Role);
+            event.getGuild().addRoleToMember(event.getMember(), level20Role).queue();
+            event.getGuild().removeRoleFromMember(event.getMember(), level10Role).queue();
         }
 
         if(getLevel(userId) == 30 && getLevel(userId) < 40 && !event.getMember().getRoles().contains(level30Role)){
-            event.getGuild().addRoleToMember(event.getMember(), level30Role);
-            event.getGuild().removeRoleFromMember(event.getMember(), level20Role);
+            event.getGuild().addRoleToMember(event.getMember(), level30Role).queue();
+            event.getGuild().removeRoleFromMember(event.getMember(), level20Role).queue();
         }
 
         if(getLevel(userId) == 40 && getLevel(userId) < 50 && !event.getMember().getRoles().contains(level40Role)){
-            event.getGuild().addRoleToMember(event.getMember(), level40Role);
-            event.getGuild().removeRoleFromMember(event.getMember(), level30Role);  
+            event.getGuild().addRoleToMember(event.getMember(), level40Role).queue();
+            event.getGuild().removeRoleFromMember(event.getMember(), level30Role).queue();  
         }
 
         if(getLevel(userId) >= 50 && !event.getMember().getRoles().contains(level50Role)){
-            event.getGuild().addRoleToMember(event.getMember(), level50Role);
-            event.getGuild().removeRoleFromMember(event.getMember(), level40Role);  
+            event.getGuild().addRoleToMember(event.getMember(), level50Role).queue();
+            event.getGuild().removeRoleFromMember(event.getMember(), level40Role).queue();
         }
         //  ----------------------------------------------------------------------------------
     }

@@ -27,6 +27,7 @@ public class SlashListener extends ListenerAdapter {
         //  Store the commands in the hashmap
         commands.put("boo", new BooCommand());
         commands.put("poo", new PooCommand());
+        commands.put("update", new UpdateCommand());
 
         commands.put("kick", new KickCommand());
         commands.put("ban", new BanCommand());
