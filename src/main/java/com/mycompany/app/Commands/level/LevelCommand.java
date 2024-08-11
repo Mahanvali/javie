@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -22,6 +23,7 @@ public class LevelCommand implements CommandImplementation {
         event.deferReply().queue();
         
         User targetUser = event.getOption("user").getAsUser();
+        Member targetMember = event.getOption("user").getAsMember();
         String targetUserId = targetUser.getId();
         int userLevel = LevelSystem.getLevel(targetUserId);
         int userXp = LevelSystem.levelInformation.getOrDefault(targetUserId, 0);
@@ -52,7 +54,7 @@ public class LevelCommand implements CommandImplementation {
         }
             
         EmbedBuilder embed = new EmbedBuilder();
-        
+
         embed.setColor(Global.CUSTOMPURPLE);
         embed.setAuthor(targetUser.getName(), null, targetUser.getAvatarUrl());
         embed.addField("Current Level: ", userLevelString, false);
@@ -60,22 +62,22 @@ public class LevelCommand implements CommandImplementation {
         embed.addField("Current XP: ", userXp + "xp", false);
         embed.addField("XP Required For Next Level: ", xpRequiredForNextLevel + "xp", false);
         embed.addField("Joined Server At: ", userJoinDate, false);
-        if(event.getMember().getRoles().contains(level1Role)){
+        if(targetMember.getRoles().contains(level1Role)){
             embed.addField("Level Perks (Newcomer): ", "- Voice Channel Access\n- Image Permissions", false);
         }
-        if(event.getMember().getRoles().contains(level10Role)){
+        if(targetMember.getRoles().contains(level10Role)){
             embed.addField("Level Perks (5th-Class Merc): ", "- Stream in VC\n- Change Nickname\n- Use Activities in VC ", false);
         }
-        if(event.getMember().getRoles().contains(level20Role)){
+        if(targetMember.getRoles().contains(level20Role)){
             embed.addField("Level Perks (4th-Class Merc): ", "- Soundboard Access\n- Change Voice Activity", false);
         }
-        if(event.getMember().getRoles().contains(level30Role)){
+        if(targetMember.getRoles().contains(level30Role)){
             embed.addField("Level Perks (3rd-Class Merc): ", "- Access to <#1270533714983518319>\n- GIF Permissions in <#1270503163258077244>", false);
         }
-        if(event.getMember().getRoles().contains(level40Role)){
+        if(targetMember.getRoles().contains(level40Role)){
             embed.addField("Level Perks (2nd-Class Merc): ", "- Create events", false);
         }
-        if(event.getMember().getRoles().contains(level50Role)){
+        if(targetMember.getRoles().contains(level50Role)){
             embed.addField("Level Perks (1st-Class Merc): ", "- Image Permissions in <#1270503163258077244>", false);
         }
         event.getHook().sendMessageEmbeds(embed.build()).queue();
