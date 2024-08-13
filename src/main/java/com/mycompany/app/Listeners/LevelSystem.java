@@ -163,4 +163,12 @@ public class LevelSystem extends ListenerAdapter {
             e.printStackTrace();
         }
     }
+    
+    public static void deleteData(String userId) {
+        // Remove the user data from the levelInformation map
+        levelInformation.remove(userId);
+    
+        // Save the updated data back to the file
+        saveData();
+    }
 }

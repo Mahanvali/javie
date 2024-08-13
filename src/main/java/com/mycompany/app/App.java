@@ -24,6 +24,7 @@ import com.mycompany.app.Listeners.SlashListener;
 
 //  TODO: PREVENT SOMEONE WITH A LOWER ROLE HIEARCHY TO DO MOD COMMANDS TO SOMEONE WITH A HIGHER ROLE HIERACHY
 //  TODO: CREATE A BACKUP OF levelData every 12 hours
+//  TODO: WHENEVER A USER LEAVES A GUILD, REMOVE THEM FROM THE levelData file
 
 public class App {
     public static void main(String[] args) throws Exception {

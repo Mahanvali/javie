@@ -20,7 +20,7 @@ public class TimeoutCommand implements CommandImplementation {
         String reason = event.getOption("reason").getAsString();
 
         String userMention = targetUser.getAsMention();
-        String moderator =  event.getUser().getName();
+        String moderator =  event.getUser().getAsMention();
         boolean isTimedOut = targetMember.isTimedOut();
 
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);

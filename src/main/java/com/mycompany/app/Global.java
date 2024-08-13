@@ -14,10 +14,10 @@ public class Global {
     private static final LocalDateTime time = LocalDateTime.now();   //  Get the current date
     private static final DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");  //  Format the date
     //  CHANNELS
-    public static final String logsChannelId = "1270503164788998240";
+    public static final String logsChannelId = "1113468093134557219";
     public static final String welcomeChannelId = "1270503163258077244";
     public static final String boosterChannelId = "1270503163258077244";
-    public static final String botCommandsChannelId = "1270503164289744940";
+    public static final String botCommandsChannelId = "1113468093134557219";
     public static final String staffCommandsChannelId = "1270503164788998239";
     public static final String verificationMessageId = "1270514127810330715";
     public static final List<String> noLevelChannels = Arrays.asList("1270503164289744940", "1270503164788998239", "1270503163799015440", "1270503163799015440");
@@ -55,13 +55,11 @@ public class Global {
         channel.sendMessageEmbeds(embed.build()).queue();
     }
 
-    public static void SendMemberLogEmbed(String embedTitle, Color embedColor, String guildMember, TextChannel channel){
-        EmbedBuilder embed = new EmbedBuilder();
+    public static void BuildMemberLogEmbed(String embedTitle, Color embedColor, String guildMember, EmbedBuilder embed){
         embed.setTitle(embedTitle);
         embed.setColor(embedColor);
         embed.addField("Guild Member:", guildMember, false);
         embed.addField("Date:", Global.formattedDate, false);
-        channel.sendMessageEmbeds(embed.build()).queue();
     }
 
     public static void SendDeletedMessageEmbed(String embedTitle, String embedAuthor, String DeletedMessage, TextChannel channel){
