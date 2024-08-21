@@ -36,6 +36,7 @@ public class SlashListener extends ListenerAdapter {
 
         commands.put("level", new LevelCommand());
         commands.put("leaderboard", new LeaderboardCommand());
+        commands.put("xp", new XPCommand());
         commands.put("set", new SetCommand());
         commands.put("currentconfigs", new CurrentConfigCommand());
     }
@@ -49,17 +50,16 @@ public class SlashListener extends ListenerAdapter {
         EmbedBuilder errorEmbed = new EmbedBuilder();
         //  If the command isn't null, execute the command.
         if (command != null) {
-            if(event.getChannelId().equals(Global.botCommandsChannelId) || event.getChannelId().equals(Global.staffCommandsChannelId)){
-                try{
-                    command.execute(event);
-                }catch (Exception e){
-                    errorEmbed.setColor(Global.CUSTOMPURPLE);
-                    errorEmbed.setTitle("An unexpected error occured");
-                    errorEmbed.setDescription("```" + e.getMessage() + "```");
-                    event.getChannel().sendMessageEmbeds(errorEmbed.build()).queue();
-                }
-            } else {
-                event.getChannel().sendMessage("Can't execute commands here!");
+            try{
+                command.execute(event);
+                System.out.println(event.getFullCommandName() + " ran by " + event.getUser().getName());
+                System.out.println(event.getOptions());
+                System.out.println("------------------------------------------------------------");
+            }catch (Exception e){
+                errorEmbed.setColor(Global.CUSTOMPURPLE);
+                errorEmbed.setTitle("An unexpected error occured");
+                errorEmbed.setDescription("```" + e.getMessage() + "```");
+                event.getChannel().sendMessageEmbeds(errorEmbed.build()).queue();
             }
         }
     }

@@ -14,10 +14,10 @@ public class Global {
     private static final LocalDateTime time = LocalDateTime.now();   //  Get the current date
     private static final DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");  //  Format the date
     //  CHANNELS
-    public static final String logsChannelId = "1113468093134557219";
+    public static final String logsChannelId = "1270503164788998240";
     public static final String welcomeChannelId = "1270503163258077244";
     public static final String boosterChannelId = "1270503163258077244";
-    public static final String botCommandsChannelId = "1113468093134557219";
+    public static final String botCommandsChannelId = "1270503164289744940";
     public static final String staffCommandsChannelId = "1270503164788998239";
     public static final String verificationMessageId = "1270514127810330715";
     public static final List<String> noLevelChannels = Arrays.asList("1270503164289744940", "1270503164788998239", "1270503163799015440", "1270503163799015440");
@@ -98,6 +98,6 @@ public class Global {
 
     public static void BuildInvalidPermissionsEmbed(String PermissionRequired, Color embedColor, EmbedBuilder embed){
         embed.setColor(embedColor);
-        embed.setDescription("Sorry! You can't run this command! Permissions Required: " + PermissionRequired);
+        embed.setDescription("Sorry, you can't run this command! Permissions Required: " + PermissionRequired);
     }
 }

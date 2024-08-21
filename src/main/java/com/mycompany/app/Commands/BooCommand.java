@@ -19,8 +19,6 @@ public class BooCommand implements CommandImplementation {
     //  Override the BooCommand method from the CommandImplementation
     @Override
     public void execute(SlashCommandInteractionEvent event){
-        // Defer the reply to allow for longer times to send the message
-        event.deferReply().queue();
         // Get the Java runtime
         Runtime runtime = Runtime.getRuntime();
         // Run the garbage collector
@@ -37,10 +35,10 @@ public class BooCommand implements CommandImplementation {
             embed.addField("Memory Usage:", "`" + Long.toString(bytesToMegabytes(memory)) + "`" + " megabytes", false);
             embed.addField("Cached:", "`" + messageCacheSize + "`" + " messages\n" + "`" + nicknameCacheSize + "`" + " nicknames", false);
             embed.setColor(Global.CUSTOMPURPLE);
-            event.getHook().sendMessageEmbeds(embed.build()).queue();
+            event.replyEmbeds(embed.build()).setEphemeral(true).queue();
         } else {
             Global.BuildInvalidPermissionsEmbed("BOT DEVELOPER <:yukariPOLICE:1270513511113424976>", Global.CUSTOMRED, embed);
-            event.getHook().sendMessageEmbeds(embed.build()).queue();
+            event.replyEmbeds(embed.build()).setEphemeral(true).queue();
         }
 
     }

@@ -13,7 +13,6 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 public class LeaderboardCommand implements CommandImplementation {
     @Override
     public void execute(SlashCommandInteractionEvent event){
-        event.deferReply().queue();
         EmbedBuilder leaderboardEmbed = new EmbedBuilder();
         leaderboardEmbed.setColor(Global.CUSTOMPURPLE);
         leaderboardEmbed.setTitle(event.getGuild().getName() + "'s Top 10 Degens");
@@ -45,6 +44,10 @@ public class LeaderboardCommand implements CommandImplementation {
             }
             leaderboardEmbed.appendDescription(rankSymbol + " | " + userMention + " • " + "Level: `"+ userLevel + "`\n");
         });
-        event.getHook().sendMessageEmbeds(leaderboardEmbed.build()).queue();
+        if(event.getChannel().asTextChannel().getId().equals(Global.botCommandsChannelId)){
+            event.replyEmbeds(leaderboardEmbed.build()).queue();
+        } else {
+            event.replyEmbeds(leaderboardEmbed.build()).setEphemeral(true).queue();
+        }
     }
 }

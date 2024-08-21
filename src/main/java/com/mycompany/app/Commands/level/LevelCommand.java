@@ -20,8 +20,6 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 public class LevelCommand implements CommandImplementation {
     @Override
     public void execute(SlashCommandInteractionEvent event){
-        event.deferReply().queue();
-        
         User targetUser = event.getOption("user").getAsUser();
         Member targetMember = event.getOption("user").getAsMember();
         String targetUserId = targetUser.getId();
@@ -80,6 +78,11 @@ public class LevelCommand implements CommandImplementation {
         if(targetMember.getRoles().contains(level50Role)){
             embed.addField("Level Perks (1st-Class Merc): ", "- Image Permissions in <#1270503163258077244>", false);
         }
-        event.getHook().sendMessageEmbeds(embed.build()).queue();
+
+        if(event.getChannel().asTextChannel().getId().equals(Global.botCommandsChannelId)){
+            event.replyEmbeds(embed.build()).queue();
+        } else {
+            event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+        }
     }
 }

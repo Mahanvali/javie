@@ -143,7 +143,7 @@ public class GuildMemberListener extends ListenerAdapter {
 
             if(role.getId().equals(Global.boosterRoleId)){
                 if(boosterChannel != null){
-                    boosterChannel.sendMessage("BOO! RIDICULE THIS PERSON FOR NO LONGER BOOSTING " + event.getUser().getAsMention()).queue();
+                    boosterChannel.sendMessage("BOO! RIDICULE " +  event.getUser().getAsMention() + " FOR NO LONGER BOOSTING").queue();
                 }
             }
         }

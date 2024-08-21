@@ -116,6 +116,18 @@ public class App {
         UpdateCommand.globalCommandData.add(
             Commands.slash("currentconfigs", "Check the server's current configurations")
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
+
+        UpdateCommand.globalCommandData.add(
+            Commands.slash("xp", "Add or remove xp from a user")
+                .addSubcommands(
+                    new SubcommandData("add", "Add a certain amount of xp to a user")
+                        .addOption(OptionType.USER, "user", "User to add xp to", true)
+                        .addOption(OptionType.INTEGER, "amount", "Amount of xp for user to gain", true),
+
+                    new SubcommandData("remove", "Remove a certain amount of xp from a user")
+                        .addOption(OptionType.USER, "user", "User to remove xp from", true)
+                        .addOption(OptionType.INTEGER, "amount", "Amount of xp for user to lose", true))
+                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR)));
         jda.updateCommands().addCommands(UpdateCommand.globalCommandData).queue();
     }
 }
