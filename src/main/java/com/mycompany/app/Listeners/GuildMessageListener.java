@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import com.mycompany.app.Global;
 
+
 public class GuildMessageListener extends ListenerAdapter {
 
     //  Custom data structure to store message content and author
@@ -34,7 +35,7 @@ public class GuildMessageListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if(!event.getAuthor().isBot()){ //  Make sure the user isnt a bot
+        if(!event.getAuthor().isBot() && event.isFromGuild()){
             //  Get the message
             Message receivedMessage = event.getMessage();
             //  Get the message author
@@ -42,6 +43,10 @@ public class GuildMessageListener extends ListenerAdapter {
             //  Store the message id, message content and the author
             messageCache.put(receivedMessage.getId(), new MessageData(receivedMessage.getContentDisplay(), author));
         }
+
+        // if(!event.isFromGuild()){
+        //     System.out.println(event.getMessage().getContentDisplay());
+        // }
     }
 
     @Override
@@ -99,4 +104,7 @@ public class GuildMessageListener extends ListenerAdapter {
             event.getGuild().addRoleToMember(event.getUser(), verificationRole).queue();
         }
     }
+
+    // @Override
+    // public void onMessage
 }

@@ -35,6 +35,7 @@ public class App {
             GatewayIntent.GUILD_PRESENCES,
             GatewayIntent.DIRECT_MESSAGE_REACTIONS,
             GatewayIntent.GUILD_MESSAGE_REACTIONS,
+            GatewayIntent.DIRECT_MESSAGES,
             GatewayIntent.GUILD_VOICE_STATES,
             GatewayIntent.GUILD_MEMBERS))
         .enableCache(CacheFlag.ACTIVITY, CacheFlag.VOICE_STATE)    //  Required for activity caching
@@ -80,6 +81,17 @@ public class App {
                 .addOption(OptionType.USER, "user", "User to unban.", true)
                 .addOption(OptionType.STRING, "reason", "Reason for unbanning the user.", true)
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)));
+
+                UpdateCommand.globalCommandData.add(
+                    Commands.slash("warn", "Warn a user")
+                    .addSubcommands(
+                        new SubcommandData("add", "Warn a user")
+                            .addOption(OptionType.USER, "user", "User to warn", true)
+                            .addOption(OptionType.STRING, "reason", "Reason for warning the user", true),
+                        new SubcommandData("remove", "Remove a warn from a user")
+                            .addOption(OptionType.USER, "user", "Remove a warn from a user", true)
+                            .addOption(OptionType.STRING, "reason", "Reason for removing the warn", true))
+                            .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
 
         UpdateCommand.globalCommandData.add(
             Commands.slash("timeout", "Timeout a user for a duration")

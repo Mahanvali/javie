@@ -31,6 +31,7 @@ public class SlashListener extends ListenerAdapter {
 
         commands.put("kick", new KickCommand());
         commands.put("ban", new BanCommand());
+        commands.put("warn", new WarnCommand());
         commands.put("unban", new UnbanCommand());
         commands.put("timeout", new TimeoutCommand());
 
@@ -58,8 +59,16 @@ public class SlashListener extends ListenerAdapter {
             }catch (Exception e){
                 errorEmbed.setColor(Global.CUSTOMPURPLE);
                 errorEmbed.setTitle("An unexpected error occured");
-                errorEmbed.setDescription("```" + e.getMessage() + "```");
+                errorEmbed.setDescription("```" + e.getMessage() + "```\n **This has been logged and will be fixed!**");
+                // Send message to the channel
                 event.getChannel().sendMessageEmbeds(errorEmbed.build()).queue();
+                //  Add extra field for debugging
+                errorEmbed.addField("Command:", event.getFullCommandName(), false);
+                errorEmbed.addField("User:", event.getUser().getAsMention(), false);
+                //  Send message to developer
+                event.getJDA().getUserById(Global.botdeveloperUserId).openPrivateChannel()
+                    .flatMap(channel -> channel.sendMessageEmbeds(errorEmbed.build()))
+                    .queue();
             }
         }
     }

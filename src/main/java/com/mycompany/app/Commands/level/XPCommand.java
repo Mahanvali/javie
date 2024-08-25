@@ -18,7 +18,7 @@ public class XPCommand implements CommandImplementation {
         EmbedBuilder embed = new EmbedBuilder();
         if(event.getSubcommandName().equals("add")){
             LevelSystem.levelInformation.put(targetUser.getId(), LevelSystem.levelInformation.getOrDefault(targetUser.getId(), 0) + rangeInput);
-            LevelSystem.saveData();
+            LevelSystem.saveLevelData();
             Global.BuildSimpleDescriptionEmbed(
                 "Successfully added `" + rangeInput + "xp` to " + targetUser.getAsMention(), 
                 Global.CUSTOMPURPLE,
@@ -29,7 +29,7 @@ public class XPCommand implements CommandImplementation {
             int currentXP = LevelSystem.levelInformation.getOrDefault(targetUser.getId(), 0);
             int newXP = Math.max(currentXP - rangeInput, 0); // Ensure XP does not go below 0
             LevelSystem.levelInformation.put(targetUser.getId(), newXP);
-            LevelSystem.saveData();
+            LevelSystem.saveLevelData();
         
             Global.BuildSimpleDescriptionEmbed(
                 "Successfully removed `" + rangeInput + "xp` from " + targetUser.getAsMention(), 

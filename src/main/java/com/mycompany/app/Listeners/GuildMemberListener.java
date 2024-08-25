@@ -79,7 +79,7 @@ public class GuildMemberListener extends ListenerAdapter {
                 embed.addField("User XP Removed:", LevelSystem.levelInformation.getOrDefault(userId, 0) + "", false);
                 logsChannel.sendMessageEmbeds(embed.build()).queue();
         }
-        LevelSystem.deleteData(userId);
+        LevelSystem.deleteLevelData(userId);
     }
 
 

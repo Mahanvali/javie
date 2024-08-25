@@ -29,7 +29,7 @@ public class BanCommand implements CommandImplementation {
 
         // Don't allow the user to ban the bot
         if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
-            baseEmbed.setDescription("Hey! You can't ban me. 🔴");
+            baseEmbed.setDescription("Hey! You can't bonk me. 🔴");
             baseEmbed.setColor(Global.CUSTOMRED);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             return;
@@ -37,7 +37,7 @@ public class BanCommand implements CommandImplementation {
 
         //  Don't allow the user to ban themselves
         if(targetUser.getId().equals(event.getUser().getId())){
-            baseEmbed.setDescription("Hey! You can't ban yourself. 🔴");
+            baseEmbed.setDescription("Hey! You can't bonk yourself. 🔴");
             baseEmbed.setColor(Global.CUSTOMRED);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             return;
@@ -46,7 +46,7 @@ public class BanCommand implements CommandImplementation {
         //  Attempt to ban the user
         event.getGuild().ban(targetUser, 7, TimeUnit.DAYS).reason(reason).queue(
             (unused) -> {
-                baseEmbed.setDescription("<:yukariBONK:1270513141771407563> Successfully banned: " + userMention);
+                baseEmbed.setDescription("<:yukariBONK:1270513141771407563> bonked: " + userMention);
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
 
@@ -54,7 +54,7 @@ public class BanCommand implements CommandImplementation {
             },
 
             (error) -> {
-                baseEmbed.setDescription("Failed to ban " + userMention + " \n ```" + error.getMessage() + "```");
+                baseEmbed.setDescription("Failed to bonk " + userMention + " \n ```" + error.getMessage() + "```");
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }

@@ -49,7 +49,7 @@ public class TimeoutCommand implements CommandImplementation {
                 Global.BuildLogModEmbed("User Timeout Remove Event", userMention, moderator, reason, LogEmbed);
                 event.getGuild().removeTimeout(targetUser).reason(reason).queue(
                     (unused) -> {
-                        baseEmbed.setDescription("<:yukariYES:1270513445887934474> Successfully removed timeout for: " + userMention);
+                        baseEmbed.setDescription("<:yukariYES:1270513445887934474> removed " + userMention + "'s timeout");
                         baseEmbed.setColor(Global.CUSTOMPURPLE);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
 
@@ -96,10 +96,10 @@ public class TimeoutCommand implements CommandImplementation {
                     durationString = seconds + "s"; //  Change durationString for logging purposes
                 }
 
-                // Ensure timeout duration does not exceed 28 days
-                if (timeoutDuration.compareTo(Duration.ofDays(28)) > 0) {
-                    timeoutDuration = Duration.ofDays(28);
-                    durationString = "28d"; //  Change durationString for logging purposes
+                // Ensure timeout duration does not exceed 27 days
+                if (timeoutDuration.compareTo(Duration.ofDays(27)) > 0) {
+                    timeoutDuration = Duration.ofDays(27);
+                    durationString = "27d"; //  Change durationString for logging purposes
                 }
 
                 Global.BuildLogModEmbed("User Timeout Event", userMention, moderator, reason, LogEmbed);
@@ -107,7 +107,7 @@ public class TimeoutCommand implements CommandImplementation {
 
                 event.getGuild().timeoutFor(targetUser, timeoutDuration).reason(reason).queue(
                     (unused) -> {
-                        baseEmbed.setDescription("<:yukariBONK:1270513141771407563> Successfully timed out: " + userMention);
+                        baseEmbed.setDescription("<:yukariBONK:1270513141771407563> timed out: " + userMention);
                         baseEmbed.setColor(Global.CUSTOMPURPLE);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
 

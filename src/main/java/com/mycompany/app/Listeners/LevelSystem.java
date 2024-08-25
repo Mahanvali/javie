@@ -40,7 +40,7 @@ public class LevelSystem extends ListenerAdapter {
         int previousLevel = getLevel(userId);   //  Get the previous level before the user has leveled up
         EmbedBuilder levelupEmbed = new EmbedBuilder();
 
-        if (!event.getAuthor().isBot()) {
+        if (!event.getAuthor().isBot() && event.isFromGuild()) {
             String channelId = event.getChannel().getId();
             if(!Global.noLevelChannels.contains(channelId)){
                 if (!levelMessageCooldown.containsKey(userId) || (currentTime - levelMessageCooldown.get(userId)) >= messageCooldown){
@@ -49,7 +49,7 @@ public class LevelSystem extends ListenerAdapter {
                     } else {
                         levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.basicXPGain);    //  Increment XP by 10 for each message
                     }
-                    saveData();
+                    saveLevelData();
                     // Update the last message timestamp for the user
                     levelMessageCooldown.put(userId, currentTime);
                     int currentLevel = getLevel(userId); //  Get the current level after the user has leveled up
@@ -114,7 +114,7 @@ public class LevelSystem extends ListenerAdapter {
                         } else {
                             levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.basicXPGain);    //  Increment XP by 10 for each message
                         }
-                        saveData();
+                        saveLevelData();
                         // Update the last message timestamp for the user
                         levelMessageCooldown.put(userId, currentTime);
                     }
@@ -138,7 +138,7 @@ public class LevelSystem extends ListenerAdapter {
         return 100 * (currentLevel + 1) * (currentLevel + 2) / 2;   //  Get the amount of xp the user requires for the next level
     }
 
-    public static void saveData() {
+    public static void saveLevelData() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (Map.Entry<String, Integer> entry : levelInformation.entrySet()) {
                 writer.write(entry.getKey() + ":" + entry.getValue());
@@ -149,7 +149,7 @@ public class LevelSystem extends ListenerAdapter {
         }
     }
 
-    public static void loadData() {
+    public static void loadLevelData() {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -164,11 +164,11 @@ public class LevelSystem extends ListenerAdapter {
         }
     }
     
-    public static void deleteData(String userId) {
+    public static void deleteLevelData(String userId) {
         // Remove the user data from the levelInformation map
         levelInformation.remove(userId);
     
         // Save the updated data back to the file
-        saveData();
+        saveLevelData();
     }
 }

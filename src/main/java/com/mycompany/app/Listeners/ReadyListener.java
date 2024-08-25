@@ -1,6 +1,7 @@
 package com.mycompany.app.Listeners;
 
 import com.mycompany.app.Global;
+import com.mycompany.app.Commands.mod.WarnCommand;
 
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
@@ -17,6 +18,7 @@ public class ReadyListener extends ListenerAdapter {
         //  Update the presence
         event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
 
-        LevelSystem.loadData();
+        LevelSystem.loadLevelData();
+        WarnCommand.loadWarnData();
     }
 }
