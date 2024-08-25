@@ -40,7 +40,7 @@ public class WarnCommand implements CommandImplementation {
             saveWarnData();
 
             int warns = warnInformation.getOrDefault(targetUserId, 0);
-            Global.BuildSimpleDescriptionEmbed("<:yukariEHH:1270513090332459101> Warned " + targetUserMention + ", user now has `" + warns + "` warns.",
+            Global.BuildSimpleDescriptionEmbed(" warned " + targetUserMention + ", user now has `" + warns + "` warns.",
              Global.CUSTOMPURPLE, baseEmbed);
             Global.BuildLogModEmbed("User Warn Add Event", targetUserMention, moderatorMention, reason, logEmbed);
 
@@ -51,7 +51,7 @@ public class WarnCommand implements CommandImplementation {
             privateEmbed.setColor(Global.CUSTOMPURPLE);
 
             if(warns == 1 || warns == 2){
-                String warningExtra = targetUserMention + " please take this as a caution and behave better next time <:yukariNOTED:1270513272780619799>";
+                String warningExtra = targetUserMention + " please take this as a caution and behave better next time " + Global.yukariNOTED;
                 privateEmbed.setDescription(warningExtra);
                 targetUser.openPrivateChannel()
                     .flatMap(channel -> channel.sendMessageEmbeds(privateEmbed.build())).queue();
@@ -60,16 +60,16 @@ public class WarnCommand implements CommandImplementation {
             if(warns == 3){
                 timeoutDuration = Duration.ofDays(1);
                 event.getGuild().timeoutFor(targetUser, timeoutDuration).reason(reason).queue();
-                String warningExtra = targetUserMention + " due to this being your 3rd warning, we've gone ahead and temporarily timed you out. Please behave better <:yukari4K:1270513158771183726>";
+                String warningExtra = targetUserMention + " due to this being your 3rd warning, we've gone ahead and temporarily timed you out. Please behave better " + Global.yukariSMH;
                 privateEmbed.setDescription(warningExtra);
                 targetUser.openPrivateChannel()
                     .flatMap(channel -> channel.sendMessageEmbeds(privateEmbed.build())).queue();
             }
 
             if(warns == 4){
-                timeoutDuration = Duration.ofDays(27);
+                timeoutDuration = Duration.ofDays(14);
                 event.getGuild().timeoutFor(targetUser, timeoutDuration).reason(reason).queue();
-                String warningExtra = targetUserMention + " due to this being your 4th warning, we've gone ahead and temporarily timed you out. Please behave better, one more warn and it's a ban <:yukariSMH:1270513031129989140>";
+                String warningExtra = targetUserMention + " due to this being your 4th warning, we've gone ahead and temporarily timed you out. Please behave better, one more warn and it's a ban " + Global.yukariSMH;
                 privateEmbed.setDescription(warningExtra);
                 targetUser.openPrivateChannel()
                     .flatMap(channel -> channel.sendMessageEmbeds(privateEmbed.build())).queue();
@@ -90,7 +90,7 @@ public class WarnCommand implements CommandImplementation {
             saveWarnData();
             int warns = warnInformation.getOrDefault(targetUserId, 0);
 
-            Global.BuildSimpleDescriptionEmbed("Removed a warning from " + targetUserMention + ", user now has `" + warns + "` warns.",
+            Global.BuildSimpleDescriptionEmbed("removed a warning from " + targetUserMention + ", user now has `" + warns + "` warns.",
             Global.CUSTOMPURPLE, baseEmbed);
            Global.BuildLogModEmbed("User Warn Remove Event", targetUserMention, moderatorMention, reason, logEmbed);
            event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();

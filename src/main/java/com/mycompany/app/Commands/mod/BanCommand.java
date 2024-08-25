@@ -46,7 +46,7 @@ public class BanCommand implements CommandImplementation {
         //  Attempt to ban the user
         event.getGuild().ban(targetUser, 7, TimeUnit.DAYS).reason(reason).queue(
             (unused) -> {
-                baseEmbed.setDescription("<:yukariBONK:1270513141771407563> bonked: " + userMention);
+                baseEmbed.setDescription(Global.yukariBONK + " bonked: " + userMention);
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
 

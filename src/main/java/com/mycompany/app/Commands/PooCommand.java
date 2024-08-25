@@ -24,16 +24,16 @@ public class PooCommand implements CommandImplementation {
         
             if(nicknameCacheSize == 0 &&
             messageCacheSize == 0){
-                embed.setDescription("All of cache cleared! <:yukariHEART:1270513107621511240>");
+                embed.setDescription("All of cache cleared! " + Global.yukariHEART);
                 embed.setColor(Global.CUSTOMGREEN);
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
             } else {
-                embed.setDescription("Something went wrong, couldn't clear the cache! <:yukariSEARCH:1270513409875640360>");
+                embed.setDescription("Something went wrong, couldn't clear the cache!" + Global.yukariSEARCH);
                 embed.setColor(Global.CUSTOMRED);
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
             }
         } else {
-            Global.BuildInvalidPermissionsEmbed("BOT DEVELOPER <:yukariPOLICE:1270513511113424976>", Global.CUSTOMRED, embed);
+            Global.BuildInvalidPermissionsEmbed("BOT DEVELOPER", Global.CUSTOMRED, embed);
             event.replyEmbeds(embed.build()).setEphemeral(true).queue();
         }
     }

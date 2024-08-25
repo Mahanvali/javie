@@ -14,6 +14,8 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 //  JAVA IMPORTS
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 import com.mycompany.app.Global;
 
 
@@ -30,6 +32,29 @@ public class GuildMessageListener extends ListenerAdapter {
             this.author = author;
         }
     }
+    // just giving some personality to the bot
+    private String[] deletedMessagesResponses = {
+        "I saw what you deleted.",
+        "I watch every message you delete.",
+        "I watch every message you delete, you're not slick.",
+        "You're not slick buddy, I saw that.",
+        "I saw the message you erased.",
+        "You're not slick for deleting that message bucko.",
+        "Wowww, deleting messages now are we?",
+        "I may or may not have seen what you deleted.",
+        "What are you hiding?",
+        "I'm looking at chat all the time.",
+        "I have nothing better to do than just to stare at chat, I saw what you deleted.",
+        "what'd you delete buddy?",
+        "I saw what you deleted bucko.",
+        "I saw that message you deleted.",
+        "I saw that, extremely clearly.",
+        "I saw tha.t",
+        "I saw the message, you can't hide it.",
+        "Do you really think you're slick for deleting that message?",
+    };
+
+    private static String[] cheekyEmojis = {Global.yukariEVIL, Global.yukariSEARCH, Global.yukari4K, Global.yukariOHOH};
 
     public static final Map<String, MessageData> messageCache = new HashMap<>();
 
@@ -55,16 +80,24 @@ public class GuildMessageListener extends ListenerAdapter {
         String messageId = event.getMessageId();
         //  See if the deleted message id matches with the message id stored in the Hashmap
         MessageData messageData = messageCache.remove(messageId);
+        //  Channels
+        TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
+        TextChannel sentMessage = event.getChannel().asTextChannel();
         //  If the message id exists in the Hashmap
         if (messageData != null) {
-            TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
-
             if(logsChannel != null){
                 Global.SendDeletedMessageEmbed(
                     "Deleted Message Event",
                     messageData.author.getAsMention(),
                     messageData.content,
                     logsChannel);
+            }
+            //  20 percent chance of sending the message
+            Random random = new Random();
+            if (random.nextInt(100) < 20) {
+                String chosenResponse = deletedMessagesResponses[random.nextInt(deletedMessagesResponses.length)];
+                String chosenEmoji = cheekyEmojis[random.nextInt(cheekyEmojis.length)];
+               sentMessage.sendMessage(messageData.author.getAsMention() + ", " + chosenResponse + " " + chosenEmoji).queue();
             }
         }
     }

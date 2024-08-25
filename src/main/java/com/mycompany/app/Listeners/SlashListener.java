@@ -50,7 +50,7 @@ public class SlashListener extends ListenerAdapter {
         CommandImplementation command = commands.get(event.getName());
         EmbedBuilder errorEmbed = new EmbedBuilder();
         //  If the command isn't null, execute the command.
-        if (command != null) {
+        if (command != null && event.isFromGuild()) {
             try{
                 command.execute(event);
                 System.out.println(event.getFullCommandName() + " ran by " + event.getUser().getName());

@@ -37,12 +37,7 @@ public class GuildMemberListener extends ListenerAdapter {
         String userMention = event.getMember().getAsMention();
 
         if(welcomeChannel != null){
-            //  Send a message in the welcome channel
-            // Global.BuildSimpleDescriptionEmbed(
-            //     "Welcome, " + event.getUser().getAsMention() + " to " + event.getGuild().getName() + "! <:yukariWAVE:1270512883834294292>",
-            //     Global.CUSTOMPURPLE,
-            //     embed);
-            welcomeChannel.sendMessage("Welcome, " + userMention + " to " + event.getGuild().getName() + "! <:yukariWAVE:1270512883834294292>").queue();
+            welcomeChannel.sendMessage("Welcome, " + userMention + " to " + event.getGuild().getName() + "! " + Global.yukariWAVE).queue();
         }
 
         if(logsChannel != null){
@@ -90,12 +85,6 @@ public class GuildMemberListener extends ListenerAdapter {
         for(Role role : roles){
             TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
             TextChannel boosterChannel = event.getJDA().getTextChannelById(Global.boosterChannelId);
-            // EmbedBuilder boostEmbed = new EmbedBuilder();
-
-            // Global.BuildSimpleDescriptionEmbed(
-            //     event.getUser().getAsMention() + " Thank you for boosting! <:yukariBASED:1270513258645819433> ", 
-            //     Global.CUSTOMPURPLE, boostEmbed
-            // );
 
             String roleMention = role.getAsMention();
             String userMention = event.getMember().getAsMention();
@@ -112,7 +101,7 @@ public class GuildMemberListener extends ListenerAdapter {
 
             if(role.getId().equals(Global.boosterRoleId)){
                 if(boosterChannel != null){
-                    boosterChannel.sendMessage(userMention + " Thank you for boosting! <:yukariBASED:1270513258645819433>").queue();
+                    boosterChannel.sendMessage(userMention + " Thank you for boosting! " + Global.yukariHEART).queue();
                 }
             }
         }

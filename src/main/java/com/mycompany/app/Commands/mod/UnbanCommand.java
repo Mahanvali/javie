@@ -33,7 +33,7 @@ public class UnbanCommand implements CommandImplementation {
                 // Attempt to unban the user
                 event.getGuild().unban(targetUser).queue(
                     (unused) -> {
-                        baseEmbed.setDescription("<:yukariRAVE:1270512974465073164> unbanned " + userMention);
+                        baseEmbed.setDescription(Global.yukariYES + " unbanned " + userMention);
                         baseEmbed.setColor(Global.CUSTOMPURPLE);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                         logsChannel.sendMessageEmbeds(LogEmbed.build()).queue();
@@ -46,7 +46,7 @@ public class UnbanCommand implements CommandImplementation {
                 );
                 
             } else {
-                baseEmbed.setDescription("Failed to unban " + userMention + ": User is not banned <:yukariEHH:1270513090332459101>");
+                baseEmbed.setDescription("Failed to unban " + userMention + ": User is not banned " + Global.yukariSMH);
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }

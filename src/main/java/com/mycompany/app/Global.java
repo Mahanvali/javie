@@ -44,6 +44,19 @@ public class Global {
     public static final Color CUSTOMGREEN = new Color(50, 168, 81);
     public static final Color CUSTOMPURPLE = new Color(148, 76, 176);
     public static final Color CUSTOMORANGE = new Color(245, 185, 66);
+    // Emojis
+    public static final String yukariNOTED = "<:yukariNOTED:1270513272780619799>";
+    public static final String yukariHEART = "<:yukariHEART:1270513107621511240>";
+    public static final String yukari4K = ":<:yukari4K:1270513158771183726>";
+    public static final String yukariBONK = "<:yukariBONK:1270513141771407563>";
+    public static final String yukariPOLICE = "<:yukariPOLICE:1270513511113424976>";
+    public static final String yukariSEARCH = "<:yukariSEARCH:1270513409875640360>";
+    public static final String yukariYES = "<:yukariYES:1270513445887934474> ";
+    public static final String yukariSMH = "<:yukariSMH:1270513031129989140>";
+    public static final String yukariWAVE = "<:yukariWAVE:1270512883834294292>";
+    public static final String yukariNANI = "<:yukariNANI:1270513124281286696>";
+    public static final String yukariOHOH = "<:yukariOHOHO:1270512933595643935>";
+    public static final String yukariEVIL = "<:yukariEVIL:1270513475264843817>";
     //  EMBEDS
     public static void SendRoleLogEmbed(String embedTitle, Color embedColor, String guildMember, String roleMention, TextChannel channel){
         EmbedBuilder embed = new EmbedBuilder();
@@ -98,6 +111,6 @@ public class Global {
 
     public static void BuildInvalidPermissionsEmbed(String PermissionRequired, Color embedColor, EmbedBuilder embed){
         embed.setColor(embedColor);
-        embed.setDescription("Sorry, you can't run this command! Permissions Required: " + PermissionRequired);
+        embed.setDescription(yukariPOLICE + " Sorry, you can't run this command! Permissions Required: " + PermissionRequired);
     }
 }

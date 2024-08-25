@@ -37,7 +37,7 @@ public class BooCommand implements CommandImplementation {
             embed.setColor(Global.CUSTOMPURPLE);
             event.replyEmbeds(embed.build()).setEphemeral(true).queue();
         } else {
-            Global.BuildInvalidPermissionsEmbed("BOT DEVELOPER <:yukariPOLICE:1270513511113424976>", Global.CUSTOMRED, embed);
+            Global.BuildInvalidPermissionsEmbed("BOT DEVELOPER", Global.CUSTOMRED, embed);
             event.replyEmbeds(embed.build()).setEphemeral(true).queue();
         }
 

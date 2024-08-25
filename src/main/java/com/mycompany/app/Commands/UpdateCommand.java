@@ -25,7 +25,7 @@ public class UpdateCommand implements CommandImplementation {
             if(event.getSubcommandName().equals("dev")){
                 App.registerDeveloperCommands(jda);
                 Global.BuildSimpleDescriptionEmbed(
-                    "Successfully updated developer commands! <:yukariYES:1270513445887934474> ",
+                    "Successfully updated developer commands! " + Global.yukariYES,
                     Global.CUSTOMPURPLE,
                     embed);
                 event.getHook().sendMessageEmbeds(embed.build()).queue();
@@ -33,7 +33,7 @@ public class UpdateCommand implements CommandImplementation {
             if(event.getSubcommandName().equals("mod")){
                 App.registerModCommands(jda);
                 Global.BuildSimpleDescriptionEmbed(
-                    "Successfully updated mod commands! <:yukariYES:1270513445887934474> ",
+                    "Successfully updated mod commands! " + Global.yukariYES,
                     Global.CUSTOMPURPLE,
                     embed);
                 event.getHook().sendMessageEmbeds(embed.build()).queue();
@@ -41,13 +41,13 @@ public class UpdateCommand implements CommandImplementation {
             if(event.getSubcommandName().equals("level")){
                 App.registerLevelCommands(jda);
                 Global.BuildSimpleDescriptionEmbed(
-                    "Successfully updated level commands! <:yukariYES:1270513445887934474> ",
+                    "Successfully updated level commands! " + Global.yukariYES,
                     Global.CUSTOMPURPLE,
                     embed);
                 event.getHook().sendMessageEmbeds(embed.build()).queue();
             }
         } else {
-            Global.BuildInvalidPermissionsEmbed("BOT DEVELOPER <:yukariPOLICE:1270513511113424976>", Global.CUSTOMRED, embed);
+            Global.BuildInvalidPermissionsEmbed("BOT DEVELOPER", Global.CUSTOMRED, embed);
             event.getHook().sendMessageEmbeds(embed.build()).queue();
         }
     }
