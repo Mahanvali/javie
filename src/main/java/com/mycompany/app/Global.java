@@ -14,7 +14,8 @@ public class Global {
     private static final LocalDateTime time = LocalDateTime.now();   //  Get the current date
     private static final DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");  //  Format the date
     //  CHANNELS
-    public static final String logsChannelId = "1113468093134557220";
+    public static final String logsChannelId = "1270503164788998240";
+    public static final String appealChannelId = "1277259004795424778";
     public static final String welcomeChannelId = "1270503163258077244";
     public static final String boosterChannelId = "1270503163258077244";
     public static final String botCommandsChannelId = "1270503164289744940";

@@ -14,6 +14,8 @@ import com.mycompany.app.CommandImplementation;
 import com.mycompany.app.Global;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -21,6 +23,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 public class WarnCommand implements CommandImplementation {
     public static final Map<String, Integer> warnInformation = new HashMap<>();
     private static final String FILE_PATH = "src/main/java/com/mycompany/app/warnData.txt";
+    @Override
     public void execute(SlashCommandInteractionEvent event){
         event.deferReply().queue();
         EmbedBuilder baseEmbed = new EmbedBuilder();
@@ -29,6 +32,7 @@ public class WarnCommand implements CommandImplementation {
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
 
         User targetUser = event.getOption("user").getAsUser();
+        Member targetMember = event.getOption("user").getAsMember();
         String reason = event.getOption("reason").getAsString();
         String targetUserId = targetUser.getId();
         String targetUserMention = targetUser.getAsMention();
@@ -36,6 +40,31 @@ public class WarnCommand implements CommandImplementation {
         Duration timeoutDuration;
 
         if(event.getSubcommandName().equals("add")){
+
+            // Don't allow the user to warn the bot
+            if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
+                baseEmbed.setDescription("Hey! You can't warn me. 🔴");
+                baseEmbed.setColor(Global.CUSTOMPURPLE);
+                event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
+                return;
+            }
+
+            //  Don't allow the user to warn themselves
+            if(targetUser.getId().equals(event.getUser().getId())){
+                baseEmbed.setDescription("Hey! You can't warn yourself. 🔴");
+                baseEmbed.setColor(Global.CUSTOMPURPLE);
+                event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
+                return;
+            }
+
+            //  Don't allow the user to warn moderators
+            if(targetMember.getPermissions().contains(Permission.VOICE_MUTE_OTHERS)){
+                baseEmbed.setDescription("Sorry! I can't warn a moderator. 🔴");
+                baseEmbed.setColor(Global.CUSTOMRED);
+                event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
+                return;
+            }
+            
             warnInformation.put(targetUserId, warnInformation.getOrDefault(targetUser.getId(), 0) + 1);
             saveWarnData();
 
@@ -45,7 +74,7 @@ public class WarnCommand implements CommandImplementation {
             Global.BuildLogModEmbed("User Warn Add Event", targetUserMention, moderatorMention, reason, logEmbed);
 
             String warningMessage = "You've been warned in " + event.getGuild().getName();
-            String warningFooter = "If you believe that this is a mistake, please appeal by sending a message below.";
+            String warningFooter = "If you believe this is a mistake, please appeal by sending a message below.";
             privateEmbed.setTitle(warningMessage);
             privateEmbed.setFooter(warningFooter);
             privateEmbed.setColor(Global.CUSTOMPURPLE);

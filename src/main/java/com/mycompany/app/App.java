@@ -50,7 +50,8 @@ public class App {
             .addSubcommands(
                 new SubcommandData("dev", "Update dev commands"),
                 new SubcommandData("mod", "Update mod commands"),
-                new SubcommandData("level", "Update level commands")
+                new SubcommandData("level", "Update level commands"),
+                new SubcommandData("misc", "Update misc commands")
             )
         );
         jda.updateCommands().addCommands(UpdateCommand.globalCommandData).queue();
@@ -140,6 +141,12 @@ public class App {
                         .addOption(OptionType.USER, "user", "User to remove xp from", true)
                         .addOption(OptionType.INTEGER, "amount", "Amount of xp for user to lose", true))
                         .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR)));
+        jda.updateCommands().addCommands(UpdateCommand.globalCommandData).queue();
+    }
+
+    public static void registerMiscCommands(JDA jda){
+        UpdateCommand.globalCommandData.add(
+            Commands.slash("links", "Check all of yukari's links!"));
         jda.updateCommands().addCommands(UpdateCommand.globalCommandData).queue();
     }
 }

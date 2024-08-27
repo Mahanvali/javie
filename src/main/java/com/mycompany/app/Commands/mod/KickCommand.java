@@ -4,6 +4,8 @@ import com.mycompany.app.CommandImplementation;
 import com.mycompany.app.Global;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -14,6 +16,7 @@ public class KickCommand implements CommandImplementation {
         event.deferReply().queue();
 
         User targetUser = event.getOption("user").getAsUser();
+        Member targetMember = event.getOption("user").getAsMember();
         String reason = event.getOption("reason").getAsString();
 
         String userMention = targetUser.getAsMention();
@@ -24,7 +27,7 @@ public class KickCommand implements CommandImplementation {
         EmbedBuilder LogEmbed = new EmbedBuilder();
         Global.BuildLogModEmbed("User Kick Event", userMention, moderator, reason, LogEmbed);
 
-        // Don't allow the user to ban the bot
+        // Don't allow the user to kick the bot
         if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
             baseEmbed.setDescription("Hey! You can't kick me. 🔴");
             baseEmbed.setColor(Global.CUSTOMPURPLE);
@@ -32,10 +35,18 @@ public class KickCommand implements CommandImplementation {
             return;
         }
 
-        //  Don't allow the user to ban themselves
+        //  Don't allow the user to kick themselves
         if(targetUser.getId().equals(event.getUser().getId())){
             baseEmbed.setDescription("Hey! You can't kick yourself. 🔴");
             baseEmbed.setColor(Global.CUSTOMPURPLE);
+            event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
+            return;
+        }
+
+        //  Don't allow the user to kick moderators
+        if(targetMember.getPermissions().contains(Permission.KICK_MEMBERS)){
+            baseEmbed.setDescription("Sorry! I can't kick a moderator. 🔴");
+            baseEmbed.setColor(Global.CUSTOMRED);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             return;
         }

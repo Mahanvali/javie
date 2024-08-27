@@ -13,6 +13,7 @@ import java.util.Map;
 //  COMMAND IMPORTS
 import com.mycompany.app.Commands.*;
 import com.mycompany.app.Commands.level.*;
+import com.mycompany.app.Commands.misc.*;
 import com.mycompany.app.Commands.mod.*;
 import com.mycompany.app.CommandImplementation;
 import com.mycompany.app.Global;
@@ -40,6 +41,8 @@ public class SlashListener extends ListenerAdapter {
         commands.put("xp", new XPCommand());
         commands.put("set", new SetCommand());
         commands.put("currentconfigs", new CurrentConfigCommand());
+
+        commands.put("links", new LinksCommand());
     }
 
     //  Override the onSlashCommandInteraction method from ListenerAdapter

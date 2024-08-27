@@ -16,6 +16,7 @@ public class UpdateCommand implements CommandImplementation {
 
     public static List<CommandData> globalCommandData = new ArrayList<>();
 
+    @Override
     public void execute(SlashCommandInteractionEvent event){
         JDA jda = event.getJDA();
         event.deferReply().queue();
@@ -42,6 +43,14 @@ public class UpdateCommand implements CommandImplementation {
                 App.registerLevelCommands(jda);
                 Global.BuildSimpleDescriptionEmbed(
                     "Successfully updated level commands! " + Global.yukariYES,
+                    Global.CUSTOMPURPLE,
+                    embed);
+                event.getHook().sendMessageEmbeds(embed.build()).queue();
+            }
+            if(event.getSubcommandName().equals("misc")){
+                App.registerMiscCommands(jda);
+                Global.BuildSimpleDescriptionEmbed(
+                    "Successfully updated misc commands! " + Global.yukariYES,
                     Global.CUSTOMPURPLE,
                     embed);
                 event.getHook().sendMessageEmbeds(embed.build()).queue();

@@ -6,7 +6,9 @@ import com.mycompany.app.Global;
 import java.util.concurrent.TimeUnit;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
@@ -16,6 +18,7 @@ public class BanCommand implements CommandImplementation {
         event.deferReply().queue();
 
         User targetUser = event.getOption("user").getAsUser();
+        Member targetMember = event.getOption("user").getAsMember();
         String reason = event.getOption("reason").getAsString();
 
         String userMention = targetUser.getAsMention();
@@ -38,6 +41,14 @@ public class BanCommand implements CommandImplementation {
         //  Don't allow the user to ban themselves
         if(targetUser.getId().equals(event.getUser().getId())){
             baseEmbed.setDescription("Hey! You can't bonk yourself. 🔴");
+            baseEmbed.setColor(Global.CUSTOMRED);
+            event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
+            return;
+        }
+
+        //  Don't allow the user to ban moderators
+        if(targetMember.getPermissions().contains(Permission.KICK_MEMBERS)){
+            baseEmbed.setDescription("Sorry! I can't ban a moderator. 🔴");
             baseEmbed.setColor(Global.CUSTOMRED);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             return;

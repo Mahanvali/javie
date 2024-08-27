@@ -5,6 +5,7 @@ import com.mycompany.app.Global;
 
 import java.time.Duration;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -27,22 +28,6 @@ public class TimeoutCommand implements CommandImplementation {
 
         EmbedBuilder baseEmbed = new EmbedBuilder();
         EmbedBuilder LogEmbed = new EmbedBuilder();
-
-        // Don't allow the user to timeout the bot
-        if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
-            baseEmbed.setDescription("Hey! You can't perform this action on me. 🔴");
-            baseEmbed.setColor(Global.CUSTOMRED);
-            event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
-            return;
-        }
-
-        //  Don't allow the user to timeout themselves
-        if(targetUser.getId().equals(event.getUser().getId())){
-            baseEmbed.setDescription("Hey! You can't perform this action on yourself. 🔴");
-            baseEmbed.setColor(Global.CUSTOMRED);
-            event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
-            return;
-        }
 
         if(event.getSubcommandName().equals("remove")){
             if(isTimedOut){
@@ -70,6 +55,30 @@ public class TimeoutCommand implements CommandImplementation {
         }
         
         if(event.getSubcommandName().equals("add")){
+            // Don't allow the user to timeout the bot
+            if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
+                baseEmbed.setDescription("Hey! You can't perform this action on me. 🔴");
+                baseEmbed.setColor(Global.CUSTOMRED);
+                event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
+                return;
+            }
+
+            //  Don't allow the user to timeout themselves
+            if(targetUser.getId().equals(event.getUser().getId())){
+                baseEmbed.setDescription("Hey! You can't perform this action on yourself. 🔴");
+                baseEmbed.setColor(Global.CUSTOMRED);
+                event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
+                return;
+            }
+
+            //  Don't allow the user to timeout moderators
+            if(targetMember.getPermissions().contains(Permission.VOICE_MUTE_OTHERS)){
+                baseEmbed.setDescription("Sorry! I can't timeout a moderator. 🔴");
+                baseEmbed.setColor(Global.CUSTOMRED);
+                event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
+                return;
+            }
+            
             if(!isTimedOut){
                 Duration timeoutDuration;
                 String durationString = event.getOption("duration").getAsString();

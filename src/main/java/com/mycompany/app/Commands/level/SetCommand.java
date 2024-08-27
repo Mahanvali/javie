@@ -46,7 +46,7 @@ public class SetCommand implements CommandImplementation {
                 Global.voiceCooldown = voiceCooldown;
 
                 Global.BuildSimpleDescriptionEmbed(
-                    Global.yukariNOTED + "Sucessfully set the voice xp cooldown to: `" + voiceCooldownString + "`!",
+                    Global.yukariNOTED + " Sucessfully set the voice xp cooldown to: `" + voiceCooldownString + "`!",
                     Global.CUSTOMPURPLE,
                     setEmbed);
                 event.getHook().sendMessageEmbeds(setEmbed.build()).queue();

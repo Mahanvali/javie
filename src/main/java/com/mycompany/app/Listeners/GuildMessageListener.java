@@ -1,5 +1,6 @@
 package com.mycompany.app.Listeners;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
@@ -69,9 +70,14 @@ public class GuildMessageListener extends ListenerAdapter {
             messageCache.put(receivedMessage.getId(), new MessageData(receivedMessage.getContentDisplay(), author));
         }
 
-        // if(!event.isFromGuild()){
-        //     System.out.println(event.getMessage().getContentDisplay());
-        // }
+        if(!event.isFromGuild()){
+            TextChannel appealChannel = event.getJDA().getTextChannelById(Global.appealChannelId);
+            EmbedBuilder appealEmbed = new EmbedBuilder();
+            appealEmbed.setDescription(event.getMessage().getContentDisplay());
+            appealEmbed.setAuthor(event.getAuthor().getName(), null, event.getAuthor().getAvatarUrl());
+            appealEmbed.setColor(Global.CUSTOMPURPLE);
+            appealChannel.sendMessageEmbeds(appealEmbed.build()).queue();
+        }
     }
 
     @Override
@@ -137,7 +143,4 @@ public class GuildMessageListener extends ListenerAdapter {
             event.getGuild().addRoleToMember(event.getUser(), verificationRole).queue();
         }
     }
-
-    // @Override
-    // public void onMessage
 }
