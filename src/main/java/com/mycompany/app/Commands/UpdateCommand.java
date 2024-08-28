@@ -56,7 +56,7 @@ public class UpdateCommand implements CommandImplementation {
                     embed);
                 event.getHook().sendMessageEmbeds(embed.build()).queue();
             }
-            if(event.getSubcommandGroup().equals("activity")){
+            if(event.getSubcommandName().equals("activity")){
                 jda.getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
                 Global.BuildSimpleDescriptionEmbed(
                     "Successfully updated my activity! " + Global.yukariYES,
