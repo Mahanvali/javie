@@ -43,6 +43,8 @@ public class SlashListener extends ListenerAdapter {
         commands.put("currentconfigs", new CurrentConfigCommand());
 
         commands.put("links", new LinksCommand());
+        commands.put("avatar", new AvatarCommand());
+        commands.put("membercount", new MemberCountCommand());
     }
 
     //  Override the onSlashCommandInteraction method from ListenerAdapter

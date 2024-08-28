@@ -29,7 +29,7 @@ public class KickCommand implements CommandImplementation {
 
         // Don't allow the user to kick the bot
         if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
-            baseEmbed.setDescription("Hey! You can't kick me. 🔴");
+            baseEmbed.setDescription(Global.yukariPOLICE + " Hey! You can't kick me.");
             baseEmbed.setColor(Global.CUSTOMPURPLE);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             return;
@@ -37,7 +37,7 @@ public class KickCommand implements CommandImplementation {
 
         //  Don't allow the user to kick themselves
         if(targetUser.getId().equals(event.getUser().getId())){
-            baseEmbed.setDescription("Hey! You can't kick yourself. 🔴");
+            baseEmbed.setDescription(Global.yukariSMH + " Dumbass, why are you trying to kick yourself?");
             baseEmbed.setColor(Global.CUSTOMPURPLE);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             return;
@@ -45,7 +45,7 @@ public class KickCommand implements CommandImplementation {
 
         //  Don't allow the user to kick moderators
         if(targetMember.getPermissions().contains(Permission.KICK_MEMBERS)){
-            baseEmbed.setDescription("Sorry! I can't kick a moderator. 🔴");
+            baseEmbed.setDescription(Global.yukariPOLICE + " Sorry! I can't kick a moderator.");
             baseEmbed.setColor(Global.CUSTOMRED);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             return;

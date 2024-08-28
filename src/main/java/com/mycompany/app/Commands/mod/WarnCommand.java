@@ -43,7 +43,7 @@ public class WarnCommand implements CommandImplementation {
 
             // Don't allow the user to warn the bot
             if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
-                baseEmbed.setDescription("Hey! You can't warn me. 🔴");
+                baseEmbed.setDescription(Global.yukariSMH + " Do that again and I'll beat your ass");
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 return;
@@ -51,7 +51,7 @@ public class WarnCommand implements CommandImplementation {
 
             //  Don't allow the user to warn themselves
             if(targetUser.getId().equals(event.getUser().getId())){
-                baseEmbed.setDescription("Hey! You can't warn yourself. 🔴");
+                baseEmbed.setDescription(Global.yukariBONK + " Heh, dumbass");
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 return;
@@ -59,12 +59,12 @@ public class WarnCommand implements CommandImplementation {
 
             //  Don't allow the user to warn moderators
             if(targetMember.getPermissions().contains(Permission.VOICE_MUTE_OTHERS)){
-                baseEmbed.setDescription("Sorry! I can't warn a moderator. 🔴");
+                baseEmbed.setDescription(Global.yukariPOLICE + " Sorry! I can't warn a moderator.");
                 baseEmbed.setColor(Global.CUSTOMRED);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 return;
             }
-            
+
             warnInformation.put(targetUserId, warnInformation.getOrDefault(targetUser.getId(), 0) + 1);
             saveWarnData();
 

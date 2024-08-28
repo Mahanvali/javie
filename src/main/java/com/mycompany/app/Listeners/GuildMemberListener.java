@@ -26,10 +26,12 @@ public class GuildMemberListener extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
-        //  Update the total member count (Look at ReadyListener)
-        Global.memberCount++;
-        //  Update the presence
-        event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
+        if(!event.getUser().isBot()){
+            //  Update the total member count (Look at ReadyListener)
+            Global.memberCount++;
+            //  Update the presence
+            event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
+        }
 
         TextChannel welcomeChannel = event.getJDA().getTextChannelById(Global.welcomeChannelId);
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
@@ -45,7 +47,7 @@ public class GuildMemberListener extends ListenerAdapter {
             Global.BuildMemberLogEmbed(
                 "Guild Member Join Event",
                 Global.CUSTOMGREEN,
-                userMention,
+                userMention + "**(" + event.getUser().getName() + ")**",
                 embed);
             logsChannel.sendMessageEmbeds(embed.build()).queue();
         }
@@ -53,10 +55,12 @@ public class GuildMemberListener extends ListenerAdapter {
 
     @Override
     public void onGuildMemberRemove(GuildMemberRemoveEvent event){
-        //  Update the total member count (Look at ReadyListener)
-        Global.memberCount--;
-        //  Update the presence
-        event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
+        if(!event.getUser().isBot()){
+            //  Update the total member count (Look at ReadyListener)
+            Global.memberCount--;
+            //  Update the presence
+            event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
+        }
 
         //  Get TextChannel using the channel id
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
@@ -69,7 +73,7 @@ public class GuildMemberListener extends ListenerAdapter {
             Global.BuildMemberLogEmbed(
                 "Guild Member Leave/Remove Event",
                 Global.CUSTOMRED,
-                userMention,
+                userMention + "**(" + event.getUser().getName() + ")**",
                 embed);
                 embed.addField("User XP Removed:", LevelSystem.levelInformation.getOrDefault(userId, 0) + "", false);
                 logsChannel.sendMessageEmbeds(embed.build()).queue();

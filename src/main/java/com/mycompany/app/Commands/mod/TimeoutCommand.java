@@ -57,7 +57,7 @@ public class TimeoutCommand implements CommandImplementation {
         if(event.getSubcommandName().equals("add")){
             // Don't allow the user to timeout the bot
             if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
-                baseEmbed.setDescription("Hey! You can't perform this action on me. 🔴");
+                baseEmbed.setDescription(Global.yukariPOLICE + " Hey! You can't perform this action on me.");
                 baseEmbed.setColor(Global.CUSTOMRED);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 return;
@@ -65,7 +65,7 @@ public class TimeoutCommand implements CommandImplementation {
 
             //  Don't allow the user to timeout themselves
             if(targetUser.getId().equals(event.getUser().getId())){
-                baseEmbed.setDescription("Hey! You can't perform this action on yourself. 🔴");
+                baseEmbed.setDescription(Global.yukariSMH + " Why are you trying to timeout yourself?");
                 baseEmbed.setColor(Global.CUSTOMRED);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 return;
@@ -73,12 +73,12 @@ public class TimeoutCommand implements CommandImplementation {
 
             //  Don't allow the user to timeout moderators
             if(targetMember.getPermissions().contains(Permission.VOICE_MUTE_OTHERS)){
-                baseEmbed.setDescription("Sorry! I can't timeout a moderator. 🔴");
+                baseEmbed.setDescription(Global.yukariPOLICE + " Sorry! I can't timeout a moderator.");
                 baseEmbed.setColor(Global.CUSTOMRED);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 return;
             }
-            
+
             if(!isTimedOut){
                 Duration timeoutDuration;
                 String durationString = event.getOption("duration").getAsString();

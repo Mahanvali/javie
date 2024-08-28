@@ -12,7 +12,7 @@ public class LinksCommand implements CommandImplementation {
         EmbedBuilder embed = new EmbedBuilder();
         embed.setTitle("Check out all of these links!");
         embed.setColor(Global.CUSTOMPURPLE);
-
+        embed.setThumbnail("https://i.postimg.cc/ht9NDWDk/Screen-Shot-2024-08-27-at-12-22-38-PM.png");
         embed.setDescription(
             Global.yukariHEART + " **[Twitter](https://x.com/yukarivt)**\n"
             + Global.yukari4K + " **[Twitch](https://twitch.tv/yukarivt)**\n"
@@ -21,6 +21,11 @@ public class LinksCommand implements CommandImplementation {
             + Global.yukariOHOH + " **[Ko-Fi](https://ko-fi.com/yukarivt)**\n"
             + Global.yukariYES + " **[TikTok](https://www.tiktok.com/@yukarivt)**\n"
             + Global.yukariEVIL + " **[Donations](https://streamelements.com/yukarivt/tip)**");
-        event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+            
+        if(event.getChannel().asTextChannel().getId().equals(Global.botCommandsChannelId)){
+                event.replyEmbeds(embed.build()).queue();
+            } else {
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+            }
     }
 }

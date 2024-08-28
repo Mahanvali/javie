@@ -51,7 +51,8 @@ public class App {
                 new SubcommandData("dev", "Update dev commands"),
                 new SubcommandData("mod", "Update mod commands"),
                 new SubcommandData("level", "Update level commands"),
-                new SubcommandData("misc", "Update misc commands")
+                new SubcommandData("misc", "Update misc commands"),
+                new SubcommandData("activity", "Update my activity!")
             )
         );
         jda.updateCommands().addCommands(UpdateCommand.globalCommandData).queue();
@@ -147,6 +148,13 @@ public class App {
     public static void registerMiscCommands(JDA jda){
         UpdateCommand.globalCommandData.add(
             Commands.slash("links", "Check all of yukari's links!"));
+
+        UpdateCommand.globalCommandData.add(
+            Commands.slash("avatar", "Check out another user's avatar")
+            .addOption(OptionType.USER, "user", "User's avatar to look at", true));
+
+        UpdateCommand.globalCommandData.add(
+            Commands.slash("membercount", "Check out the server's member count"));
         jda.updateCommands().addCommands(UpdateCommand.globalCommandData).queue();
     }
 }

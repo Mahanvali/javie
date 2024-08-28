@@ -44,6 +44,7 @@ public class LeaderboardCommand implements CommandImplementation {
             }
             leaderboardEmbed.appendDescription(rankSymbol + " | " + userMention + " • " + "Level: `"+ userLevel + "`\n");
         });
+        
         if(event.getChannel().asTextChannel().getId().equals(Global.botCommandsChannelId)){
             event.replyEmbeds(leaderboardEmbed.build()).queue();
         } else {

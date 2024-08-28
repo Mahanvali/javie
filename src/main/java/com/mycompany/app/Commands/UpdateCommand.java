@@ -9,6 +9,7 @@ import com.mycompany.app.Global;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
@@ -51,6 +52,14 @@ public class UpdateCommand implements CommandImplementation {
                 App.registerMiscCommands(jda);
                 Global.BuildSimpleDescriptionEmbed(
                     "Successfully updated misc commands! " + Global.yukariYES,
+                    Global.CUSTOMPURPLE,
+                    embed);
+                event.getHook().sendMessageEmbeds(embed.build()).queue();
+            }
+            if(event.getSubcommandGroup().equals("activity")){
+                jda.getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));
+                Global.BuildSimpleDescriptionEmbed(
+                    "Successfully updated my activity! " + Global.yukariYES,
                     Global.CUSTOMPURPLE,
                     embed);
                 event.getHook().sendMessageEmbeds(embed.build()).queue();

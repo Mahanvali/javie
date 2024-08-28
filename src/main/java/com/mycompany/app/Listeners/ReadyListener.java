@@ -12,8 +12,10 @@ public class ReadyListener extends ListenerAdapter {
     @Override
     public void onReady(ReadyEvent event) {
         //  Get the member count
-        Global.memberCount = event.getJDA().getGuilds().stream()
-            .mapToInt(guild -> guild.getMemberCount())
+        Global.memberCount = (int) event.getJDA().getGuilds().stream()
+            .mapToLong(guild -> guild.getMembers().stream()
+                .filter(member -> !member.getUser().isBot())
+                .count())
             .sum();
         //  Update the presence
         event.getJDA().getPresence().setActivity(Activity.watching("Over " + Global.memberCount + " Members"));

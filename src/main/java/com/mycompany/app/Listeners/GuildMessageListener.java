@@ -43,6 +43,8 @@ public class GuildMessageListener extends ListenerAdapter {
         "You're not slick for deleting that message bucko.",
         "Wowww, deleting messages now are we?",
         "I may or may not have seen what you deleted.",
+        "It's too late to delete your messages now",
+        "It's already over for you bro",
         "What are you hiding?",
         "I'm looking at chat all the time.",
         "I have nothing better to do than just to stare at chat, I saw what you deleted.",
@@ -50,7 +52,7 @@ public class GuildMessageListener extends ListenerAdapter {
         "I saw what you deleted bucko.",
         "I saw that message you deleted.",
         "I saw that, extremely clearly.",
-        "I saw tha.t",
+        "I saw that",
         "I saw the message, you can't hide it.",
         "Do you really think you're slick for deleting that message?",
     };

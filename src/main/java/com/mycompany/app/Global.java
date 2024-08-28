@@ -21,7 +21,7 @@ public class Global {
     public static final String botCommandsChannelId = "1270503164289744940";
     public static final String staffCommandsChannelId = "1270503164788998239";
     public static final String verificationMessageId = "1270514127810330715";
-    public static final List<String> noLevelChannels = Arrays.asList("1270503164289744940", "1270503164788998239", "1270503163799015440", "1270503163799015440");
+    public static final List<String> noLevelChannels = Arrays.asList("1270503164289744940", "1270503164788998239", "1270503163799015440", "1270503163799015440", "1270503164289744938");
     //  ROLES
     public static final String boosterRoleId = "1270511189620686850";
     public static final String verificationRoleId = "1270503160250630267";
