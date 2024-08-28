@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 public class LinksCommand implements CommandImplementation {
     @Override
     public void execute(SlashCommandInteractionEvent event){
+        
         EmbedBuilder embed = new EmbedBuilder();
         embed.setTitle("Check out all of these links!");
         embed.setColor(Global.CUSTOMPURPLE);

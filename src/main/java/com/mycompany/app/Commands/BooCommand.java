@@ -28,6 +28,7 @@ public class BooCommand implements CommandImplementation {
         //  Get the number of messages cached
         String messageCacheSize = Integer.toString(GuildMessageListener.messageCache.size());
         String nicknameCacheSize = Integer.toString(GuildMemberListener.nicknameCache.size());
+        
         //  Create new embed
         EmbedBuilder embed = new EmbedBuilder();
 
