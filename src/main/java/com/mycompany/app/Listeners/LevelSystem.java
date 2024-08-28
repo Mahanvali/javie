@@ -98,30 +98,35 @@ public class LevelSystem extends ListenerAdapter {
     @Override
     public void onGuildVoiceUpdate(GuildVoiceUpdateEvent event){
         String userId = event.getMember().getId();
-        if (event.getChannelJoined() != null){
-            Timer timer = new Timer();
-            userTimers.put(userId, timer);
-            TimerTask task = new TimerTask(){
-                @Override
-                public void run() {
-                    String userId = event.getMember().getId();
-                    long currentTime = System.currentTimeMillis();  //  Get the current time in miliseconds
-                    Role boosterRole = event.getJDA().getRoleById(Global.boosterRoleId);
-
-                    if(!event.getVoiceState().isDeafened() || !event.getVoiceState().isMuted()){
-                        if(event.getMember().getRoles().contains(boosterRole)){
-                            levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.boosterXPGain);    //  Increment XP by 11 for each message (Increase for boosters)
-                        } else {
-                            levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.basicXPGain);    //  Increment XP by 10 for each message
+        if (event.getChannelJoined() != null && !event.getMember().getUser().isBot()){
+            String channelId = event.getChannelJoined().getId();
+            if(!Global.noLevelChannels.contains(channelId)){
+                if (!userTimers.containsKey(userId)) {
+                    Timer timer = new Timer();
+                    userTimers.put(userId, timer);
+                    TimerTask task = new TimerTask(){
+                        @Override
+                        public void run() {
+                            String userId = event.getMember().getId();
+                            Role boosterRole = event.getJDA().getRoleById(Global.boosterRoleId);
+        
+                            if(!event.getVoiceState().isDeafened() || !event.getVoiceState().isMuted()){
+                                if(event.getMember().getRoles().contains(boosterRole)){
+                                    levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.boosterXPGain);    //  Increment XP by 11 for each message (Increase for boosters)
+                                    System.out.println(event.getMember() + "gained xp");
+                                } else {
+                                    levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.basicXPGain);    //  Increment XP by 10 for each message
+                                    System.out.println(event.getMember() + "gained xp");
+                                }
+                                saveLevelData();
+                            }
                         }
-                        saveLevelData();
-                        // Update the last message timestamp for the user
-                        levelMessageCooldown.put(userId, currentTime);
-                    }
+                    };
+                    timer.scheduleAtFixedRate(task, 0, Global.voiceCooldown);
                 }
-            };
-            timer.scheduleAtFixedRate(task, 0, Global.voiceCooldown);
+            }  
         } else if (event.getChannelLeft() != null) {
+            System.out.println(event.getMember() + " left vc");
             Timer timer = userTimers.remove(userId);
             if (timer != null) {
                 timer.cancel();
