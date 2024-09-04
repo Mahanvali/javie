@@ -54,7 +54,7 @@ public class KickCommand implements CommandImplementation {
         // Attempt to kick the user
         event.getGuild().kick(targetUser).queue(
             (unused) -> {
-                baseEmbed.setDescription(Global.yukariBONK + " Get out " + userMention + "!");
+                baseEmbed.setDescription(Global.yukariBONK + " Get out " + userMention + "! (Don't worry, I kicked them)");
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 logsChannel.sendMessageEmbeds(LogEmbed.build()).queue();

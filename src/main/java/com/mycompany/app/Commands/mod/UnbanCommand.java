@@ -33,7 +33,7 @@ public class UnbanCommand implements CommandImplementation {
                 // Attempt to unban the user
                 event.getGuild().unban(targetUser).queue(
                     (unused) -> {
-                        baseEmbed.setDescription(Global.yukariYES + " unbanned " + userMention);
+                        baseEmbed.setDescription(Global.yukariYES + " Unbanned " + userMention);
                         baseEmbed.setColor(Global.CUSTOMPURPLE);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                         logsChannel.sendMessageEmbeds(LogEmbed.build()).queue();

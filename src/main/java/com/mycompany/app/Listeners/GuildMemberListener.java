@@ -47,7 +47,7 @@ public class GuildMemberListener extends ListenerAdapter {
             Global.BuildMemberLogEmbed(
                 "Guild Member Join Event",
                 Global.CUSTOMGREEN,
-                userMention + "**(" + event.getUser().getName() + ")**",
+                userMention + " **(" + event.getUser().getName() + ")**",
                 embed);
             logsChannel.sendMessageEmbeds(embed.build()).queue();
         }
@@ -73,7 +73,7 @@ public class GuildMemberListener extends ListenerAdapter {
             Global.BuildMemberLogEmbed(
                 "Guild Member Leave/Remove Event",
                 Global.CUSTOMRED,
-                userMention + "**(" + event.getUser().getName() + ")**",
+                userMention + " **(" + event.getUser().getName() + ")**",
                 embed);
                 embed.addField("User XP Removed:", LevelSystem.levelInformation.getOrDefault(userId, 0) + "", false);
                 logsChannel.sendMessageEmbeds(embed.build()).queue();

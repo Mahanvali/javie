@@ -74,15 +74,23 @@ public class App {
 
         UpdateCommand.globalCommandData.add(
             Commands.slash("ban", "Ban a user")
-                .addOption(OptionType.USER, "user", "User to ban.", true)
-                .addOption(OptionType.STRING, "reason", "Reason for banning the user.", true)
+                .addOption(OptionType.USER, "user", "User to ban", true)
+                .addOption(OptionType.STRING, "reason", "Reason for banning the user", true)
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)));
                 
         UpdateCommand.globalCommandData.add(
             Commands.slash("unban", "Unban a user")
-                .addOption(OptionType.USER, "user", "User to unban.", true)
-                .addOption(OptionType.STRING, "reason", "Reason for unbanning the user.", true)
+                .addOption(OptionType.USER, "user", "User to unban", true)
+                .addOption(OptionType.STRING, "reason", "Reason for unbanning the user", true)
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)));
+
+        UpdateCommand.globalCommandData.add(
+            Commands.slash("slowmode", "Slowmode command")
+            .addSubcommands(
+                new SubcommandData("set", "Set a slowmode for the current channel")
+                    .addOption(OptionType.STRING, "time", "The slowmode to set to (s,m,h)"),
+                new SubcommandData("reset", "Reset the slowmode for the current channel"))
+            .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MANAGE_CHANNEL)));
 
                 UpdateCommand.globalCommandData.add(
                     Commands.slash("warn", "Warn a user")
@@ -93,19 +101,19 @@ public class App {
                         new SubcommandData("remove", "Remove a warn from a user")
                             .addOption(OptionType.USER, "user", "Remove a warn from a user", true)
                             .addOption(OptionType.STRING, "reason", "Reason for removing the warn", true))
-                            .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
+                    .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
 
         UpdateCommand.globalCommandData.add(
             Commands.slash("timeout", "Timeout a user for a duration")
             .addSubcommands(
                 new SubcommandData("add", "Timeout a user")
                     .addOption(OptionType.USER, "user", "User to timeout", true)
-                    .addOption(OptionType.STRING, "duration", "Amount of time to timeout the user (w,d,h,m,n)", true)
+                    .addOption(OptionType.STRING, "duration", "Amount of time to timeout the user (w,d,h,m,s)", true)
                     .addOption(OptionType.STRING, "reason", "Reason for timing out the user", true),
                 new SubcommandData("remove", "Untimeout a user")
                     .addOption(OptionType.USER, "user", "User to remove untimeout", true)
                     .addOption(OptionType.STRING, "reason", "Reason for untiming out the user", true))
-                    .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
+            .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
         jda.updateCommands().addCommands(UpdateCommand.globalCommandData).queue();
     }
 
@@ -125,7 +133,7 @@ public class App {
                     new SubcommandData("cooldown", "Change the cooldown per message sent for gaining xp")
                         .addOption(OptionType.STRING, "message", "Message cooldown (Default: 3s) PICK ONLY 1")
                         .addOption(OptionType.STRING, "voice", "Voice channel cooldown (Default: 30m) PICK ONLY 1"))
-                        .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
+                .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
 
         UpdateCommand.globalCommandData.add(
             Commands.slash("currentconfigs", "Check the server's current configurations")

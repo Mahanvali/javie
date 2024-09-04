@@ -72,7 +72,7 @@ public class GuildMessageListener extends ListenerAdapter {
             messageCache.put(receivedMessage.getId(), new MessageData(receivedMessage.getContentDisplay(), author));
         }
 
-        if(!event.isFromGuild()){
+        if(!event.isFromGuild() && !event.getAuthor().getId().equals(event.getJDA().getSelfUser().getId())){
             TextChannel appealChannel = event.getJDA().getTextChannelById(Global.appealChannelId);
             EmbedBuilder appealEmbed = new EmbedBuilder();
             appealEmbed.setDescription(event.getMessage().getContentDisplay());

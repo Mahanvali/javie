@@ -116,7 +116,7 @@ public class TimeoutCommand implements CommandImplementation {
 
                 event.getGuild().timeoutFor(targetUser, timeoutDuration).reason(reason).queue(
                     (unused) -> {
-                        baseEmbed.setDescription(Global.yukariBONK + " timed out " + userMention);
+                        baseEmbed.setDescription(Global.yukariBONK + " Timed out " + userMention);
                         baseEmbed.setColor(Global.CUSTOMPURPLE);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
 
