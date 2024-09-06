@@ -53,6 +53,7 @@ public class SlowmodeCommand implements CommandImplementation {
         }
 
         if(event.getSubcommandName().equals("reset")){
+            event.deferReply().queue();
             TextChannel currentChannel = event.getChannel().asTextChannel();
             EmbedBuilder baseEmbed = new EmbedBuilder();;
 

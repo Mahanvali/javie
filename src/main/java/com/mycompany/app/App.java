@@ -88,7 +88,7 @@ public class App {
             Commands.slash("slowmode", "Slowmode command")
             .addSubcommands(
                 new SubcommandData("set", "Set a slowmode for the current channel")
-                    .addOption(OptionType.STRING, "time", "The slowmode to set to (s,m,h)"),
+                    .addOption(OptionType.STRING, "time", "The slowmode to set to (s,m,h)", true),
                 new SubcommandData("reset", "Reset the slowmode for the current channel"))
             .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MANAGE_CHANNEL)));
 
