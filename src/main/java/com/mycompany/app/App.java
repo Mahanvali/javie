@@ -119,7 +119,8 @@ public class App {
 
     public static void registerLevelCommands(JDA jda){
         UpdateCommand.globalCommandData.add(
-            Commands.slash("leaderboard", "Check the level leaderboards"));
+            Commands.slash("leaderboard", "Check the level leaderboards")
+                .addOption(OptionType.INTEGER, "top", "The top x of people to show their levels", true));
 
         UpdateCommand.globalCommandData.add(
             Commands.slash("level", "Get a user's level")

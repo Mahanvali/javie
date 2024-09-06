@@ -14,19 +14,21 @@ public class LeaderboardCommand implements CommandImplementation {
     @Override
     public void execute(SlashCommandInteractionEvent event){
         EmbedBuilder leaderboardEmbed = new EmbedBuilder();
+        int topInt = event.getOption("top").getAsInt();
         leaderboardEmbed.setColor(Global.CUSTOMPURPLE);
-        leaderboardEmbed.setTitle(event.getGuild().getName() + "'s Top 10 Degens");
+        leaderboardEmbed.setTitle(event.getGuild().getName() + "'s Top " + topInt + " Degens");
         // Atomic integer to keep track of the ranking
         AtomicInteger rank = new AtomicInteger(1);
         // Sort the levelInformation map by XP in descending order and get the top 10 entries
         LevelSystem.levelInformation.entrySet().stream()
         .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-        .limit(10)
+        .limit(topInt)
         .forEach(entry -> {
             int currentRank = rank.getAndIncrement();
             String rankSymbol = "";
             String userId = entry.getKey();
             int userLevel = LevelSystem.getLevel(userId);
+            int userXP = LevelSystem.levelInformation.getOrDefault(userId, 0);
             String userMention = event.getJDA().getUserById(userId).getAsMention();
             switch (currentRank) {
                 case 1:
@@ -42,10 +44,10 @@ public class LeaderboardCommand implements CommandImplementation {
                     rankSymbol = "#" + currentRank; // Default rank
                     break;
             }
-            leaderboardEmbed.appendDescription(rankSymbol + " | " + userMention + " • " + "Level: `"+ userLevel + "`\n");
+            leaderboardEmbed.appendDescription(rankSymbol + " | **" + userMention + "** • " + "Level: `"+ userLevel + " (" + userXP + "xp)`\n");
         });
         
-        if(event.getChannel().asTextChannel().getId().equals(Global.botCommandsChannelId)){
+        if(event.getChannel().asTextChannel().getId().equals(Global.botCommandsChannelId) && topInt <= 10){
             event.replyEmbeds(leaderboardEmbed.build()).queue();
         } else {
             event.replyEmbeds(leaderboardEmbed.build()).setEphemeral(true).queue();

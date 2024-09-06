@@ -22,7 +22,6 @@ public class LevelSystem extends ListenerAdapter {
     public static final Map<String, Timer> userTimers = new HashMap<>();
     private static final String FILE_PATH = "src/main/java/com/mycompany/app/levelData.txt";
 
-
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         String userId = event.getAuthor().getId();
@@ -113,20 +112,27 @@ public class LevelSystem extends ListenerAdapter {
                             if(!event.getVoiceState().isDeafened() || !event.getVoiceState().isMuted()){
                                 if(event.getMember().getRoles().contains(boosterRole)){
                                     levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.boosterXPGain);    //  Increment XP by 11 for each message (Increase for boosters)
-                                    System.out.println(event.getMember() + "gained xp");
+                                    System.out.println(event.getMember() + " gained xp");
                                 } else {
                                     levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.basicXPGain);    //  Increment XP by 10 for each message
-                                    System.out.println(event.getMember() + "gained xp");
+                                    System.out.println(event.getMember() + " gained xp");
                                 }
                                 saveLevelData();
                             }
                         }
                     };
                     timer.scheduleAtFixedRate(task, 0, Global.voiceCooldown);
+                    EmbedBuilder userjoinvcEmbed = new EmbedBuilder()
+                        .setDescription(event.getMember().getAsMention() + " has joined vc at " + Global.formattedTime)
+                        .setColor(Global.CUSTOMGREEN);
+                    Global.PrivateMessageDeveloper(event.getJDA(), userjoinvcEmbed);
                 }
             }  
         } else if (event.getChannelLeft() != null) {
-            System.out.println(event.getMember() + " left vc");
+            EmbedBuilder userjoinvcEmbed = new EmbedBuilder()
+                .setDescription(event.getMember().getAsMention() + " has left vc at " + Global.formattedTime)
+                .setColor(Global.CUSTOMRED);
+            Global.PrivateMessageDeveloper(event.getJDA(), userjoinvcEmbed);
             Timer timer = userTimers.remove(userId);
             if (timer != null) {
                 timer.cancel();

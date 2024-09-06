@@ -7,12 +7,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class Global {
 
     private static final LocalDateTime time = LocalDateTime.now();   //  Get the current date
     private static final DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");  //  Format the date
+    private static final DateTimeFormatter timeformat = DateTimeFormatter.ofPattern("dd-HH-mm");  //  Format the time
     //  CHANNELS
     public static final String logsChannelId = "1270503164788998240";
     public static final String appealChannelId = "1277259004795424778";
@@ -36,11 +38,12 @@ public class Global {
     public static final String streamerUserId = "403268481338048514";
     //  MISC.
     public static final String formattedDate = time.format(dateformat);
+    public static final String formattedTime = time.format(timeformat);
     public static int memberCount = 0;
     public static int basicXPGain = 5;
     public static int boosterXPGain = basicXPGain + 1;
     public static long messageCooldown = 3000;
-    public static long voiceCooldown = 1800000;
+    public static long voiceCooldown = 3000000;
     public static final Color CUSTOMRED = new Color(168, 52, 50);
     public static final Color CUSTOMGREEN = new Color(50, 168, 81);
     public static final Color CUSTOMPURPLE = new Color(148, 76, 176);
@@ -112,6 +115,13 @@ public class Global {
 
     public static void BuildInvalidPermissionsEmbed(String PermissionRequired, Color embedColor, EmbedBuilder embed){
         embed.setColor(embedColor);
-        embed.setDescription(yukariPOLICE + " Sorry, you can't run this command! Permissions Required: " + PermissionRequired);
+        embed.setDescription(yukariPOLICE + " Sorry, you can't run this command!\n> Permissions Required: " + PermissionRequired);
+    }
+
+    public static void PrivateMessageDeveloper(JDA jda, EmbedBuilder embed){
+        
+        jda.getUserById(Global.botdeveloperUserId).openPrivateChannel()
+            .flatMap(channel -> channel.sendMessageEmbeds(embed.build()))
+            .queue();
     }
 }
