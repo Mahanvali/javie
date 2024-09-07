@@ -21,13 +21,10 @@ import com.mycompany.app.Listeners.LevelSystem;
 import com.mycompany.app.Listeners.ReadyListener;
 import com.mycompany.app.Listeners.SlashListener;
 
-
-//  TODO: PREVENT SOMEONE WITH A LOWER ROLE HIEARCHY TO DO MOD COMMANDS TO SOMEONE WITH A HIGHER ROLE HIERACHY
-//  TODO: CREATE A BACKUP OF levelData every 12 hours
-//  TODO: WHENEVER A USER LEAVES A GUILD, REMOVE THEM FROM THE levelData file
-
 public class App {
     public static void main(String[] args) throws Exception {
+
+
         //Start the JDA bot builder, letting you provide the token externally
         JDABuilder jdaBotBuilder = JDABuilder.createDefault(args[0], EnumSet.of(
             GatewayIntent.GUILD_MESSAGES,

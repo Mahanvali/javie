@@ -41,7 +41,7 @@ public class LevelSystem extends ListenerAdapter {
 
         if (!event.getAuthor().isBot() && event.isFromGuild()) {
             String channelId = event.getChannel().getId();
-            if(!Global.noLevelChannels.contains(channelId)){
+            if(!Global.noLevelMessageChannels.contains(channelId)){
                 if (!levelMessageCooldown.containsKey(userId) || (currentTime - levelMessageCooldown.get(userId)) >= messageCooldown){
                     if(event.getMember().getRoles().contains(boosterRole)){
                         levelInformation.put(userId, levelInformation.getOrDefault(userId, 0) + Global.boosterXPGain);    //  Increment XP by 11 for each message (Increase for boosters)
@@ -99,7 +99,7 @@ public class LevelSystem extends ListenerAdapter {
         String userId = event.getMember().getId();
         if (event.getChannelJoined() != null && !event.getMember().getUser().isBot()){
             String channelId = event.getChannelJoined().getId();
-            if(!Global.noLevelChannels.contains(channelId)){
+            if(!Global.noLevelVoiceChannels.contains(channelId)){
                 if (!userTimers.containsKey(userId)) {
                     Timer timer = new Timer();
                     userTimers.put(userId, timer);
@@ -129,10 +129,10 @@ public class LevelSystem extends ListenerAdapter {
                 }
             }  
         } else if (event.getChannelLeft() != null) {
-            EmbedBuilder userjoinvcEmbed = new EmbedBuilder()
+            EmbedBuilder userleftvcEmbed = new EmbedBuilder()
                 .setDescription(event.getMember().getAsMention() + " has left vc at " + Global.formattedTime)
                 .setColor(Global.CUSTOMRED);
-            Global.PrivateMessageDeveloper(event.getJDA(), userjoinvcEmbed);
+            Global.PrivateMessageDeveloper(event.getJDA(), userleftvcEmbed);
             Timer timer = userTimers.remove(userId);
             if (timer != null) {
                 timer.cancel();

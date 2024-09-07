@@ -14,7 +14,7 @@ public class Global {
 
     private static final LocalDateTime time = LocalDateTime.now();   //  Get the current date
     private static final DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("dd-MM-yyyy");  //  Format the date
-    private static final DateTimeFormatter timeformat = DateTimeFormatter.ofPattern("dd-HH-mm");  //  Format the time
+    private static final DateTimeFormatter timeformat = DateTimeFormatter.ofPattern("dd-HH-mm-ss");  // Format the time
     //  CHANNELS
     public static final String logsChannelId = "1270503164788998240";
     public static final String appealChannelId = "1277259004795424778";
@@ -23,7 +23,8 @@ public class Global {
     public static final String botCommandsChannelId = "1270503164289744940";
     public static final String staffCommandsChannelId = "1270503164788998239";
     public static final String verificationMessageId = "1270514127810330715";
-    public static final List<String> noLevelChannels = Arrays.asList("1270503164289744940", "1270503164788998239", "1270503163799015440", "1270503163799015440", "1270503164289744938");
+    public static final List<String> noLevelMessageChannels = Arrays.asList("1270503164788998239", "1270503164289744940", "1270503162893041711", "1270503162893041712", "1270503163799015440", "1270533714983518319", "1270525556584349798");
+    public static final List<String> noLevelVoiceChannels = Arrays.asList("1270503164289744937", "1270503164289744938");
     //  ROLES
     public static final String boosterRoleId = "1270511189620686850";
     public static final String verificationRoleId = "1270503160250630267";
