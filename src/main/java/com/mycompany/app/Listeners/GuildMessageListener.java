@@ -12,8 +12,10 @@ import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.MessageDeleteEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.util.Arrays;
 //  JAVA IMPORTS
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -57,12 +59,30 @@ public class GuildMessageListener extends ListenerAdapter {
         "Do you really think you're slick for deleting that message?",
     };
 
+    private List<String> hatefultriggerString = Arrays.asList(
+        "FUCK YOU BLAKE",
+        "SHUT UP BLAKE",
+        "KILL YOURSELF BLAKE",
+        "SHUT THE FUCK UP BLAKE",
+        "LOSER BLAKE",
+        "KYS BLAKE",
+        "KYS BOT",
+        "BLAKE SUCKS",
+        "BLAKE FUCK YOU",
+        "DUMBASS BOT",
+        "LOSER BOT",
+        "STINKY BOT",
+        "IDIOT BOT",
+        "IDIOT BLAKE",
+        "STINKY BLAKE");
+
     private static String[] cheekyEmojis = {Global.yukariEVIL, Global.yukariSEARCH, Global.yukari4K, Global.yukariOHOH};
 
     public static final Map<String, MessageData> messageCache = new HashMap<>();
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+        TextChannel sentMessagetTextChannel = event.getChannel().asTextChannel();
         if(!event.getAuthor().isBot() && event.isFromGuild()){
             //  Get the message
             Message receivedMessage = event.getMessage();
@@ -80,6 +100,10 @@ public class GuildMessageListener extends ListenerAdapter {
             appealEmbed.setColor(Global.CUSTOMPURPLE);
             appealChannel.sendMessageEmbeds(appealEmbed.build()).queue();
         }
+
+        if(hatefultriggerString.contains(event.getMessage().getContentRaw().toUpperCase())){
+            sentMessagetTextChannel.sendMessage("Imagine insulting a bot, loser. " + event.getAuthor().getAsMention() + " " + Global.yukariFU).queue();
+        }
     }
 
     @Override
@@ -90,7 +114,7 @@ public class GuildMessageListener extends ListenerAdapter {
         MessageData messageData = messageCache.remove(messageId);
         //  Channels
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
-        TextChannel sentMessage = event.getChannel().asTextChannel();
+        TextChannel sentMessagetTextChannel = event.getChannel().asTextChannel();
         //  If the message id exists in the Hashmap
         if (messageData != null) {
             if(logsChannel != null){
@@ -102,10 +126,18 @@ public class GuildMessageListener extends ListenerAdapter {
             }
             //  20 percent chance of sending the message
             Random random = new Random();
+            String chosenResponse = deletedMessagesResponses[random.nextInt(deletedMessagesResponses.length)];
+            String chosenEmoji = cheekyEmojis[random.nextInt(cheekyEmojis.length)];
+
+            if(messageData.author.getId().equals("307892737729101825")){    //   Aaron's ID
+                if(messageData.content.contains("@")){
+                    sentMessagetTextChannel.sendMessage("Aaron, go sleep, enough ghost pinging.").queue();
+                    return;
+                }
+            }
+            
             if (random.nextInt(100) < 20) {
-                String chosenResponse = deletedMessagesResponses[random.nextInt(deletedMessagesResponses.length)];
-                String chosenEmoji = cheekyEmojis[random.nextInt(cheekyEmojis.length)];
-               sentMessage.sendMessage(messageData.author.getAsMention() + ", " + chosenResponse + " " + chosenEmoji).queue();
+                sentMessagetTextChannel.sendMessage(messageData.author.getAsMention() + ", " + chosenResponse + " " + chosenEmoji).queue();
             }
         }
     }

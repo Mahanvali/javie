@@ -62,6 +62,7 @@ public class Global {
     public static final String yukariNANI = "<:yukariNANI:1270513124281286696>";
     public static final String yukariOHOH = "<:yukariOHOHO:1270512933595643935>";
     public static final String yukariEVIL = "<:yukariEVIL:1270513475264843817>";
+    public static final String yukariFU = "<:yukariFU:1270513376463949844>";
     //  EMBEDS
     public static void SendRoleLogEmbed(String embedTitle, Color embedColor, String guildMember, String roleMention, TextChannel channel){
         EmbedBuilder embed = new EmbedBuilder();
