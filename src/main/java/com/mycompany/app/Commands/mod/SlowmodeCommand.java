@@ -39,14 +39,18 @@ public class SlowmodeCommand implements CommandImplementation {
                 
             currentChannel.getManager().setSlowmode(slowmodeTime).queue(
                 (unused) -> {
-                    baseEmbed.setDescription(Global.yukariNOTED + " Set slowmode to `" + slowmodeTimeString + "`");
-                    baseEmbed.setColor(Global.CUSTOMPURPLE);
+                    Global.BuildSimpleDescriptionEmbed(
+                        Global.yukariNOTED + " Set slowmode to `" + slowmodeTimeString + "`",
+                        Global.CUSTOMPURPLE,
+                        baseEmbed);
                     event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 },
     
                 (error) -> {
-                    baseEmbed.setDescription(Global.yukariSMH + " Failed to set slowmode\n```" + error.getMessage() + "```");
-                    baseEmbed.setColor(Global.CUSTOMPURPLE);
+                    Global.BuildSimpleDescriptionEmbed(
+                        Global.yukariSMH + " Failed to reset slowmode\n```" + error.getMessage() + "```",
+                        Global.CUSTOMPURPLE,
+                        baseEmbed);
                     event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 }
             );
@@ -59,14 +63,18 @@ public class SlowmodeCommand implements CommandImplementation {
 
             currentChannel.getManager().setSlowmode(0).queue(
                 (unused) -> {
-                    baseEmbed.setDescription(Global.yukariNOTED + " Reset the channel's slowmode");
-                    baseEmbed.setColor(Global.CUSTOMPURPLE);
+                    Global.BuildSimpleDescriptionEmbed(
+                        Global.yukariNOTED + " Reset the channel's slowmode",
+                        Global.CUSTOMPURPLE,
+                        baseEmbed);
                     event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 },
     
                 (error) -> {
-                    baseEmbed.setDescription(Global.yukariSMH + " Failed to set slowmode\n```" + error.getMessage() + "```");
-                    baseEmbed.setColor(Global.CUSTOMPURPLE);
+                    Global.BuildSimpleDescriptionEmbed(
+                        Global.yukariSMH + " Failed to reset slowmode\n```" + error.getMessage() + "```",
+                        Global.CUSTOMPURPLE,
+                        baseEmbed);
                     event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 }
             );

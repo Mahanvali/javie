@@ -18,6 +18,7 @@ import com.mycompany.app.Commands.UpdateCommand;
 import com.mycompany.app.Listeners.GuildMemberListener;
 import com.mycompany.app.Listeners.GuildMessageListener;
 import com.mycompany.app.Listeners.LevelSystem;
+import com.mycompany.app.Listeners.ModalListener;
 import com.mycompany.app.Listeners.ReadyListener;
 import com.mycompany.app.Listeners.SlashListener;
 
@@ -36,7 +37,7 @@ public class App {
             GatewayIntent.GUILD_VOICE_STATES,
             GatewayIntent.GUILD_MEMBERS))
         .enableCache(CacheFlag.ACTIVITY, CacheFlag.VOICE_STATE)    //  Required for activity caching
-        .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener(), new ReadyListener(), new LevelSystem())
+        .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener(), new ReadyListener(), new LevelSystem(), new ModalListener())
         .setMemberCachePolicy(MemberCachePolicy.ALL);   //  Required for nickname caching
 
         // Create JDA Instance
@@ -161,6 +162,18 @@ public class App {
 
         UpdateCommand.globalCommandData.add(
             Commands.slash("membercount", "Check out the server's member count"));
+
+            UpdateCommand.globalCommandData.add(
+                Commands.slash("tag", "Tags used for FAQs")
+                    .addSubcommands(
+                        new SubcommandData("add", "Add a tag (ADMINISTRATOR)"),
+                        new SubcommandData("remove", "Remove a tag (ADMINISTRATOR)")
+                            .addOption(OptionType.STRING, "tag", "The tag to remove", true),
+                        new SubcommandData("show", "Search for a tag")
+                            .addOption(OptionType.STRING, "tag", "The tag to show", true),
+                        new SubcommandData("list", "Show the list of all tags")
+                    )
+                );
         jda.updateCommands().addCommands(UpdateCommand.globalCommandData).queue();
     }
 }

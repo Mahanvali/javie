@@ -43,24 +43,30 @@ public class WarnCommand implements CommandImplementation {
 
             // Don't allow the user to warn the bot
             if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
-                baseEmbed.setDescription(Global.yukariSMH + " Why? Just why?");
-                baseEmbed.setColor(Global.CUSTOMPURPLE);
+                Global.BuildSimpleDescriptionEmbed(
+                    Global.yukariSMH + " Why? Just why?",
+                    Global.CUSTOMRED,
+                    baseEmbed);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 return;
             }
 
             //  Don't allow the user to warn themselves
             if(targetUser.getId().equals(event.getUser().getId())){
-                baseEmbed.setDescription(Global.yukariBONK + " Heh, dumbass");
-                baseEmbed.setColor(Global.CUSTOMPURPLE);
+                Global.BuildSimpleDescriptionEmbed(
+                    Global.yukariSMH + " Heh, dumbass.",
+                    Global.CUSTOMRED,
+                    baseEmbed);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 return;
             }
 
             //  Don't allow the user to warn moderators
             if(targetMember.getPermissions().contains(Permission.VOICE_MUTE_OTHERS)){
-                baseEmbed.setDescription(Global.yukariPOLICE + " Sorry! I can't warn a moderator.");
-                baseEmbed.setColor(Global.CUSTOMRED);
+                Global.BuildSimpleDescriptionEmbed(
+                    Global.yukariPOLICE + " Sorry! I can't warn a moderator.",
+                    Global.CUSTOMRED,
+                    baseEmbed);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 return;
             }

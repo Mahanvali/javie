@@ -14,8 +14,10 @@ public class AvatarCommand implements CommandImplementation {
         String avatarUrl = targetUser.getUser().getAvatarUrl() + "?size=4096";
         EmbedBuilder embed = new EmbedBuilder();
         if(targetUser.getId().equals(event.getJDA().getSelfUser().getId())){
-            embed.setDescription(Global.yukari4K + " Why are you trying to look at my avatar?");
-            embed.setColor(Global.CUSTOMPURPLE);
+            Global.BuildSimpleDescriptionEmbed(
+                Global.yukariSMH + " Why are you trying to look at me?",
+                Global.CUSTOMRED,
+                embed);
             event.replyEmbeds(embed.build()).queue();
             return;
         }

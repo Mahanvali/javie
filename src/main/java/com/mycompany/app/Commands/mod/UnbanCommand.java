@@ -33,26 +33,34 @@ public class UnbanCommand implements CommandImplementation {
                 // Attempt to unban the user
                 event.getGuild().unban(targetUser).queue(
                     (unused) -> {
-                        baseEmbed.setDescription(Global.yukariYES + " Unbanned " + userMention);
-                        baseEmbed.setColor(Global.CUSTOMPURPLE);
+                        Global.BuildSimpleDescriptionEmbed(
+                            Global.yukariYES + " Unbanned " + userMention,
+                            Global.CUSTOMPURPLE,
+                            baseEmbed);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                         logsChannel.sendMessageEmbeds(LogEmbed.build()).queue();
                     },
                     (error) -> {
-                        baseEmbed.setDescription(Global.yukariSMH + " Failed to unban " + userMention + " \n ```" + error.getMessage() + "```");
-                        baseEmbed.setColor(Global.CUSTOMPURPLE);
+                        Global.BuildSimpleDescriptionEmbed(
+                            Global.yukariSMH + " Failed to unban " + userMention + " \n ```" + error.getMessage() + "```",
+                            Global.CUSTOMPURPLE,
+                            baseEmbed);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                     }
                 );
                 
             } else {
-                baseEmbed.setDescription(Global.yukariSMH + " Failed to unban " + userMention + ": User is not banned");
-                baseEmbed.setColor(Global.CUSTOMPURPLE);
+                Global.BuildSimpleDescriptionEmbed(
+                    Global.yukariSMH + " Failed to unban " + userMention + ": User is not banned",
+                    Global.CUSTOMRED,
+                    baseEmbed);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }
         }, error -> {
-            baseEmbed.setDescription(Global.yukariSMH + " Failed to retrieve ban list" + " \n ```" + error.getMessage() + "```");
-            baseEmbed.setColor(Global.CUSTOMPURPLE);
+            Global.BuildSimpleDescriptionEmbed(
+                Global.yukariSMH + " Failed to retrieve ban list" + " \n ```" + error.getMessage() + "```",
+                Global.CUSTOMRED,
+                baseEmbed);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
         });
     }

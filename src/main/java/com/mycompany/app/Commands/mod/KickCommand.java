@@ -29,24 +29,30 @@ public class KickCommand implements CommandImplementation {
 
         // Don't allow the user to kick the bot
         if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
-            baseEmbed.setDescription(Global.yukariPOLICE + " Hey! You can't kick me.");
-            baseEmbed.setColor(Global.CUSTOMPURPLE);
+            Global.BuildSimpleDescriptionEmbed(
+                Global.yukariPOLICE + " There's something wrong with you.",
+                Global.CUSTOMRED,
+                baseEmbed);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             return;
         }
 
         //  Don't allow the user to kick themselves
         if(targetUser.getId().equals(event.getUser().getId())){
-            baseEmbed.setDescription(Global.yukariSMH + " What, why are you trying to kick yourself?");
-            baseEmbed.setColor(Global.CUSTOMPURPLE);
+            Global.BuildSimpleDescriptionEmbed(
+                Global.yukariSMH + " What, why are you trying to kick yourself?",
+                Global.CUSTOMRED,
+                baseEmbed);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             return;
         }
 
         //  Don't allow the user to kick moderators
         if(targetMember.getPermissions().contains(Permission.KICK_MEMBERS)){
-            baseEmbed.setDescription(Global.yukariPOLICE + " Sorry! I can't kick a moderator.");
-            baseEmbed.setColor(Global.CUSTOMRED);
+            Global.BuildSimpleDescriptionEmbed(
+                Global.yukariNOTED + " Oops? I can't kick a moderator.",
+                Global.CUSTOMRED,
+                baseEmbed);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             return;
         }
@@ -54,16 +60,20 @@ public class KickCommand implements CommandImplementation {
         // Attempt to kick the user
         event.getGuild().kick(targetUser).queue(
             (unused) -> {
-                baseEmbed.setDescription(Global.yukariBONK + " Get out " + userMention + "!");
+                Global.BuildSimpleDescriptionEmbed(
+                    Global.yukariBONK + " Get out " + userMention + "!",
+                    Global.CUSTOMPURPLE,
+                    baseEmbed);
                 baseEmbed.setFooter("Don't worry, I kicked them");
-                baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 logsChannel.sendMessageEmbeds(LogEmbed.build()).queue();
             },
 
             (error) -> {
-                baseEmbed.setDescription(Global.yukariSMH + " Failed to kick " + userMention + " \n ```" + error.getMessage() + "```");
-                baseEmbed.setColor(Global.CUSTOMPURPLE);
+                Global.BuildSimpleDescriptionEmbed(
+                    Global.yukariSMH + " Failed to kick " + userMention + " \n ```" + error.getMessage() + "```",
+                    Global.CUSTOMPURPLE,
+                    baseEmbed);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }
         );

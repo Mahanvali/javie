@@ -46,6 +46,7 @@ public class SlashListener extends ListenerAdapter {
         commands.put("links", new LinksCommand());
         commands.put("avatar", new AvatarCommand());
         commands.put("membercount", new MemberCountCommand());
+        commands.put("tag", new TagCommand());
     }
 
     //  Override the onSlashCommandInteraction method from ListenerAdapter

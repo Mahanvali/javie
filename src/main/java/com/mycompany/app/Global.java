@@ -113,6 +113,7 @@ public class Global {
     public static void BuildSimpleDescriptionEmbed(String embedDescription, Color embedColor, EmbedBuilder embed){
         embed.setColor(embedColor);
         embed.setDescription(embedDescription);
+        embed.setFooter(formattedDate);
     }
 
     public static void BuildInvalidPermissionsEmbed(String PermissionRequired, Color embedColor, EmbedBuilder embed){

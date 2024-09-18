@@ -34,22 +34,28 @@ public class TimeoutCommand implements CommandImplementation {
                 Global.BuildLogModEmbed("User Timeout Remove Event", userMention, moderator, reason, LogEmbed);
                 event.getGuild().removeTimeout(targetUser).reason(reason).queue(
                     (unused) -> {
-                        baseEmbed.setDescription(Global.yukariYES + " Removed " + userMention + "'s timeout");
-                        baseEmbed.setColor(Global.CUSTOMPURPLE);
+                        Global.BuildSimpleDescriptionEmbed(
+                            Global.yukariYES + " Removed " + userMention + "'s timeout",
+                            Global.CUSTOMPURPLE,
+                            baseEmbed);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
 
                         logsChannel.sendMessageEmbeds(LogEmbed.build()).queue();
                     },
 
                     (error) -> {
-                        baseEmbed.setDescription(Global.yukariSMH + " Failed to remove timeout for " + userMention + " \n ```" + error.getMessage() + "```");
-                        baseEmbed.setColor(Global.CUSTOMPURPLE);
+                        Global.BuildSimpleDescriptionEmbed(
+                            Global.yukariSMH + " Failed to remove timeout for " + userMention + " \n ```" + error.getMessage() + "```",
+                            Global.CUSTOMPURPLE,
+                            baseEmbed);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                     }
                 );
             } else {
-                baseEmbed.setDescription(Global.yukariSMH + " Failed to remove timeout for " + userMention + ": User is not timed out! " + Global.yukariSMH);
-                baseEmbed.setColor(Global.CUSTOMPURPLE);
+                Global.BuildSimpleDescriptionEmbed(
+                    Global.yukariSMH + " Failed to remove timeout for " + userMention + ": User is not timed out!",
+                    Global.CUSTOMRED,
+                    baseEmbed);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }
         }
@@ -57,24 +63,30 @@ public class TimeoutCommand implements CommandImplementation {
         if(event.getSubcommandName().equals("add")){
             // Don't allow the user to timeout the bot
             if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
-                baseEmbed.setDescription(Global.yukariPOLICE + " Hey! You can't perform this action on me.");
-                baseEmbed.setColor(Global.CUSTOMRED);
+                Global.BuildSimpleDescriptionEmbed(
+                    Global.yukariPOLICE + " Hey! You can't perform this action on me.",
+                    Global.CUSTOMRED,
+                    baseEmbed);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 return;
             }
 
             //  Don't allow the user to timeout themselves
             if(targetUser.getId().equals(event.getUser().getId())){
-                baseEmbed.setDescription(Global.yukariSMH + " Why are you trying to timeout yourself?");
-                baseEmbed.setColor(Global.CUSTOMRED);
+                Global.BuildSimpleDescriptionEmbed(
+                    Global.yukariSMH + " Why are you trying to timeout yourself?",
+                    Global.CUSTOMRED,
+                    baseEmbed);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 return;
             }
 
             //  Don't allow the user to timeout moderators
             if(targetMember.getPermissions().contains(Permission.VOICE_MUTE_OTHERS)){
-                baseEmbed.setDescription(Global.yukariPOLICE + " Sorry! I can't timeout a moderator.");
-                baseEmbed.setColor(Global.CUSTOMRED);
+                Global.BuildSimpleDescriptionEmbed(
+                   Global.yukariPOLICE + " Sorry! I can't timeout a moderator.",
+                    Global.CUSTOMRED,
+                    baseEmbed);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 return;
             }
@@ -116,22 +128,27 @@ public class TimeoutCommand implements CommandImplementation {
 
                 event.getGuild().timeoutFor(targetUser, timeoutDuration).reason(reason).queue(
                     (unused) -> {
-                        baseEmbed.setDescription(Global.yukariBONK + " Timed out " + userMention);
-                        baseEmbed.setColor(Global.CUSTOMPURPLE);
+                        Global.BuildSimpleDescriptionEmbed(
+                            Global.yukariBONK + " Timed out " + userMention,
+                            Global.CUSTOMPURPLE,
+                            baseEmbed);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
-
                         logsChannel.sendMessageEmbeds(LogEmbed.build()).queue();
                     },
 
                     (error) -> {
-                        baseEmbed.setDescription(Global.yukariSMH + " Failed to timeout " + userMention + " \n ```" + error.getMessage() + "```");
-                        baseEmbed.setColor(Global.CUSTOMPURPLE);
+                        Global.BuildSimpleDescriptionEmbed(
+                            Global.yukariSMH + " Failed to timeout " + userMention + " \n ```" + error.getMessage() + "```",
+                            Global.CUSTOMPURPLE,
+                            baseEmbed);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                     }
                 );
             } else {
-                baseEmbed.setDescription(Global.yukariSMH + " Failed to timeout " + userMention + ": User is already timed out! " + Global.yukariSMH);
-                baseEmbed.setColor(Global.CUSTOMPURPLE);
+                Global.BuildSimpleDescriptionEmbed(
+                    Global.yukariSMH + " Failed to timeout " + userMention + ": User is already timed out!",
+                    Global.CUSTOMRED,
+                    baseEmbed);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }
         }  
