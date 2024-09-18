@@ -37,7 +37,7 @@ public class KickCommand implements CommandImplementation {
 
         //  Don't allow the user to kick themselves
         if(targetUser.getId().equals(event.getUser().getId())){
-            baseEmbed.setDescription(Global.yukariSMH + " Dumbass, why are you trying to kick yourself?");
+            baseEmbed.setDescription(Global.yukariSMH + " What, why are you trying to kick yourself?");
             baseEmbed.setColor(Global.CUSTOMPURPLE);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             return;
@@ -54,14 +54,15 @@ public class KickCommand implements CommandImplementation {
         // Attempt to kick the user
         event.getGuild().kick(targetUser).queue(
             (unused) -> {
-                baseEmbed.setDescription(Global.yukariBONK + " Get out " + userMention + "! (Don't worry, I kicked them)");
+                baseEmbed.setDescription(Global.yukariBONK + " Get out " + userMention + "!");
+                baseEmbed.setFooter("Don't worry, I kicked them");
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 logsChannel.sendMessageEmbeds(LogEmbed.build()).queue();
             },
 
             (error) -> {
-                baseEmbed.setDescription("Failed to kick " + userMention + " \n ```" + error.getMessage() + "```");
+                baseEmbed.setDescription(Global.yukariSMH + " Failed to kick " + userMention + " \n ```" + error.getMessage() + "```");
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }

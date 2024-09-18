@@ -40,7 +40,7 @@ public class BanCommand implements CommandImplementation {
 
         //  Don't allow the user to ban themselves
         if(targetUser.getId().equals(event.getUser().getId())){
-            baseEmbed.setDescription(Global.yukariSMH + " Dumbass, why are you trying to ban yourself?");
+            baseEmbed.setDescription(Global.yukariSMH + " Are you okay, why are you trying to ban yourself?");
             baseEmbed.setColor(Global.CUSTOMRED);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             return;
@@ -65,7 +65,7 @@ public class BanCommand implements CommandImplementation {
             },
 
             (error) -> {
-                baseEmbed.setDescription("Failed to bonk " + userMention + " \n ```" + error.getMessage() + "```");
+                baseEmbed.setDescription(Global.yukariSMH + " Failed to bonk " + userMention + " \n ```" + error.getMessage() + "```");
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }

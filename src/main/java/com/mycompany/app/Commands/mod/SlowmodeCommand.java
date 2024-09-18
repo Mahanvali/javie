@@ -30,7 +30,7 @@ public class SlowmodeCommand implements CommandImplementation {
                     slowmodeTime = seconds;
                 } else {
                     Global.BuildSimpleDescriptionEmbed(
-                        "Look buddy, enter a valid slowmode time I've got things to do.\n> Example: /slowmode set 10s",
+                        Global.yukariSMH + " Look buddy, enter a valid slowmode time, I've got things to do.\n> Example: /slowmode set 10s",
                         Global.CUSTOMPURPLE,
                         baseEmbed);
                     event.getHook().sendMessageEmbeds(baseEmbed.build()).setEphemeral(true).queue();
@@ -45,7 +45,7 @@ public class SlowmodeCommand implements CommandImplementation {
                 },
     
                 (error) -> {
-                    baseEmbed.setDescription("Failed to set slowmode\n```" + error.getMessage() + "```");
+                    baseEmbed.setDescription(Global.yukariSMH + " Failed to set slowmode\n```" + error.getMessage() + "```");
                     baseEmbed.setColor(Global.CUSTOMPURPLE);
                     event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 }
@@ -65,7 +65,7 @@ public class SlowmodeCommand implements CommandImplementation {
                 },
     
                 (error) -> {
-                    baseEmbed.setDescription("Failed to set slowmode\n```" + error.getMessage() + "```");
+                    baseEmbed.setDescription(Global.yukariSMH + " Failed to set slowmode\n```" + error.getMessage() + "```");
                     baseEmbed.setColor(Global.CUSTOMPURPLE);
                     event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 }

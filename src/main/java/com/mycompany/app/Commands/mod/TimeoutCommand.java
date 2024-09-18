@@ -34,7 +34,7 @@ public class TimeoutCommand implements CommandImplementation {
                 Global.BuildLogModEmbed("User Timeout Remove Event", userMention, moderator, reason, LogEmbed);
                 event.getGuild().removeTimeout(targetUser).reason(reason).queue(
                     (unused) -> {
-                        baseEmbed.setDescription(Global.yukariYES + " removed " + userMention + "'s timeout");
+                        baseEmbed.setDescription(Global.yukariYES + " Removed " + userMention + "'s timeout");
                         baseEmbed.setColor(Global.CUSTOMPURPLE);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
 
@@ -42,13 +42,13 @@ public class TimeoutCommand implements CommandImplementation {
                     },
 
                     (error) -> {
-                        baseEmbed.setDescription("Failed to remove timeout for " + userMention + " \n ```" + error.getMessage() + "```");
+                        baseEmbed.setDescription(Global.yukariSMH + " Failed to remove timeout for " + userMention + " \n ```" + error.getMessage() + "```");
                         baseEmbed.setColor(Global.CUSTOMPURPLE);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                     }
                 );
             } else {
-                baseEmbed.setDescription("Failed to remove timeout for " + userMention + ": User is not timed out! " + Global.yukariSMH);
+                baseEmbed.setDescription(Global.yukariSMH + " Failed to remove timeout for " + userMention + ": User is not timed out! " + Global.yukariSMH);
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }
@@ -124,13 +124,13 @@ public class TimeoutCommand implements CommandImplementation {
                     },
 
                     (error) -> {
-                        baseEmbed.setDescription("Failed to timeout " + userMention + " \n ```" + error.getMessage() + "```");
+                        baseEmbed.setDescription(Global.yukariSMH + " Failed to timeout " + userMention + " \n ```" + error.getMessage() + "```");
                         baseEmbed.setColor(Global.CUSTOMPURPLE);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                     }
                 );
             } else {
-                baseEmbed.setDescription("Failed to timeout " + userMention + ": User is already timed out! " + Global.yukariSMH);
+                baseEmbed.setDescription(Global.yukariSMH + " Failed to timeout " + userMention + ": User is already timed out! " + Global.yukariSMH);
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }

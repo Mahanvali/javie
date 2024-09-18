@@ -67,6 +67,7 @@ public class LevelSystem extends ListenerAdapter {
         if(getLevel(userId) == 1 && getLevel(userId) < 10 && !event.getMember().getRoles().contains(level1Role)){
             event.getGuild().addRoleToMember(event.getMember(), level1Role).queue();
         }
+        
         if(getLevel(userId) == 10 && getLevel(userId) < 20 && !event.getMember().getRoles().contains(level10Role)){
             event.getGuild().addRoleToMember(event.getMember(), level10Role).queue();
             event.getGuild().removeRoleFromMember(event.getMember(), level1Role).queue();

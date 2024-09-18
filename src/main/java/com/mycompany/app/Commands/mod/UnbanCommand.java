@@ -39,19 +39,19 @@ public class UnbanCommand implements CommandImplementation {
                         logsChannel.sendMessageEmbeds(LogEmbed.build()).queue();
                     },
                     (error) -> {
-                        baseEmbed.setDescription("Failed to unban " + userMention + " \n ```" + error.getMessage() + "```");
+                        baseEmbed.setDescription(Global.yukariSMH + " Failed to unban " + userMention + " \n ```" + error.getMessage() + "```");
                         baseEmbed.setColor(Global.CUSTOMPURPLE);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                     }
                 );
                 
             } else {
-                baseEmbed.setDescription("Failed to unban " + userMention + ": User is not banned " + Global.yukariSMH);
+                baseEmbed.setDescription(Global.yukariSMH + " Failed to unban " + userMention + ": User is not banned");
                 baseEmbed.setColor(Global.CUSTOMPURPLE);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }
         }, error -> {
-            baseEmbed.setDescription("Failed to retrieve ban list" + " \n ```" + error.getMessage() + "```");
+            baseEmbed.setDescription(Global.yukariSMH + " Failed to retrieve ban list" + " \n ```" + error.getMessage() + "```");
             baseEmbed.setColor(Global.CUSTOMPURPLE);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
         });
