@@ -17,6 +17,7 @@ public class Global {
     private static final DateTimeFormatter timeformat = DateTimeFormatter.ofPattern("dd-HH-mm-ss");  // Format the time
     //  CHANNELS
     public static final String logsChannelId = "1270503164788998240";
+    public static final String introChannelId = "1270503162893041714";
     public static final String appealChannelId = "1277259004795424778";
     public static final String welcomeChannelId = "1270503163258077244";
     public static final String boosterChannelId = "1270503163258077244";
@@ -28,6 +29,7 @@ public class Global {
     //  ROLES
     public static final String boosterRoleId = "1270511189620686850";
     public static final String verificationRoleId = "1270503160250630267";
+    public static final String introducedRoleId = "1286984267502714890";
     public static final String level1RoleId = "1270503160225468541";
     public static final String level10RoleId = "1270503160225468542";
     public static final String level20RoleId = "1270503160225468543";

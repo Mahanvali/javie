@@ -1,11 +1,11 @@
 package com.mycompany.app.Listeners;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 //  JDA API IMPORTS
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.MessageUpdateEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
@@ -82,7 +82,6 @@ public class GuildMessageListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        TextChannel sentMessagetTextChannel = event.getChannel().asTextChannel();
         if(!event.getAuthor().isBot() && event.isFromGuild()){
             //  Get the message
             Message receivedMessage = event.getMessage();
@@ -92,17 +91,25 @@ public class GuildMessageListener extends ListenerAdapter {
             messageCache.put(receivedMessage.getId(), new MessageData(receivedMessage.getContentDisplay(), author));
         }
 
-        if(!event.isFromGuild() && !event.getAuthor().getId().equals(event.getJDA().getSelfUser().getId())){
-            TextChannel appealChannel = event.getJDA().getTextChannelById(Global.appealChannelId);
-            EmbedBuilder appealEmbed = new EmbedBuilder();
-            appealEmbed.setDescription(event.getMessage().getContentDisplay());
-            appealEmbed.setAuthor(event.getAuthor().getName(), null, event.getAuthor().getAvatarUrl());
-            appealEmbed.setColor(Global.CUSTOMPURPLE);
-            appealChannel.sendMessageEmbeds(appealEmbed.build()).queue();
+        // if(!event.isFromGuild() && !event.getAuthor().getId().equals(event.getJDA().getSelfUser().getId())){
+        //     TextChannel appealChannel = event.getJDA().getTextChannelById(Global.appealChannelId);
+        //     EmbedBuilder appealEmbed = new EmbedBuilder();
+        //     appealEmbed.setDescription(event.getMessage().getContentDisplay());
+        //     appealEmbed.setAuthor(event.getAuthor().getName(), null, event.getAuthor().getAvatarUrl());
+        //     appealEmbed.setColor(Global.CUSTOMPURPLE);
+        //     appealChannel.sendMessageEmbeds(appealEmbed.build()).queue();
+        // }
+
+        if(event.getChannel().getId().equals(Global.introChannelId)){
+            Emoji yukariWave = event.getJDA().getEmojiById("1270512883834294292");
+            Role introducedRole = event.getJDA().getRoleById(Global.introducedRoleId);
+            event.getGuild().addRoleToMember(event.getAuthor(), introducedRole).queue();
+            event.getMessage().createThreadChannel(event.getAuthor().getEffectiveName() + ", welcome to the family!").queue();
+            event.getMessage().addReaction(yukariWave).queue();
         }
 
         if(hatefultriggerString.contains(event.getMessage().getContentRaw().toUpperCase())){
-            sentMessagetTextChannel.sendMessage("Imagine insulting a bot, loser. " + event.getAuthor().getAsMention() + " " + Global.yukariFU).queue();
+            event.getChannel().sendMessage(event.getAuthor().getAsMention() + " " + Global.yukariFU).queue();
         }
     }
 
@@ -136,7 +143,7 @@ public class GuildMessageListener extends ListenerAdapter {
                 }
             }
             
-            if (random.nextInt(100) < 20) {
+            if (random.nextInt(100) < 20 && !event.getChannel().getId().equals(Global.introChannelId)) {
                 sentMessagetTextChannel.sendMessage(messageData.author.getAsMention() + ", " + chosenResponse + " " + chosenEmoji).queue();
             }
         }

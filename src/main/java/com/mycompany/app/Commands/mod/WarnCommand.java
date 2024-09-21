@@ -80,7 +80,7 @@ public class WarnCommand implements CommandImplementation {
             Global.BuildLogModEmbed("User Warn Add Event", targetUserMention, moderatorMention, reason, logEmbed);
 
             String warningMessage = "You've been warned in " + event.getGuild().getName();
-            String warningFooter = "If you believe this is a mistake, please appeal by sending a message below.";
+            String warningFooter = "If you believe this is a mistake, please create a ticket.";
             String warningInputs = "> **Moderator:** " + moderatorMention + "\n> **Reason:** " + reason + "\n";
             privateEmbed.setTitle(warningMessage);
             privateEmbed.setFooter(warningFooter);
