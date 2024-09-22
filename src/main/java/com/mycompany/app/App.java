@@ -15,6 +15,7 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import java.util.EnumSet;
 
 import com.mycompany.app.Commands.UpdateCommand;
+import com.mycompany.app.Listeners.ButtonListener;
 import com.mycompany.app.Listeners.GuildMemberListener;
 import com.mycompany.app.Listeners.GuildMessageListener;
 import com.mycompany.app.Listeners.LevelSystem;
@@ -37,7 +38,7 @@ public class App {
             GatewayIntent.GUILD_VOICE_STATES,
             GatewayIntent.GUILD_MEMBERS))
         .enableCache(CacheFlag.ACTIVITY, CacheFlag.VOICE_STATE)    //  Required for activity caching
-        .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener(), new ReadyListener(), new LevelSystem(), new ModalListener())
+        .addEventListeners(new SlashListener(), new GuildMemberListener(), new GuildMessageListener(), new ReadyListener(), new LevelSystem(), new ModalListener(), new ButtonListener())
         .setMemberCachePolicy(MemberCachePolicy.ALL);   //  Required for nickname caching
 
         // Create JDA Instance
@@ -81,6 +82,10 @@ public class App {
                 .addOption(OptionType.USER, "user", "User to unban", true)
                 .addOption(OptionType.STRING, "reason", "Reason for unbanning the user", true)
                 .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)));
+
+        UpdateCommand.globalCommandData.add(
+            Commands.slash("ticket", "hehehheee hi!!!! yiip[ee!!]")
+            .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR)));
 
         UpdateCommand.globalCommandData.add(
             Commands.slash("slowmode", "Slowmode command")

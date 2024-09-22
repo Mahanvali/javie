@@ -36,6 +36,7 @@ public class SlashListener extends ListenerAdapter {
         commands.put("unban", new UnbanCommand());
         commands.put("slowmode", new SlowmodeCommand());
         commands.put("timeout", new TimeoutCommand());
+        commands.put("ticket", new TicketCommand());
 
         commands.put("level", new LevelCommand());
         commands.put("leaderboard", new LeaderboardCommand());

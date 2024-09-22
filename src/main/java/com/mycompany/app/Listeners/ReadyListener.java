@@ -22,5 +22,6 @@ public class ReadyListener extends ListenerAdapter {
 
         LevelSystem.loadLevelData();
         WarnCommand.loadWarnData();
+        ModalListener.loadTagData();
     }
 }

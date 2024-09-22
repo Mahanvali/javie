@@ -6,6 +6,7 @@ Made for one of my friends, not modular.
 
 ## FEATURES:
 - Logging events
+- Tag System
 - Level System
 - Moderation Commands
 - Level Commands
