@@ -103,7 +103,9 @@ public class App {
                             .addOption(OptionType.STRING, "reason", "Reason for warning the user", true),
                         new SubcommandData("remove", "Remove a warn from a user")
                             .addOption(OptionType.USER, "user", "Remove a warn from a user", true)
-                            .addOption(OptionType.STRING, "reason", "Reason for removing the warn", true))
+                            .addOption(OptionType.STRING, "reason", "Reason for removing the warn", true),
+                        new SubcommandData("list", "Show the amount of warns a user has")
+                            .addOption(OptionType.USER, "user", "User to show warnings of"))
                     .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
 
         UpdateCommand.globalCommandData.add(

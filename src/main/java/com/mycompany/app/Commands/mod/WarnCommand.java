@@ -132,6 +132,21 @@ public class WarnCommand implements CommandImplementation {
            Global.BuildLogModEmbed("User Warn Remove Event", targetUserMention, moderatorMention, reason, logEmbed);
            event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
         }
+
+        if(event.getSubcommandName().equals("list")){
+            if(warnInformation.containsKey(targetUserId)){
+                int warns = warnInformation.getOrDefault(targetUserId, 0);
+                Global.BuildSimpleDescriptionEmbed(
+                    Global.yukariNOTED + " " + targetUserMention + "has `" + warns + "` warns", 
+                    Global.CUSTOMPURPLE, baseEmbed);
+                event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
+            } else {
+                Global.BuildSimpleDescriptionEmbed(
+                    Global.yukariNOTED + " " + targetUserMention + "has `0` warns", 
+                    Global.CUSTOMPURPLE, baseEmbed);
+                event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
+            }
+        }
     }
 
     public static void loadWarnData() {

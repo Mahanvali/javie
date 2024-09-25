@@ -30,7 +30,7 @@ public class KickCommand implements CommandImplementation {
         // Don't allow the user to kick the bot
         if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {
             Global.BuildSimpleDescriptionEmbed(
-                Global.yukariPOLICE + " There's something wrong with you.",
+                Global.yukari4K + " There's something wrong with you.",
                 Global.CUSTOMRED,
                 baseEmbed);
             event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
