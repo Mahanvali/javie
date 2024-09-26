@@ -63,6 +63,7 @@ public class SlashListener extends ListenerAdapter {
                 command.execute(event);
                 System.out.println(event.getFullCommandName() + " ran by " + event.getUser().getName());
                 System.out.println(event.getOptions());
+                System.out.println("Version 2.0.0");
                 System.out.println("------------------------------------------------------------");
             }catch (Exception e){
                 errorEmbed.setColor(Global.CUSTOMPURPLE);

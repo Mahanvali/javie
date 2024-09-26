@@ -47,10 +47,10 @@ public class App {
         UpdateCommand.globalCommandData.add(
             Commands.slash("update", "Update slash commands")
             .addSubcommands(
-                new SubcommandData("dev", "Update dev commands"),
-                new SubcommandData("mod", "Update mod commands"),
-                new SubcommandData("level", "Update level commands"),
-                new SubcommandData("misc", "Update misc commands"),
+                new SubcommandData("dev", "Update dev commands!"),
+                new SubcommandData("mod", "Update mod commands!"),
+                new SubcommandData("level", "Update level commands!"),
+                new SubcommandData("misc", "Update misc commands!"),
                 new SubcommandData("activity", "Update my activity!")
             )
         );
