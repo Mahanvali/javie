@@ -12,10 +12,17 @@ public class TicketCommand implements CommandImplementation {
     @Override
     public void execute(SlashCommandInteractionEvent event){
         EmbedBuilder ticketEmbed = new EmbedBuilder();
+        
+        if(!event.getUser().getId().equals(Global.botdeveloperUserId)){
+            Global.BuildInvalidPermissionsEmbed("BOT DEVELOPER", Global.CUSTOMRED, ticketEmbed);
+            event.replyEmbeds(ticketEmbed.build()).setEphemeral(true).queue();
+            return;
+
+        }
         ticketEmbed.setDescription(Global.yukariNOTED + " Click the button below to make a ticket\n");
         ticketEmbed.setColor(Global.CUSTOMPURPLE);
         event.replyEmbeds(ticketEmbed.build()).setActionRow(
-            Button.success("create-ticket", Emoji.fromFormatted(Global.yukariNOTED) + " Open Ticket")
+            Button.success("create-ticket", Emoji.fromFormatted(Global.yukariSEARCH) + " Open Ticket")
         ).queue();
 
     }

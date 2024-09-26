@@ -21,10 +21,10 @@ public class Global {
     public static final String appealChannelId = "1277259004795424778";
     public static final String welcomeChannelId = "1270503163258077244";
     public static final String boosterChannelId = "1270503163258077244";
-    public static final String helpdeckCategoryId = "1270503162410700815";
     public static final String botCommandsChannelId = "1270503164289744940";
     public static final String staffCommandsChannelId = "1270503164788998239";
     public static final String verificationMessageId = "1270514127810330715";
+    public static final String helpdeckCategoryId = "1270503162410700815";
     public static final List<String> noLevelMessageChannels = Arrays.asList("1270503164788998239", "1270503164289744940", "1270503162893041711", "1270503162893041712", "1270503163799015440", "1270533714983518319", "1270525556584349798");
     public static final List<String> noLevelVoiceChannels = Arrays.asList("1270503164289744937", "1270503164289744938");
     //  ROLES
