@@ -21,8 +21,8 @@ public class TicketCommand implements CommandImplementation {
 
         ticketEmbed.setDescription(Global.yukariNOTED + " Click the button below to make a ticket\n");
         ticketEmbed.setColor(Global.CUSTOMPURPLE);
-        event.replyEmbeds(ticketEmbed.build()).setActionRow(
-            Button.success("create-ticket", Emoji.fromFormatted(Global.yukariSEARCH) + " Open Ticket")
+        event.getChannel().sendMessageEmbeds(ticketEmbed.build()).setActionRow(
+            Button.success("create-ticket", "Open Ticket ").withEmoji(Emoji.fromFormatted(Global.yukariSEARCH))
         ).queue();
 
     }

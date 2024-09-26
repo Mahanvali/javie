@@ -35,7 +35,7 @@ public class ButtonListener extends ListenerAdapter {
                         ticketEmbed.setColor(Global.CUSTOMPURPLE);
                         ticketEmbed.setFooter("Powered by the GOAT (me)", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
                         createdChannel.sendMessageEmbeds(ticketEmbed.build()).addActionRow(
-                            Button.danger("close-ticket", Emoji.fromFormatted(Global.yukariNANI) + " Close Ticket")
+                            Button.danger("close-ticket", "Close Ticket ").withEmoji(Emoji.fromFormatted(Global.yukariNANI))
                         ).queue();
                     }
                 );

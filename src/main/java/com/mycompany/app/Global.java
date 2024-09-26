@@ -55,11 +55,11 @@ public class Global {
     // Emojis
     public static final String yukariNOTED = "<:yukariNOTED:1270513272780619799>";
     public static final String yukariHEART = "<:yukariHEART:1270513107621511240>";
-    public static final String yukari4K = ":<:yukari4K:1270513158771183726>";
+    public static final String yukari4K = "<:yukari4K:1270513158771183726>";
     public static final String yukariBONK = "<:yukariBONK:1270513141771407563>";
     public static final String yukariPOLICE = "<:yukariPOLICE:1270513511113424976>";
     public static final String yukariSEARCH = "<:yukariSEARCH:1270513409875640360>";
-    public static final String yukariYES = "<:yukariYES:1270513445887934474> ";
+    public static final String yukariYES = "<:yukariYES:1270513445887934474>";
     public static final String yukariSMH = "<:yukariSMH:1270513031129989140>";
     public static final String yukariWAVE = "<:yukariWAVE:1270512883834294292>";
     public static final String yukariNANI = "<:yukariNANI:1270513124281286696>";
