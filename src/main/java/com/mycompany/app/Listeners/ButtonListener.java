@@ -17,6 +17,7 @@ public class ButtonListener extends ListenerAdapter {
     public static TextChannel createdChannel;
     public void onButtonInteraction(ButtonInteractionEvent event) {
         EmbedBuilder ticketEmbed = new EmbedBuilder();
+        EmbedBuilder successEmbed = new EmbedBuilder();
         String userName = event.getUser().getEffectiveName();
         if(event.getComponentId().equals("create-ticket")){
             Category ticketCategory = event.getGuild().getCategoryById(Global.helpdeckCategoryId);
@@ -37,6 +38,11 @@ public class ButtonListener extends ListenerAdapter {
                         createdChannel.sendMessageEmbeds(ticketEmbed.build()).addActionRow(
                             Button.danger("close-ticket", "Close Ticket ").withEmoji(Emoji.fromFormatted(Global.yukariNANI))
                         ).queue();
+                        Global.BuildSimpleDescriptionEmbed(
+                            Global.yukariYES + " Opened your ticket!",
+                            Global.CUSTOMGREEN,
+                            successEmbed);
+                        event.replyEmbeds(successEmbed.build()).queue();
                     }
                 );
             } else {
@@ -57,8 +63,9 @@ public class ButtonListener extends ListenerAdapter {
             TextChannel logChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
             logEmbed.setTitle("Ticket Close Event");
             logEmbed.addField("User:", event.getMember().getAsMention(), false);
-            logEmbed.addField("Ticket:", createdChannel.toString(), false);
+            logEmbed.addField("Ticket:", createdChannel.getAsMention(), false);
             logEmbed.addField("Date:", Global.formattedDate, false);
+            logEmbed.setColor(Global.CUSTOMRED);
             logChannel.sendMessageEmbeds(logEmbed.build()).queue();
         }
     }
