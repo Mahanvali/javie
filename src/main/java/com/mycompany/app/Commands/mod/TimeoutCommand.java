@@ -129,7 +129,7 @@ public class TimeoutCommand implements CommandImplementation {
                 event.getGuild().timeoutFor(targetUser, timeoutDuration).reason(reason).queue(
                     (unused) -> {
                         Global.BuildSimpleDescriptionEmbed(
-                            Global.yukariBONK + " Timed out " + userMention,
+                            Global.yukariBONK + " " + userMention + " drank too much, and now has been put on pause!",
                             Global.CUSTOMPURPLE,
                             baseEmbed);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();

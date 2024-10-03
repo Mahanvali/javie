@@ -99,10 +99,9 @@ public class GuildMessageListener extends ListenerAdapter {
         //     appealEmbed.setColor(Global.CUSTOMPURPLE);
         //     appealChannel.sendMessageEmbeds(appealEmbed.build()).queue();
         // }
-
-        if(event.getChannel().getId().equals(Global.introChannelId)){
-            Emoji yukariWave = event.getJDA().getEmojiById("1270512883834294292");
-            Role introducedRole = event.getJDA().getRoleById(Global.introducedRoleId);
+        Role introducedRole = event.getJDA().getRoleById(Global.introducedRoleId);
+        Emoji yukariWave = event.getJDA().getEmojiById("1270512883834294292");
+        if(event.getChannel().getId().equals(Global.introChannelId) && !event.getMember().getRoles().contains(introducedRole)){
             event.getGuild().addRoleToMember(event.getAuthor(), introducedRole).queue();
             event.getMessage().createThreadChannel(event.getAuthor().getEffectiveName() + ", welcome to the family!").queue();
             event.getMessage().addReaction(yukariWave).queue();

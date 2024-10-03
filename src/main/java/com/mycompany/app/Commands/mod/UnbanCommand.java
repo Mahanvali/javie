@@ -34,7 +34,7 @@ public class UnbanCommand implements CommandImplementation {
                 event.getGuild().unban(targetUser).queue(
                     (unused) -> {
                         Global.BuildSimpleDescriptionEmbed(
-                            Global.yukariYES + " Unbanned " + userMention,
+                            Global.yukariYES + " " + userMention + " can now come back to the lounge!",
                             Global.CUSTOMPURPLE,
                             baseEmbed);
                         event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();

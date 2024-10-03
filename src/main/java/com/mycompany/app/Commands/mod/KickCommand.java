@@ -61,10 +61,9 @@ public class KickCommand implements CommandImplementation {
         event.getGuild().kick(targetUser).queue(
             (unused) -> {
                 Global.BuildSimpleDescriptionEmbed(
-                    Global.yukariBONK + " Get out " + userMention + "!",
+                    Global.yukariBONK + " " + userMention + " has been shown the door.",
                     Global.CUSTOMPURPLE,
                     baseEmbed);
-                baseEmbed.setFooter("Don't worry, I kicked them");
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
                 logsChannel.sendMessageEmbeds(LogEmbed.build()).queue();
             },

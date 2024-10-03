@@ -75,7 +75,7 @@ public class WarnCommand implements CommandImplementation {
             saveWarnData();
 
             int warns = warnInformation.getOrDefault(targetUserId, 0);
-            Global.BuildSimpleDescriptionEmbed(Global.yukariOHOH + " Warned " + targetUserMention + ", user now has `" + warns + "` warns.",
+            Global.BuildSimpleDescriptionEmbed(Global.yukariOHOH + " Warned " + targetUserMention + "\nuser now has `" + warns + "` warns.",
              Global.CUSTOMPURPLE, baseEmbed);
             Global.BuildLogModEmbed("User Warn Add Event", targetUserMention, moderatorMention, reason, logEmbed);
 
