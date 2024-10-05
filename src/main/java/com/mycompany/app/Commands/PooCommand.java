@@ -18,10 +18,12 @@ public class PooCommand implements CommandImplementation {
         EmbedBuilder embed = new EmbedBuilder();
 
         if(event.getUser().getId().equals(Global.botdeveloperUserId)){  //  If the user is the bot developer
-
+            GuildMessageListener.messageCache.clear();
+            GuildMemberListener.nicknameCache.size();
+            
             int messageCacheSize    =   GuildMessageListener.messageCache.size();
-            int nicknameCacheSize   =   GuildMemberListener.nicknameCache.size();   
-        
+            int nicknameCacheSize   =   GuildMemberListener.nicknameCache.size();  
+
             if(nicknameCacheSize == 0 &&
             messageCacheSize == 0){
                 Global.BuildSimpleDescriptionEmbed(

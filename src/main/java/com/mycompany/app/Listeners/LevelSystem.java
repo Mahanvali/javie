@@ -54,7 +54,7 @@ public class LevelSystem extends ListenerAdapter {
                     int currentLevel = getLevel(userId); //  Get the current level after the user has leveled up
                     if(currentLevel > previousLevel){
                         Global.BuildSimpleDescriptionEmbed(
-                            "You are going up in the leagues, you've reached level `" + currentLevel + "`!",
+                            "You're going up in the leagues, you've reached level **" + currentLevel + "**\n```" + event.getMessage().getContentDisplay() + "```",
                             Global.CUSTOMPURPLE, 
                             levelupEmbed);
                         botcommandsChannel.sendMessage(userMention).addEmbeds(levelupEmbed.build()).queue();
