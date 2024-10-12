@@ -20,7 +20,7 @@ public class XPCommand implements CommandImplementation {
             LevelSystem.levelInformation.put(targetUser.getId(), LevelSystem.levelInformation.getOrDefault(targetUser.getId(), 0) + rangeInput);
             LevelSystem.saveLevelData();
             Global.BuildSimpleDescriptionEmbed(
-                Global.yukariYES + " Added `" + rangeInput + "xp` to " + targetUser.getAsMention(), 
+                Global.yukariYES + " Added **" + rangeInput + "xp** to " + targetUser.getAsMention(), 
                 Global.CUSTOMPURPLE,
                 embed);
             event.getHook().sendMessageEmbeds(embed.build()).queue();
@@ -32,7 +32,7 @@ public class XPCommand implements CommandImplementation {
             LevelSystem.saveLevelData();
         
             Global.BuildSimpleDescriptionEmbed(
-                Global.yukariYES + " Removed `" + rangeInput + "xp` from " + targetUser.getAsMention(), 
+                Global.yukariYES + " Removed **" + rangeInput + "xp** from " + targetUser.getAsMention(), 
                 Global.CUSTOMPURPLE,
                 embed);
             event.getHook().sendMessageEmbeds(embed.build()).queue();

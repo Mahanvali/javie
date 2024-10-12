@@ -21,6 +21,8 @@ public class TimeoutCommand implements CommandImplementation {
         String reason = event.getOption("reason").getAsString();
 
         String userMention = targetUser.getAsMention();
+        String userId = targetUser.getId();
+        String userUsername = targetUser.getName();
         String moderator =  event.getUser().getAsMention();
         boolean isTimedOut = targetMember.isTimedOut();
 
@@ -31,7 +33,7 @@ public class TimeoutCommand implements CommandImplementation {
 
         if(event.getSubcommandName().equals("remove")){
             if(isTimedOut){
-                Global.BuildLogModEmbed("User Timeout Remove Event", userMention, moderator, reason, LogEmbed);
+                Global.BuildLogModEmbed("User Timeout Remove Event", userMention, userId, userUsername, moderator, reason, LogEmbed);
                 event.getGuild().removeTimeout(targetUser).reason(reason).queue(
                     (unused) -> {
                         Global.BuildSimpleDescriptionEmbed(
@@ -123,7 +125,7 @@ public class TimeoutCommand implements CommandImplementation {
                     durationString = "27d"; //  Change durationString for logging purposes
                 }
 
-                Global.BuildLogModEmbed("User Timeout Event", userMention, moderator, reason, LogEmbed);
+                Global.BuildLogModEmbed("User Timeout Event", userMention, userId, userUsername, moderator, reason, LogEmbed);
                 LogEmbed.addField("Duration:", durationString, false);
 
                 event.getGuild().timeoutFor(targetUser, timeoutDuration).reason(reason).queue(

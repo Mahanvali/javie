@@ -64,13 +64,13 @@ public class TagCommand implements CommandImplementation  {
             if(ModalListener.tagsMap.containsKey(tag)){
                 ModalListener.deleteTagData(tag);
                 Global.BuildSimpleDescriptionEmbed(
-                    Global.yukariYES + " Successfully removed the `" + tag + "` tag",
+                    Global.yukariYES + " Successfully removed the **" + tag + "** tag",
                     Global.CUSTOMPURPLE,
                     baseEmbed);
                     event.replyEmbeds(baseEmbed.build()).queue();
             } else {
                 Global.BuildSimpleDescriptionEmbed(
-                    Global.yukariSMH + " The tag `" + tag + "` does not exist",
+                    Global.yukariSMH + " The tag **" + tag + "** does not exist",
                     Global.CUSTOMRED,
                     baseEmbed);
                     event.replyEmbeds(baseEmbed.build()).queue();
@@ -88,7 +88,7 @@ public class TagCommand implements CommandImplementation  {
                 event.replyEmbeds(baseEmbed.build()).queue();
             } else {
                 Global.BuildSimpleDescriptionEmbed(
-                    Global.yukariSMH + " The tag `" + tag + "` does not exist",
+                    Global.yukariSMH + " The tag **" + tag + "** does not exist",
                     Global.CUSTOMRED,
                     baseEmbed);
                     event.replyEmbeds(baseEmbed.build()).queue();

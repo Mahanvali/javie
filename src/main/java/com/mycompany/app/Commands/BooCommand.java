@@ -33,9 +33,9 @@ public class BooCommand implements CommandImplementation {
         EmbedBuilder embed = new EmbedBuilder();
 
         if(event.getUser().getId().equals(Global.botdeveloperUserId)){  //  If the user is the bot developer
-            embed.addField("Memory Usage:", "`" + bytesToMegabytes(memory) + "`" + " megabytes", false);
-            embed.addField("Ping:",  "`" + event.getJDA().getGatewayPing() + "ms`", false);
-            embed.addField("Cached:", "`" + messageCacheSize + "`" + " messages\n" + "`" + nicknameCacheSize + "`" + " nicknames", false);
+            embed.addField("Memory Usage:", "**" + bytesToMegabytes(memory) + "**" + " megabytes", false);
+            embed.addField("Ping:",  "**" + event.getJDA().getGatewayPing() + "ms**", false);
+            embed.addField("Cached:", "**" + messageCacheSize + "**" + " messages\n" + "**" + nicknameCacheSize + "**" + " nicknames", false);
             embed.setColor(Global.CUSTOMPURPLE);
             event.replyEmbeds(embed.build()).setEphemeral(true).queue();
         } else {

@@ -36,6 +36,7 @@ public class WarnCommand implements CommandImplementation {
         String reason = event.getOption("reason").getAsString();
         String targetUserId = targetUser.getId();
         String targetUserMention = targetUser.getAsMention();
+        String targetUserName = targetUser.getName();
         String moderatorMention = event.getUser().getAsMention();
         Duration timeoutDuration;
 
@@ -75,9 +76,9 @@ public class WarnCommand implements CommandImplementation {
             saveWarnData();
 
             int warns = warnInformation.getOrDefault(targetUserId, 0);
-            Global.BuildSimpleDescriptionEmbed(Global.yukariOHOH + " Warned " + targetUserMention + "\nuser now has `" + warns + "` warns.",
+            Global.BuildSimpleDescriptionEmbed(Global.yukariOHOH + " Warned " + targetUserMention + "\nuser now has **" + warns + "** warns.",
              Global.CUSTOMPURPLE, baseEmbed);
-            Global.BuildLogModEmbed("User Warn Add Event", targetUserMention, moderatorMention, reason, logEmbed);
+            Global.BuildLogModEmbed("User Warn Add Event", targetUserMention, targetUserId, targetUserName, moderatorMention, reason, logEmbed);
 
             String warningMessage = "You've been warned in " + event.getGuild().getName();
             String warningFooter = "If you believe this is a mistake, please create a ticket.";
@@ -127,9 +128,9 @@ public class WarnCommand implements CommandImplementation {
             saveWarnData();
             int warns = warnInformation.getOrDefault(targetUserId, 0);
 
-            Global.BuildSimpleDescriptionEmbed(Global.yukariYES + " Removed a warning from " + targetUserMention + ", user now has `" + warns + "` warns.",
+            Global.BuildSimpleDescriptionEmbed(Global.yukariYES + " Removed a warning from " + targetUserMention + ", user now has **" + warns + "** warns.",
             Global.CUSTOMPURPLE, baseEmbed);
-           Global.BuildLogModEmbed("User Warn Remove Event", targetUserMention, moderatorMention, reason, logEmbed);
+           Global.BuildLogModEmbed("User Warn Remove Event", targetUserMention, targetUserId, targetUserName, moderatorMention, reason, logEmbed);
            event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
         }
 
@@ -137,12 +138,12 @@ public class WarnCommand implements CommandImplementation {
             if(warnInformation.containsKey(targetUserId)){
                 int warns = warnInformation.getOrDefault(targetUserId, 0);
                 Global.BuildSimpleDescriptionEmbed(
-                    Global.yukariNOTED + " " + targetUserMention + "has `" + warns + "` warns", 
+                    Global.yukariNOTED + " " + targetUserMention + "has **" + warns + "** warns", 
                     Global.CUSTOMPURPLE, baseEmbed);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             } else {
                 Global.BuildSimpleDescriptionEmbed(
-                    Global.yukariNOTED + " " + targetUserMention + "has `0` warns", 
+                    Global.yukariNOTED + " " + targetUserMention + "has **0** warns", 
                     Global.CUSTOMPURPLE, baseEmbed);
                 event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();
             }

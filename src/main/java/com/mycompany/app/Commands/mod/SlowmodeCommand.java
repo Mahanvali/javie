@@ -40,7 +40,7 @@ public class SlowmodeCommand implements CommandImplementation {
             currentChannel.getManager().setSlowmode(slowmodeTime).queue(
                 (unused) -> {
                     Global.BuildSimpleDescriptionEmbed(
-                        Global.yukariNOTED + " Too much drinking chat!\nSet slowmode to `" + slowmodeTimeString + "`",
+                        Global.yukariNOTED + " Too much drinking chat!\nSet slowmode to **" + slowmodeTimeString + "**",
                         Global.CUSTOMPURPLE,
                         baseEmbed);
                     event.getHook().sendMessageEmbeds(baseEmbed.build()).queue();

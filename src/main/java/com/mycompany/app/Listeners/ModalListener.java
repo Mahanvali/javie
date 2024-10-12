@@ -23,7 +23,7 @@ public class ModalListener extends ListenerAdapter {
             tagsMap.put(title, data);
             saveTagData();
             Global.BuildSimpleDescriptionEmbed(
-                Global.yukariYES + " Successfully added the `" + title + "` tag",
+                Global.yukariYES + " Successfully added the **" + title + "** tag",
                 Global.CUSTOMPURPLE,
                 baseEmbed);
             event.replyEmbeds(baseEmbed.build()).queue();

@@ -16,11 +16,11 @@ public class CurrentConfigCommand implements CommandImplementation {
         currentsettingsEmbed.setTitle(event.getGuild().getName() + "'s Configurations");
         currentsettingsEmbed.setColor(Global.CUSTOMPURPLE);
         currentsettingsEmbed.addField("XP Gains", 
-            "Default Users: " + "`" + Global.basicXPGain + "xp`\n" + 
-            "Boosters: " + "`" + Global.boosterXPGain + "xp`", false);
+            "Default Users: " + "**" + Global.basicXPGain + "xp**\n" + 
+            "Boosters: " + "**" + Global.boosterXPGain + "xp**", false);
         currentsettingsEmbed.addField("Cooldowns", 
-            "Voice: " + "`" + voiceCooldown + " minutes`\n" +
-            "Message: " + "`" + messageCooldown + " seconds`", false);
+            "Voice: " + "**" + voiceCooldown + " minutes**\n" +
+            "Message: " + "**" + messageCooldown + " seconds**", false);
         event.getHook().sendMessageEmbeds(currentsettingsEmbed.build()).queue();
     }
     

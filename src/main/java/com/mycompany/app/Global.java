@@ -105,10 +105,12 @@ public class Global {
         channel.sendMessageEmbeds(embed.build()).queue();
     }
 
-    public static void BuildLogModEmbed(String embedTitle, String AffectedUser, String ResponsibleMod, String Reason, EmbedBuilder embed){
+    public static void BuildLogModEmbed(String embedTitle, String OffenderMention, String OffenderID, String OffenderUsername, String ResponsibleMod, String Reason, EmbedBuilder embed){
         embed.setTitle(embedTitle);
         embed.setColor(Global.CUSTOMRED);
-        embed.addField("Affected User:", AffectedUser, false);
+        embed.addField("Offender:", OffenderMention, false);
+        embed.addField("Offender ID", OffenderID, false);
+        embed.addField("Offender Username", OffenderUsername, false);
         embed.addField("Responsible Mod:", ResponsibleMod, false);
         embed.addField("Reason:", Reason, false);
     }

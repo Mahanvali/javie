@@ -22,13 +22,15 @@ public class BanCommand implements CommandImplementation {
         String reason = event.getOption("reason").getAsString();
 
         String userMention = targetUser.getAsMention();
+        String userId = targetUser.getId();
+        String userUsername = targetUser.getName();
         String moderator =  event.getUser().getAsMention();
 
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
 
         EmbedBuilder baseEmbed = new EmbedBuilder();
         EmbedBuilder LogEmbed = new EmbedBuilder();
-        Global.BuildLogModEmbed("User Ban Event", userMention, moderator, reason, LogEmbed);
+        Global.BuildLogModEmbed("User Ban Event", userMention, userId, userUsername, moderator, reason, LogEmbed);
 
         // Don't allow the user to ban the bot
         if (targetUser.getId().equals(event.getJDA().getSelfUser().getId())) {

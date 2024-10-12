@@ -11,7 +11,7 @@ public class MemberCountCommand implements CommandImplementation {
     public void execute(SlashCommandInteractionEvent event){
         EmbedBuilder embed = new EmbedBuilder();
         Global.BuildSimpleDescriptionEmbed(
-            "**" + event.getGuild().getName() + "** is currently at `" + Global.memberCount + "` members",
+            "**" + event.getGuild().getName() + "** is currently at **" + Global.memberCount + "** members",
             Global.CUSTOMPURPLE,
             embed);
             

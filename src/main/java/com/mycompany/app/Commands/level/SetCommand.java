@@ -18,7 +18,7 @@ public class SetCommand implements CommandImplementation {
             Global.basicXPGain = event.getOption("amount").getAsInt();
 
             Global.BuildSimpleDescriptionEmbed(
-                Global.yukariNOTED + " Sucessfully set the amount of xp gain per message to: `" + Global.basicXPGain + "`",
+                Global.yukariNOTED + " Sucessfully set the amount of xp gain per message to: **" + Global.basicXPGain + "**",
                 Global.CUSTOMPURPLE,
                 setEmbed);
             event.getHook().sendMessageEmbeds(setEmbed.build()).queue();
@@ -34,7 +34,7 @@ public class SetCommand implements CommandImplementation {
                 Global.messageCooldown = messageCooldown;
 
                 Global.BuildSimpleDescriptionEmbed(
-                    Global.yukariNOTED + " Sucessfully set the message xp cooldown to: `" + messageCooldownString + "`!",
+                    Global.yukariNOTED + " Sucessfully set the message xp cooldown to: **" + messageCooldownString + "**!",
                     Global.CUSTOMPURPLE,
                     setEmbed);
                 event.getHook().sendMessageEmbeds(setEmbed.build()).queue();
@@ -46,7 +46,7 @@ public class SetCommand implements CommandImplementation {
                 Global.voiceCooldown = voiceCooldown;
 
                 Global.BuildSimpleDescriptionEmbed(
-                    Global.yukariNOTED + " Sucessfully set the voice xp cooldown to: `" + voiceCooldownString + "`!",
+                    Global.yukariNOTED + " Sucessfully set the voice xp cooldown to: **" + voiceCooldownString + "**!",
                     Global.CUSTOMPURPLE,
                     setEmbed);
                 event.getHook().sendMessageEmbeds(setEmbed.build()).queue();

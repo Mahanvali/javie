@@ -53,11 +53,10 @@ public class LevelSystem extends ListenerAdapter {
                     levelMessageCooldown.put(userId, currentTime);
                     int currentLevel = getLevel(userId); //  Get the current level after the user has leveled up
                     if(currentLevel > previousLevel){
-                        Global.BuildSimpleDescriptionEmbed(
-                            "You're going up in the leagues, you've reached level **" + currentLevel + "**\n```" + event.getMessage().getContentDisplay() + "```",
-                            Global.CUSTOMPURPLE, 
-                            levelupEmbed);
-                        botcommandsChannel.sendMessage(userMention).addEmbeds(levelupEmbed.build()).queue();
+                        levelupEmbed.setAuthor(event.getAuthor().getName(), null, event.getAuthor().getDefaultAvatarUrl());
+                        levelupEmbed.setDescription(event.getMessage().getContentDisplay());
+                        levelupEmbed.setColor(Global.CUSTOMPURPLE);
+                        botcommandsChannel.sendMessage(userMention + " You're going up in the leagues, you've reached level **" + currentLevel + "**!").addEmbeds(levelupEmbed.build()).queue();
                     }
                 }
             }

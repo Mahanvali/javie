@@ -17,13 +17,15 @@ public class UnbanCommand implements CommandImplementation {
         String reason = event.getOption("reason").getAsString();
 
         String userMention = targetUser.getAsMention();
+        String userId = targetUser.getId();
+        String userUsername = targetUser.getName();
         String moderator =  event.getUser().getAsMention();
 
         TextChannel logsChannel = event.getJDA().getTextChannelById(Global.logsChannelId);
 
         EmbedBuilder baseEmbed = new EmbedBuilder();
         EmbedBuilder LogEmbed = new EmbedBuilder();
-        Global.BuildLogModEmbed("User Unban Event", userMention, moderator, reason, LogEmbed);
+        Global.BuildLogModEmbed("User Unabn Event", userMention, userId, userUsername, moderator, reason, LogEmbed);
 
         // Check if the user is in the ban list
         event.getGuild().retrieveBanList().queue(bans -> {
